@@ -1,4 +1,4 @@
-name: Custom Dataset Reuqest
+name: Custom Dataset Request
 description : "Request the OpenGameData team to provide you with a custom dataset. We will be in touch regarding whether the request is accepted, and how we will distribute the dataset files to you."
 title: Requesting Data from [Insert Game Name Here]
 labels: [dataset-request]
