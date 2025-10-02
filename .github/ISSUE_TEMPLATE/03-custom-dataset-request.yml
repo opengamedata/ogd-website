@@ -1,0 +1,45 @@
+name: Custom Dataset Reuqest
+description : "Request the OpenGameData team to provide you with a custom dataset. We will be in touch regarding whether the request is accepted, and how we will distribute the dataset files to you."
+title: Requesting Data from [Insert Game Name Here]
+labels: [dataset-request]
+assignees:
+  - LswaN58
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to request a custom dataset!
+  - type: input
+    id: game-id
+    attributes:
+      label: Which game?
+      description: Tell us which games data you would like. Please include this in the title as well.
+      placeholder: ex. AQUALAB
+    validations:
+      required: true
+  - type: input
+    id: months
+    attributes:
+      label: Which data?
+      description: "Tell us what range of dates you would like included in the dataset, or list the player/session IDs you want to use. If the list of players/sessions is long, you can upload a text file here instead."
+      placeholder: ex. January 2025; ex. RedWagon, GreenGiant, BlueWhale
+    validations:
+      required: false
+  - type: checkboxes
+    id: file-types
+    attributes:
+      label: Which kind of data?
+      description: Tell us which kind of data (events, session features, player features, population features) you would like included.
+      options:
+        - label: Events
+        - label: Sessions
+        - label: Players
+        - label: Population
+  - type: input
+    id: features
+    attributes:
+      label: Which features?
+      description: "If you are requesting processed feature data, list the features you would like included here. If the list is long, you can upload a text file here instead. Alternately, you could create a copy of the game's configuration template (src/ogd/games/GAME_NAME/schemas/GAME_NAME.json.template within the ogd-core repository), choose which features to enable/disable, and upload your custom config file here."
+      placeholder: ex. ActiveTime, FinalScore, LevelComplete
+    validations:
+      required: false
