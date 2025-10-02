@@ -5,7 +5,7 @@ labels: [missing-dataset]
 assignees:
   - LswaN58
 projects:
-  - opengamedata/27
+  - opengamedata/projects/27
 body:
   - type: markdown
     attributes:
