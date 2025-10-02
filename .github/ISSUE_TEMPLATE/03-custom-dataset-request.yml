@@ -32,9 +32,9 @@ body:
       description: Tell us which kind of data (events, session features, player features, population features) you would like included.
       options:
         - label: Events
-        - label: Sessions
-        - label: Players
-        - label: Population
+        - label: Session Features
+        - label: Player Features
+        - label: Population Features
   - type: input
     id: features
     attributes:
