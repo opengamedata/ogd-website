@@ -4,8 +4,6 @@ title: Missing Data from [Insert Game Name Here]
 labels: [missing-dataset]
 assignees:
   - LswaN58
-projects:
-  - opengamedata/projects/27
 body:
   - type: markdown
     attributes:
