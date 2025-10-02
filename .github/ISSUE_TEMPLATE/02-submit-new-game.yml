@@ -102,4 +102,4 @@ body:
       description: "Optional: List references for any published (including preprint) studies using this game that you would like to have listed on the website."
       placeholder: e.g. Struggling to Detect Struggle in Students Playing a Science Exploration Game, https://dl.acm.org/doi/10.1145/3573382.3616080
     validations:
-      required: true
+      required: false
