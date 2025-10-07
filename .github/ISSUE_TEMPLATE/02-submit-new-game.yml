@@ -24,7 +24,7 @@ body:
       description: The database identifier for the game, in CAPS_CASE format.
       placeholder: ex. AQUALAB
     validations:
-      required: true
+      required: false
   - type: textarea
     id: game-desc
     attributes:
