@@ -374,7 +374,7 @@
         ],
         "play_link": null,
         "source_link": "https://github.com/fielddaylab/pennycookvr",
-        "thumbnail_path" : "./assets/images/thumbs/bloom-thumb.jpg",
+        "thumbnail_path" : "./assets/images/thumbs/pennycook-thumb.jpg",
         "event_readme_link": "https://github.com/opengamedata/ogd-core/blob/main/src/ogd/games/PENNYCOOK/schemas/PENNYCOOK.json.template",
         "feature_readme_link": "https://github.com/opengamedata/ogd-core/blob/main/src/ogd/games/PENNYCOOK/schemas/PENNYCOOK.json.template",
         "studies": []
