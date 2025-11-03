@@ -361,6 +361,24 @@
             }
         ]
     },
+    "PENNYCOOK": {
+        "game_name": "On The Ice: Hatched",
+        "game_description": "In On the Ice: Hatched, you play as a novice wildlife biologist making your first visit to Ross Island in Antarctica to study Adélie penguins. Your daily research tasks, such as conducting population counts, placing identification bands, and removing GPS trackers can be challenging - especially when the penguins don’t cooperate. But don’t worry, you’ll have Margo, your trusted digital assistant to guide you. The game takes place across a single research season and mirrors the tasks that real scientists do as they study how Adélie penguins behave and interact with each other.",
+        "target_audience": "N/A",
+        "subject": "N/A",
+        "developers": [
+            {
+                "name": "Field Day Lab",
+                "link": "https://fielddaylab.wisc.edu/"
+            }
+        ],
+        "play_link": null,
+        "source_link": "https://github.com/fielddaylab/pennycookvr",
+        "thumbnail_path" : "./assets/images/thumbs/bloom-thumb.jpg",
+        "event_readme_link": "https://github.com/opengamedata/ogd-core/blob/main/src/ogd/games/PENNYCOOK/schemas/PENNYCOOK.json.template",
+        "feature_readme_link": "https://github.com/opengamedata/ogd-core/blob/main/src/ogd/games/PENNYCOOK/schemas/PENNYCOOK.json.template",
+        "studies": []
+    },
     "SHADOWSPECT": {
         "game_name": "Shadowspect",
         "game_description": "A game-based assessment for geometry and spatial reasoning.",
