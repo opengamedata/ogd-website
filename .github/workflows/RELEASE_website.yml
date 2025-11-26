@@ -5,7 +5,7 @@ run-name: ${{ format('{0} - {1}', github.workflow, github.event_name == 'push' &
 # tags.  Creating new 'versions' via github is the most straightforward 
 # way of doing this.
 on:
-  workflow_dispatch: # Allow manual trigger of this workflow from the Actions tab
+  workflow_dispatch:
   #create:
   #  tags:
   #    - '*'
@@ -33,7 +33,7 @@ jobs:
 
   # 1. Local checkout & config
     - name: Announce Run
-      run: echo "Deploying ${{ github.repository }} to ${{ env.DEPLOY_URL }} via ${{ github.actor }}"
+      run: echo "Deploying to ${{ env.DEPLOY_URL }} from ${{ github.repository }} via ${{ github.actor }}"
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
