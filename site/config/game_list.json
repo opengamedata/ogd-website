@@ -40,6 +40,24 @@
             }
         ]
     },
+    "ASTRO": {
+        "game_name": "Project Hercules",
+        "game_description": "Project Hercules is designed to spark excitement and curiosity about astronomy by communicating the professional practices of observational astronomers, including the use of instruments like visible telescopes, photometers, and spectrograms, as well as participation in a community of scientists. Players will learn about technologies of astronomical observation, the data they are able to collect, and the various types of celestial objects they allow us to study.",
+        "target_audience": "Grades 8-12",
+        "subject": "Astronomy",
+        "developers": [
+            {
+                "name": "Field Day Lab",
+                "link": "https://fielddaylab.wisc.edu/"
+            }
+        ],
+        "play_link": "https://fielddaylab.wisc.edu/play/projecthercules/",
+        "source_link": "https://github.com/fielddaylab/project-hercules",
+        "thumbnail_path" : "./assets/images/thumbs/astro-thumb.png",
+        "event_readme_link": "https://github.com/opengamedata/ogd-core/blob/main/src/ogd/games/ASTRO/schemas/ASTRO.json.template",
+        "feature_readme_link": null,
+        "studies": []
+    },
     "BACTERIA": {
         "game_name": "Antibiotic Resistance",
         "game_description": "In this playful introduction to the world of bacteria, players get a visual representation of reproduction, mutation, and antibiotic resistance.",
@@ -360,6 +378,24 @@
                 "published_in": "In 29th ACM Symposium on Virtual Reality Software and Technology (VRST 2023), October 09--11, 2023, Christchurch, New Zealand. ACM, New York, NY, USA"
             }
         ]
+    },
+    "PENNYCOOK": {
+        "game_name": "On The Ice: Hatched",
+        "game_description": "In On the Ice: Hatched, you play as a novice wildlife biologist making your first visit to Ross Island in Antarctica to study Adélie penguins. Your daily research tasks, such as conducting population counts, placing identification bands, and removing GPS trackers can be challenging - especially when the penguins don’t cooperate. But don’t worry, you’ll have Margo, your trusted digital assistant to guide you. The game takes place across a single research season and mirrors the tasks that real scientists do as they study how Adélie penguins behave and interact with each other.",
+        "target_audience": "N/A",
+        "subject": "N/A",
+        "developers": [
+            {
+                "name": "Field Day Lab",
+                "link": "https://fielddaylab.wisc.edu/"
+            }
+        ],
+        "play_link": null,
+        "source_link": "https://github.com/fielddaylab/pennycookvr",
+        "thumbnail_path" : "./assets/images/thumbs/pennycook-thumb.jpg",
+        "event_readme_link": "https://github.com/opengamedata/ogd-core/blob/main/src/ogd/games/PENNYCOOK/schemas/PENNYCOOK.json.template",
+        "feature_readme_link": "https://github.com/opengamedata/ogd-core/blob/main/src/ogd/games/PENNYCOOK/schemas/PENNYCOOK.json.template",
+        "studies": []
     },
     "SHADOWSPECT": {
         "game_name": "Shadowspect",
