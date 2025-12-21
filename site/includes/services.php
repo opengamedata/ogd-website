@@ -22,7 +22,7 @@ function executeAPIRequest(string $endpoint, array $params)
     $ret_val = curl_exec($curl);
     curl_close($curl);
 
-    error_log("Sent a request for getGameUsage to ".$url);
+    error_log("Sent a request to ".$url."\nReceived response: ".var_dump($ret_val));
 
     return $ret_val;
 }
@@ -98,8 +98,8 @@ function getGameFileInfoByMonth(string $game_id, $year = null, $month = null) : 
 
     $params = array(
         'game_id' => $game_id,
-        'year' => $year,
-        'month' => $month
+        'year' => $year ?? idate('Y', strtotime("-1 month")),
+        'month' => $month ?? idate('m', strtotime("-1 month"))
     );
     
     # 1. Make request to API via cURL
