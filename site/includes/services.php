@@ -97,11 +97,11 @@ function getGameFileInfoByMonth(string $game_id, $year = null, $month = null) : 
     curl_close($curl);
 
     # 2. Convert response to a GameFileInfo object
+    $game_files = null;
     if ($response_raw != false) {
         $response_object = $response_raw ? json_decode(($response_raw)) : null;
 
         $api_response = \APIResponse::fromObj($response_object);
-        $game_files = null;
         if ($api_response->Status() == "SUCCESS") {
             $game_files = \GameFileInfo::fromObj($api_response->Value());
         }
