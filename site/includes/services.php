@@ -6,6 +6,22 @@ require_once 'models/GameDetails.php';
 require_once 'models/GameFileInfo.php';
 require_once 'models/GameUsage.php';
 
+function executeAPIRequest(string $endpoint, array $params)
+{
+    $ret_val = null;
+
+    $url = \AppConfig::GetConfig()['WEBSITE_API_URL_BASE'] . $endpoint;
+    $curl = curl_init($url . '?' . http_build_query($params));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+    $ret_val = curl_exec($curl);
+    curl_close($curl);
+
+    error_log("Sent a request for getGameUsage to ".$url);
+
+    return $ret_val;
+}
+
 /* Get Games from game_list
  * Returns list or false
  */ 
@@ -43,13 +59,7 @@ function getGameUsageByMonth(string $game_id, $year = null, $month = null): ?\Ga
     );
 
     # 1. Make request to API via cURL
-    $usage_url = \AppConfig::GetConfig()['WEBSITE_API_URL_BASE'] . 'getGameUsageByMonth';
-
-    $curl = curl_init($usage_url . '?' . http_build_query($params));
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-    $response_raw = curl_exec($curl);
-    curl_close($curl);
+    $response_raw = executeAPIRequest('getGameUsageByMonth', $params);
 
     # 2. Convert response to a GameUsage object
     if ($response_raw != false) {
@@ -88,13 +98,7 @@ function getGameFileInfoByMonth(string $game_id, $year = null, $month = null) : 
     );
     
     # 1. Make request to API via cURL
-    $info_url =  \AppConfig::GetConfig()['WEBSITE_API_URL_BASE'] . 'getGameFileInfoByMonth';
-
-    $curl = curl_init($info_url . '?' . http_build_query($params));
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-    $response_raw = curl_exec($curl);
-    curl_close($curl);
+    $response_raw = executeAPIRequest('getGameFileInfoByMonth', $params);
 
     # 2. Convert response to a GameFileInfo object
     if ($response_raw != false) {
@@ -129,15 +133,7 @@ function getGameUsage(string $game_id): ?\GameUsage
     );
     
     # 1. Make request to API via cURL
-    $usage_url = \AppConfig::GetConfig()['WEBSITE_API_URL_BASE'] . 'getMonthlyGameUsage';
-
-    $curl = curl_init($usage_url . '?' . http_build_query($params));
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-    $response_raw = curl_exec($curl);
-    curl_close($curl);
-
-    error_log("Sent a request for getGameUsage to ".$usage_url);
+    $response_raw = executeAPIRequest('getMonthlyGameUsage', $params);
 
     # 2. Convert response to a GameUsage object
     if ($response_raw != false) {
