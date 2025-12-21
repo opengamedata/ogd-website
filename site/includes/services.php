@@ -59,8 +59,8 @@ function getGameUsageByMonth(string $game_id, $year = null, $month = null): ?\Ga
 
     $params = array(
         'game_id' => $game_id,
-        'year' => $year,
-        'month' => $month
+        'year' => $year ?? idate('Y', strtotime("-1 month")),
+        'month' => $month ?? idate('m', strtotime("-1 month"))
     );
 
     # 1. Make request to API via cURL
