@@ -94,7 +94,7 @@ function getGameDetails(string $game_id)
  * <param> string year --optional
  * <param> string month --optional
  */
-function getGameFileInfoByMonth(string $game_id, $year = null, $month = null) : ?\GameFileInfo
+function getGameFileInfoByMonth(string $game_id, ?int $year, ?int $month) : ?\GameFileInfo
 {
     $ret_val = null;
 
