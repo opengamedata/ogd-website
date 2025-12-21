@@ -53,41 +53,41 @@ function getGameDetails(string $game_id)
  * <param> string year - optional
  * <param> string month - optional
  */
-function getGameUsageByMonth(string $game_id, $year = null, $month = null): ?\GameUsage
-{
-    $ret_val = null;
+// function getGameUsageByMonth(string $game_id, $year = null, $month = null): ?\GameUsage
+// {
+//     $ret_val = null;
 
-    $year = $year ?? idate('Y', strtotime("-1 month"));
-    $month = $month ?? idate('m', strtotime("-1 month"));
-    $params = array(
-        'game_id' => $game_id,
-        'year' => $year,
-        'month' => $month
-    );
+//     $year = $year ?? idate('Y', strtotime("-1 month"));
+//     $month = $month ?? idate('m', strtotime("-1 month"));
+//     $params = array(
+//         'game_id' => $game_id,
+//         'year' => $year,
+//         'month' => $month
+//     );
 
-    # 1. Make request to API via cURL
-    $response_raw = executeAPIRequest('getGameUsageByMonth', $params);
+//     # 1. Make request to API via cURL
+//     $response_raw = executeAPIRequest('getGameUsageByMonth', $params);
 
-    # 2. Convert response to a GameUsage object
-    if ($response_raw != false) {
-        $response_object = $response_raw ? json_decode(($response_raw)) : null;
+//     # 2. Convert response to a GameUsage object
+//     if ($response_raw != false) {
+//         $response_object = $response_raw ? json_decode(($response_raw)) : null;
 
-        $api_response = \APIResponse::fromObj($response_object);
-        if ($api_response->Status() == "SUCCESS") {
-            $ret_val = \GameUsage::fromObj($api_response->Value());
-        }
-        else {
-            $err_str = "getGameUsageByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", was unsuccessful:\n".$api_response->Message();
-            error_log($err_str);
-        }
-    }
-    else {
-        $err_str = "getGameUsageByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", got no response object!";
-        error_log($err_str);
-    }
+//         $api_response = \APIResponse::fromObj($response_object);
+//         if ($api_response->Status() == "SUCCESS") {
+//             $ret_val = \GameUsage::fromObj($api_response->Value());
+//         }
+//         else {
+//             $err_str = "getGameUsageByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", was unsuccessful:\n".$api_response->Message();
+//             error_log($err_str);
+//         }
+//     }
+//     else {
+//         $err_str = "getGameUsageByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", got no response object!";
+//         error_log($err_str);
+//     }
 
-    return $ret_val;
-}
+//     return $ret_val;
+// }
 
 /* Get game file info from API
  * <param> string game_id
