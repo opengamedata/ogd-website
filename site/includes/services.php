@@ -10,7 +10,12 @@ function executeAPIRequest(string $endpoint, array $params)
 {
     $ret_val = null;
 
-    $url = \AppConfig::GetConfig()['WEBSITE_API_URL_BASE'] . $endpoint;
+    $base = \AppConfig::GetConfig()['WEBSITE_API_URL_BASE'];
+    if (!str_ends_with($base, "/"))
+    {
+        $base = $base."/";
+    }
+    $url = $base . $endpoint;
     $curl = curl_init($url . '?' . http_build_query($params));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
