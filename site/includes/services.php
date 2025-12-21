@@ -15,8 +15,8 @@ function executeAPIRequest(string $endpoint, array $params)
     {
         $base = $base."/";
     }
-    $url = $base . $endpoint;
-    $curl = curl_init($url . '?' . http_build_query($params));
+    $url = $base . $endpoint . '?' . http_build_query($params);
+    $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
     $ret_val = curl_exec($curl);
@@ -57,10 +57,12 @@ function getGameUsageByMonth(string $game_id, $year = null, $month = null): ?\Ga
 {
     $ret_val = null;
 
+    $year = $year ?? idate('Y', strtotime("-1 month"));
+    $month = $month ?? idate('m', strtotime("-1 month"));
     $params = array(
         'game_id' => $game_id,
-        'year' => $year ?? idate('Y', strtotime("-1 month")),
-        'month' => $month ?? idate('m', strtotime("-1 month"))
+        'year' => $year,
+        'month' => $month
     );
 
     # 1. Make request to API via cURL
@@ -96,10 +98,12 @@ function getGameFileInfoByMonth(string $game_id, $year = null, $month = null) : 
 {
     $ret_val = null;
 
+    $year = $year ?? idate('Y', strtotime("-1 month"));
+    $month = $month ?? idate('m', strtotime("-1 month"));
     $params = array(
         'game_id' => $game_id,
-        'year' => $year ?? idate('Y', strtotime("-1 month")),
-        'month' => $month ?? idate('m', strtotime("-1 month"))
+        'year' => $year,
+        'month' => $month
     );
     
     # 1. Make request to API via cURL
