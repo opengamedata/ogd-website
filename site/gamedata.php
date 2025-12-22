@@ -343,6 +343,9 @@ function renderPipelineTargetSection(?GameFileInfo $game_files, array $buttons)
                       && $game_files->getFeatureFiles(false) == false;
         $block_class = $have_no_files ? '' : $block_class;
     }
+    else {
+        error_log("Could not generate all elements in renderPipelineTargetSection in gamedata.php, game_files was not set!");
+    }
 
     return <<<HTML
         <section id="pipeline-target">
@@ -389,6 +392,9 @@ function renderTemplatesSection(?GameFileInfo $game_files)
         $pop_class      = $pop_template      ? '' : $pop_class;
         $sessions_class = $sessions_template ? '' : $sessions_class;
     }
+    else {
+        error_log("Could not generate all elements in renderTemplatesSection in gamedata.php, game_files was not set!");
+    }
 
     return <<<HTML
         <section id="templates" class="mb-5">
@@ -426,6 +432,9 @@ function renderPublicationsSection(?GameDetails $game_details)
                 HTML;
         }
         $publications = implode("\n", $elements);
+    }
+    else {
+        error_log("Could not generate all elements in renderPublicationsSection in gamedata.php, game_details was not set!");
     }
 
     return <<<HTML
