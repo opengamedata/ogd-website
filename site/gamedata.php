@@ -29,6 +29,7 @@ require_once 'components/PipelineButton.php';
 $game_details = null;
 $game_files = null;
 $buttons = null;
+$selected_month = new DateTimeImmutable("-1 month");
 
 error_log("Got request for gamedata.php");
 if (isset($_GET['game']) && $_GET['game'] != '') {
@@ -52,6 +53,7 @@ if (isset($_GET['game']) && $_GET['game'] != '') {
         $err_str = "getGameFileInfoByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", got no response object!";
         error_log($err_str);
     }
+    $selected_month = $game_files->getLastDate();
     $buttons = generatePipelineButtons($game_files);
 }
 else {
@@ -66,7 +68,7 @@ else {
     <?php echo renderChartSection($game_files); ?>
     <div class="row mb-5">
         <div class="col-md col-lg-5">
-        <?php echo renderPipelineSection($game_details, $game_files->getLastDate(), $buttons); ?>
+        <?php echo renderPipelineSection($game_details, $selected_month, $buttons); ?>
         </div>
         <div class="col-md col-lg-7 ps-lg-5 ps-xl-0">
             <?php echo renderPipelineTargetSection($game_files, $buttons); ?>
