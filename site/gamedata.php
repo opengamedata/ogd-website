@@ -49,11 +49,13 @@ if (isset($_GET['game']) && $_GET['game'] != '') {
     $year = idate('Y', strtotime("-1 month"));
     $month = idate('m', strtotime("-1 month"));
     $game_files = services\getGameFileInfoByMonth($game_id, $year, $month);
-    if (!isset($game_files)) {
+    if (isset($game_files)) {
+        $selected_month = $game_files->getLastDate();
+    }
+    else {
         $err_str = "getGameFileInfoByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", got no response object!";
         error_log($err_str);
     }
-    $selected_month = $game_files->getLastDate();
     $buttons = generatePipelineButtons($game_files);
 }
 else {
