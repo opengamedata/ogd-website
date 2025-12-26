@@ -21,6 +21,7 @@ function executeAPIRequest(string $endpoint, array $params): ?APIResponse
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($curl, CURLOPT_FAILONERROR,    true);
     $response_raw = curl_exec($curl);
     curl_close($curl);
 
@@ -33,6 +34,9 @@ function executeAPIRequest(string $endpoint, array $params): ?APIResponse
     }
     else {
         $err_str = $endpoint." request, with params ".json_encode($params).", got no response object!";
+        if (curl_errno($curl) != 0) {
+            $err_str .= "\nError occurred: ".curl_errno($curl)." - ".curl_error($curl);
+        }
         error_log($err_str);
     }
 
