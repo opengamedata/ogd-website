@@ -22,7 +22,7 @@ class GameDetails:
     def FromJson(game_id, json) -> "GameDetails":
         # game object returned from api
         data = json.loads(json)
-        
+
         return GameDetails.FromArray(game_id, data)
 
     @staticmethod
@@ -58,42 +58,42 @@ class GameDetails:
     @Name.setter
     def Name(self, name:str):
         self._game_name = name
-    
+
     @property
     def Description(self, html_safe:bool=True) -> str:
         return html.escape(self._game_description, quote=True) if html_safe else self._game_description
     @Description.setter
     def Description(self, description:str):
         self._game_description = description
-    
+
     @property
     def PlayLink(self, html_safe:bool=True) -> str:
         return html.escape(self._play_link, quote=True) if html_safe else self._play_link
     @PlayLink.setter
     def PlayLink(self, link:str):
         self._play_link = link
-    
+
     @property
     def SourceLink(self, html_safe:bool=True) -> str:
         return html.escape(self._source_link, quote=True) if html_safe else self._source_link
     @SourceLink.setter
     def SourceLink(self, link:str):
         self._source_link = link
-    
+
     @property
     def ThumbPath(self, html_safe:bool=True) -> str:
         return html.escape(self._thumbnail_path, quote=True) if html_safe else self._thumbnail_path
     @ThumbPath.setter
     def ThumbPath(self, path:str):
         self._thumbnail_path = path
-    
+
     @property
     def DeveloperName(self, html_safe:bool=True) -> str:
         return html.escape(self._developer_name, quote=True) if html_safe else self._developer_name
     @DeveloperName.setter
     def DeveloperName(self, name:str):
         self._developer_name = name
-    
+
     @property
     def DeveloperLink(self, html_safe:bool=True) -> str:
         return html.escape(self._developer_link, quote=True) if html_safe else self._developer_link
@@ -116,5 +116,3 @@ class GameDetails:
             case _:
                 path = 'fieldday/fieldday-64.png'
         return html.escape(path, quote=True) if html_safe else path
-
-    # Set methods
