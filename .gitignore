@@ -2,6 +2,7 @@
 .venv*
 src/**/AppConfig.php
 **/php_errors.log
+cspell.json
 
 # compiled output
 /src/assets/styles/*.css
