@@ -19,11 +19,11 @@ class GameDetails:
         self._publications     : List[Publication] = publications
 
     @staticmethod
-    def FromJson(id, json) -> "GameDetails":
+    def FromJson(game_id, json) -> "GameDetails":
         # game object returned from api
         data = json.loads(json)
         
-        return GameDetails.FromArray(id, data)
+        return GameDetails.FromArray(game_id, data)
 
     @staticmethod
     def FromArray(game_id, data) -> "GameDetails":
