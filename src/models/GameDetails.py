@@ -1,15 +1,14 @@
 import html
-import json
-from typing import Any, Dict, List, Optional
+from typing import List
 
 from models.Publication import Publication
 
 class GameDetails:
-    def __init__(self, id:str,       name:str,      description:str,
+    def __init__(self, game_id:str,  name:str,      description:str,
                  thumbnail_path:str, play_link:str, source_link:str,
                  developer_name:str, developer_link:str,
                  publications:List[Publication]):
-        self._game_id          : str               = id
+        self._game_id          : str               = game_id
         self._game_name        : str               = name
         self._game_description : str               = description
         self._thumbnail_path   : str               = thumbnail_path
@@ -27,14 +26,14 @@ class GameDetails:
         return GameDetails.FromArray(id, data)
 
     @staticmethod
-    def FromArray(id, data) -> "GameDetails":
+    def FromArray(game_id, data) -> "GameDetails":
         # build the array for publications
         publications = []
         for value in data.get('studies', []):
             publications.append(Publication.FromObj(value))
 
         return GameDetails(
-            id=id,
+            game_id=game_id,
             name=data.get('game_name'),
             description=data.get('game_description'),
             thumbnail_path=data.get('thumbnail_path'),
@@ -50,8 +49,8 @@ class GameDetails:
     def ID(self, html_safe:bool=True) -> str:
         return html.escape(self._game_id, quote=True) if html_safe else self._game_id
     @ID.setter
-    def ID(self, id:str):
-        self._game_id = id
+    def ID(self, game_id:str):
+        self._game_id = game_id
 
     @property
     def Name(self, html_safe:bool=True) -> str:
