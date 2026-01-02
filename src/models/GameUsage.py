@@ -1,7 +1,9 @@
 import json
-from typing import Any, List, Optional
+from typing import List, Optional
 
 class MonthSessions:
+    """Direct representation of the data structures from the legacy ‎‎MonthlyGameUsage endpoint. 
+    """
     def __init__(self, year:int, month:int, total_sessions:int):
         self._year = year
         self._month = month
@@ -18,6 +20,8 @@ class MonthSessions:
         return self._total_sessions
 
 class GameUsage:
+    """An aggregate of the month-by-month usage stats for a single game.
+    """
     def __init__(self, game_id:Optional[str], months:List[MonthSessions]):
         self._game_id = game_id
         self._months = months
