@@ -1,0 +1,18 @@
+from flask import request
+
+from ogd.common.utils.typing import Map
+
+class AppConfig:
+    @staticmethod
+    def getConfig() -> Map:
+        # Set Api Url base string (populated in Github actions)
+        APP_CONFIG = {}
+        APP_CONFIG['DISPLAY_VERSION'] = False
+        APP_CONFIG['WEBSITE_API_URL_BASE'] = 'OGD_API_PATH_BASE'
+
+        # If hostname starts with localhost
+        if request.host in {'localhost', '127.0.0.1'}:
+            # Assume we're in a development environment
+            APP_CONFIG['WEBSITE_API_URL_BASE'] = 'http:#localhost:5000/'
+
+        return APP_CONFIG
