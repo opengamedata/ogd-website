@@ -148,8 +148,8 @@ class GameFileInfo:
                 current_date += relativedelta(month=1)
 
         return ret_val
-    
-    def getPrevMonth(self, selected_date:date) -> date:
+
+    def GetPrevMonth(self, selected_date:date) -> date:
         """Get the previous month
 
         Returns previous month number or selected month if no previous month exists
@@ -171,7 +171,7 @@ class GameFileInfo:
         :return: _description_
         :rtype: _type_
         """
-        if (self.FirstDate == selected_date):
+        if self.FirstDate == selected_date:
             return selected_date
 
         # If date not found, return selected_date
@@ -183,20 +183,20 @@ class GameFileInfo:
         idx = usage_range.index(selected_date)
         return usage_range[idx-1] if idx+1 <= len(usage_range) else selected_date
 
-    def getNextMonth(self, current_date:date) -> date:
+    def GetNextMonth(self, current_date:date) -> date:
         """/* Get the next month
         * Returns next month number or selected month if no next month exists
         * <param> DateTime selected_date
         */"""
         if self.LastDate == current_date:
             return current_date
-        
+
         usage_range = self.UsageRange
 
         # If date not found, return selected_date
         if current_date not in usage_range:
             return current_date
-        
+
         # Return next month from usage_range
         idx = usage_range.index(current_date)
         return usage_range[idx+1] if idx < len(usage_range) else current_date
