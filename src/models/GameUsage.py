@@ -1,6 +1,8 @@
 import json
 from typing import List, Optional
 
+from ogd.common.utils.typing import Map
+
 class MonthSessions:
     """Direct representation of the data structures from the legacy ‎‎MonthlyGameUsage endpoint. 
     """
@@ -27,16 +29,16 @@ class GameUsage:
         self._months = months
 
     @staticmethod
-    def fromObj(obj):
+    def FromDict(obj:Map):
         return GameUsage(
             game_id  = obj.get("game_id"),
             months = obj.get("sessions", [])
         )
 
     @staticmethod
-    def fromJson(raw_json):
+    def FromJson(raw_json):
         obj = json.loads(raw_json)
-        return GameUsage.fromObj(obj)
+        return GameUsage.FromDict(obj)
 
     # get methods
     @property

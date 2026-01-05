@@ -35,7 +35,7 @@ class GameFileInfo:
         self._features_link        = features_link
 
     @staticmethod
-    def fromObj(raw_dict:Dict):
+    def FromDict(raw_dict:Dict):
         return GameFileInfo(
             first_month          = raw_dict.get('first_month'),
             first_year           = raw_dict.get('first_year'),
