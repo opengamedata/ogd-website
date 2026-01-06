@@ -130,6 +130,14 @@ class GameFileInfo:
     def FeaturesLink(self, html_safe:bool=True) -> Optional[str]:
         return html.escape(str(self.FeaturesLink), quote=True) if html_safe else self.FeaturesLink
 
+    @property
+    def HasNoFiles(self) -> bool:
+        return self.RawFileLink is None \
+           and self.EventsFileLink is None \
+           and self.DetectorsLink is None \
+           and self.FeaturesLink is None \
+           and self.FeatureFiles is None
+
     # Prev/next month functions
 
     @property
