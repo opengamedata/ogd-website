@@ -1,4 +1,4 @@
-{% macro pipelineSegment(pipe_element) %}
+{% macro renderPipelineSegment(pipe_element) %}
 
 {% set outline_class  = "btn-outline-secondary" if pipe_element.IsActive else "" %}
 {% set inactive_class = "" if pipe_element.IsActive else "d-none" %}
@@ -25,7 +25,7 @@
 
 {% endmacro %}
 
-{% macro pipelineTarget(pipe_element) %}
+{% macro renderPipelineTarget(pipe_element) %}
 
   {% set inactive_class = "" if pipe_element.IsActive else "d-none" %}
   {% set icon_class     = 'bi-box-arrow-up-right' if pipe_element.IsTransition else 'bi-arrow-down' %}
