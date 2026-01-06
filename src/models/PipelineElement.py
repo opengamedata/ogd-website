@@ -1,15 +1,15 @@
 
 class PipelineElement:
-    def __init__(self, title:str, text:str, image, image_active, month:str, file_links, selector:str, is_active:bool, is_a_transition_button:bool):
+    def __init__(self, title:str, text:str, image, image_active, month:str, file_links, selector:str, is_active:bool, is_transition_button:bool):
         self._title = title
         self._text = text
-        self._image = image
-        self._image_active = image_active
         self._month = month
         self._file_links = file_links
+        self._image = image
+        self._image_active = image_active
         self._selector = selector
         self._is_active = is_active
-        self._is_transition_button = is_a_transition_button
+        self._is_transition_button = is_transition_button
 
     @property
     def Title(self):
