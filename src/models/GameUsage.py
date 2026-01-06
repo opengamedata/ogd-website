@@ -59,15 +59,17 @@ class GameUsage:
     def LatestMonthlySessions(self):
         return self.Months[-1].TotalSessions if len(self.Months) > 0 else 0
 
-    @property
-    def AverageMonthlySessionsOverMostRecentActiveYear(self) -> int:
-        """Find the most-recent month that had sessions
+    def AverageMonthlySessionsOverRange(self, month_range:int=12) -> int:
+        """Calculate the average number of monthly gameplay sessions over a range of months.
         
-        Sum up the number of sessions in that month and previous months, going back as many as 12 months
-        Return the average number of sessions per month over that range
+        First, finds the most-recent month that had sessions
+        Then sums up the number of sessions in that month and previous months,
+        going back up to `month_range` months.
 
-        :return: _description_
-        :rtype: _type_
+        :param month_range: The maximum range over which to calculate the average, defaults to 12
+        :type month_range: int, optional
+        :return: The average number of sessions per month over the given range
+        :rtype: int
         """
         ret_val = 0
 
@@ -85,7 +87,7 @@ class GameUsage:
                 # This month counts towards our 12 whether or not it had sessions
                 months_counted += 1
             # Once we have 12 months of data we can quit
-            if months_counted == 12:
+            if months_counted == month_range:
                 break
 
         # If we counted at least one month
