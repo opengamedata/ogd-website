@@ -36,21 +36,8 @@
 
 {% endblock targets %}
 
-<!-- function renderTemplatesSection(?GameFileInfo game_files) -->
+<hr>                
 
-
-    if (isset(game_files)) {
-
-        events_template   = game_files->getEventsTemplateLink()
-        players_template  = game_files->getPlayersTemplateLink()
-        pop_template      = game_files->getPopulationTemplateLink()
-        sessions_template = game_files->getSessionsTemplateLink()
-
-        events_class   = events_template   ? '' : events_class
-        players_class  = players_template  ? '' : players_class
-        pop_class      = pop_template      ? '' : pop_class
-        sessions_class = sessions_template ? '' : sessions_class
-    }
 {% block templates %}
 
 <section id="templates" class="mb-5">
@@ -78,7 +65,6 @@
       <a id="population-data" class="btn btn-secondary btn-outline-secondary mb-2 d-none" href="">Population Features Template</a>
     </div>
   {% endif %}
-
 </section>
 
 {% endblock templates %}
