@@ -34,18 +34,10 @@
     {% endfor %}
 </section>
 
-{% endblock downloads %}
+{% endblock targets %}
 
-function renderTemplatesSection(?GameFileInfo game_files)
-    events_class   = 'd-none'
-    players_class  = 'd-none'
-    pop_class      = 'd-none'
-    sessions_class = 'd-none'
+<!-- function renderTemplatesSection(?GameFileInfo game_files) -->
 
-    events_template   = ''
-    players_template  = ''
-    pop_template      = ''
-    sessions_template = ''
 
     if (isset(game_files)) {
 
@@ -66,13 +58,27 @@ function renderTemplatesSection(?GameFileInfo game_files)
   <h3>Templates</h3>
   <p>These samples link out to a github codespace and are useful for exploration and visualization. They are also effective starting spots for your own experiments.</p>
 
-  <div class="btn-group-vertical">
-    <a id="events-data"     class="btn btn-secondary btn-outline-secondary mb-2 {events_class}"   href="{events_template}">Events Template</a>
-    <a id="players-data"    class="btn btn-secondary btn-outline-secondary mb-2 {players_class}"  href="{players_template}">Player Features Template</a>
-    <a id="population-data" class="btn btn-secondary btn-outline-secondary mb-2 {pop_class}"      href="{pop_template}">Population Features Template</a>
-    <a id="sessions-data"   class="btn btn-secondary btn-outline-secondary mb-2 {sessions_class}" href="{sessions_template}">Session Features Template</a>
-  </div>
+  {% if game_files %}
+    {% set events_class  = '' if game_files.EventsTemplateLink     is not None else 'd-none' %}
+    {% set session_class = '' if game_files.SessionsTemplateLink   is not None else 'd-none' %}
+    {% set player_class  = '' if game_files.PlayersTemplateLink    is not None else 'd-none' %}
+    {% set pop_class     = '' if game_files.PopulationTemplateLink is not None else 'd-none' %}
 
-</section>'
+    <div class="btn-group-vertical">
+      <a id="events-data"     class="btn btn-secondary btn-outline-secondary mb-2 {{events_class}}"   href="{{game_files.EventsTemplateLink}}">Events Template</a>
+      <a id="sessions-data"   class="btn btn-secondary btn-outline-secondary mb-2 {{sessions_class}}" href="{{game_files.SessionsTemplateLink}}">Session Features Template</a>
+      <a id="players-data"    class="btn btn-secondary btn-outline-secondary mb-2 {{players_class}}"  href="{{game_files.PlayersTemplateLink}}">Player Features Template</a>
+      <a id="population-data" class="btn btn-secondary btn-outline-secondary mb-2 {{pop_class}}"      href="{{game_files.PopulationTemplateLink}}">Population Features Template</a>
+    </div>
+  {% else %}
+    <div class="btn-group-vertical">
+      <a id="events-data"     class="btn btn-secondary btn-outline-secondary mb-2 d-none" href="">Events Template</a>
+      <a id="sessions-data"   class="btn btn-secondary btn-outline-secondary mb-2 d-none" href="">Session Features Template</a>
+      <a id="players-data"    class="btn btn-secondary btn-outline-secondary mb-2 d-none" href="">Player Features Template</a>
+      <a id="population-data" class="btn btn-secondary btn-outline-secondary mb-2 d-none" href="">Population Features Template</a>
+    </div>
+  {% endif %}
+
+</section>
 
 {% endblock templates %}
