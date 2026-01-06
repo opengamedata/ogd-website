@@ -1,33 +1,28 @@
-{% block chart %}
+<!-- Data Pipeline -->
+{% block pipeline %}
 
+{% import "components/pipelines.html" as pipelines %}
 
-function renderPipelineSection(?GameDetails $game_details, ?DateTimeImmutable $selected_date, array $buttons)
-{
-    $section_class = isset($game_details) && count($game_details->getPublications()) > 0
-                   ? ''
-                   : 'mb-5';
-    $month_element = isset($selected_date)
-                   ? '<div id="pipeline-month">Month of '.$selected_date->format('n').'</div>'
-                   : '<div id="pipeline-month"></div>';
+<!-- function renderPipelineSection(?GameDetails $game_details, ?DateTimeImmutable $selected_date, array $buttons) -->
+{% set section_class = '' if game_details and len(game_details.Publications) > 0 else 'mb-5' %}
 
-    return <<<HTML
-        <section id="pipelines" class="{$section_class}">
-            <!-- Data Pipeline -->
-            <div class="pipelines-wrapper">
-                <div class="pipelines-container">
-                    <h3 id="pipeline-header">Data Pipeline</h3>
-                    {$month_element}
-                    <div class="pipeline-segments-wrapper mt-2">
-                        {$buttons["raw"]->renderPipelineSegment()}
-                        {$buttons["detectors"]->renderPipelineSegment()}
-                        {$buttons["events"]->renderPipelineSegment()}
-                        {$buttons["extractors"]->renderPipelineSegment()}
-                        {$buttons["features"]->renderPipelineSegment()}
-                    </div>
-                </div>
-            </div>
-        </section>
-        HTML;
-}
+<section id="pipelines" class="{$section_class}">
+  <div class="pipelines-wrapper">
+    <div class="pipelines-container">
+      <h3 id="pipeline-header">Data Pipeline</h3>
+      {% if selected_date %}
+        <div id="pipeline-month">Month of {{ selected_date.strftime("%B") }}</div>
+      {% else %}
+        <div id="pipeline-month"></div>
+      {% endif %}
+      {$month_element}
+      <div class="pipeline-segments-wrapper mt-2">
+        {% for btn_name, btn in buttons.items() %}
+          {{ pipelines.renderPipelineSegment(btn) }}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
 
-{% endblock chart %}
+{% endblock pipeline %}
