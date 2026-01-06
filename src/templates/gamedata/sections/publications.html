@@ -1,0 +1,31 @@
+function renderPublicationsSection(?GameDetails $game_details)
+{
+    $publications = <<<HTML
+        <li class="mb-4 d-flex align-items-start">
+            NO PUBLICATIONS AVAILABLE, GAME DETAILS NOT FOUND!
+        </li>'
+        HTML;
+
+    if (isset($game_details)) {
+        $elements = [];
+        foreach ($game_details->getPublications() as $value) {
+            $elements[] = <<<HTML
+                <li class="mb-4 d-flex align-items-start">
+                    <img class="me-3" src="assets/images/icons/publication.svg">
+                    <div>{$value->getFormattedPublication()}</div>
+                </li>
+                HTML;
+        }
+        $publications = implode("\n", $elements);
+    }
+
+    return <<<HTML
+        <section id="publications" class="mb-5">
+            <!-- Publications -->
+            <h3>Publications</h3>
+            <ul class="list-unstyled mt-4">'
+                {$publications}
+            </ul>
+        </section>
+        HTML;
+}

@@ -1,0 +1,34 @@
+<section id="game-overview">
+  <div class="row mb-5">
+    {% if game_details %}
+      <div class="col-md-7 my-auto">
+        <h2>{{ game_details.Name }}</h2>
+        <div class="d-flex align-items-center mb-3">
+          <img class="avatar" src="assets/extern/images/logos/{{game_details.DeveloperIconFilename}}" alt="Developer logo for {{game_details.DeveloperName}}">
+          <div class="button-bar">
+            <a class="btn btn-secondary" href="{{game_details.DeveloperLink}}" target="_blank">Developer: {{game_details.DeveloperName}}</a>
+            <a class="btn btn-secondary" href="{{game_details.PlayLink}}" target="_blank">Play Game</a>
+            <a class="btn btn-secondary" href="{{game_details.SourceLink}}" target="_blank">Source Code</a>'
+            {% if len(game_details.Publications) > 0 %}
+              <a class="btn btn-secondary" href="#publications">Publications</a>
+            {% else %}
+              {{''}}
+            {% endif %}
+          </div>
+        </div>
+        <p>
+          {{game_details.Description}}
+        </p>
+      </div>
+    <div class="col">
+      <img class="img-fluid rounded" src="{{game_details.ThumbPath}}" alt="Thumbnail for {{game_details.Name}}">
+    </div>
+    {% else %}
+      <div class="col-md-7 my-auto">NO OVERVIEW AVAILABLE, GAME DETAILS NOT FOUND!</div>
+      error_log("Can not generate all elements for the overview in gamedata.php, did not get a valid set of game details!");
+      <div class="col">
+        <img class="img-fluid rounded" src="./assets/exter/images/graphics/robohead-512.png" alt="Default icon for missing thumbnail">
+      </div>
+    {% endif %}
+  </div>
+</section>
