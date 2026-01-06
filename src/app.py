@@ -4,6 +4,7 @@ from typing import Dict, Optional
 from flask import Flask, render_template, current_app, request
 
 from includes import services
+from models.GameCard import GameCard
 from models.GameDetails import GameDetails
 from models.GameFileInfo import GameFileInfo
 from models.GameUsage import GameUsage
@@ -14,6 +15,21 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     return 'Temp Home'
+
+@app.route("/index.html")
+def index():
+    # Get game list
+    gamelist = services.getGameList()
+    games = []
+    for game_id,game_details in gamelist.items():
+    # foreach(gamelist as key => value)
+        # Get game usage from api for each game
+        game_usage = services.getGameUsage(game_id=game_id)
+        game_card = GameCard(GameDetails.FromDict(game_id=game_id, data=game_details), game_usage)
+        games.append(game_card)
+
+    return render_template("index/index.html", games=games)
+    
 
 @app.route("/gamedata")
 def gamedata():
