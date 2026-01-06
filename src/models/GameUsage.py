@@ -59,7 +59,7 @@ class GameUsage:
     def LatestMonthlySessions(self):
         return self.Months[-1].TotalSessions if len(self.Months) > 0 else 0
 
-    def AverageMonthlySessionsOverRange(self, month_range:int=12) -> int:
+    def AverageMonthlySessions(self, month_range:int=12) -> int:
         """Calculate the average number of monthly gameplay sessions over a range of months.
         
         First, finds the most-recent month that had sessions
