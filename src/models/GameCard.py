@@ -20,3 +20,9 @@ class GameCard:
     @property
     def GameUsage(self) -> Optional[GameUsage]:
         return self._game_usage
+    @property
+    def GameLink(self) -> str:
+        return self._game_link
+    @property
+    def MonthlySessions(self) -> str:
+        return self._monthly_sessions
