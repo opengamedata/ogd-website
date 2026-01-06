@@ -16,7 +16,7 @@
         <h2 class="mb-5 text-center">Featured Data Sets</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
           {% for game_card in games %}
-            cards.render_card(game_card)
+            {{ cards.renderCard(game_card) }}
           {% endfor %}
         </div>
     </section>
