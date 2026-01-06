@@ -1,51 +1,13 @@
 <!-- function renderChartSection(?GameFileInfo $game_files) -->
 {% block chart %}
 
-{% macro playcount(selected_date) %}
+{% set prev_month = game_files.GetPreviousMonth(game_files.LastDate) %}
+{% set disable_prev = '' if prev_month != game_files.LastDate else "disabled" %}
+{% set fmt_prev_month = prev_month.strftime("%B") if prev_month != game_files.LastDate else "No Previous Month" %}
 
-  {% if selected_date %}
-    <div class="col">
-      <div class="bg-primary rounded row" id="stats" data-year="{{selected_date.year}}" data-month="{{selected_date.month}}">
-        <div class="col" id="stats-header">
-          {{ selected_date.strftime("%B %Y") | escape }}
-        </div>
-        <div class="col text-end" id="num-plays">No Plays</div>
-      </div>
-    </div>
-  {% else %}
-    <div class="me-1 col">
-      <div class="bg-primary rounded row">NO PLAY COUNT AVAILABLE, GAME FILES NOT FOUND!</div>
-    </div>
-  {% endif %}
-
-{% endmacro %}
-
-{% macro navigation(game_files) %}
-
-  {% set prev_month = game_files.GetPreviousMonth(game_files.LastDate) %}
-  {% set disable_prev = '' if prev_month != game_files.LastDate else "disabled" %}
-  {% set fmt_prev_month = prev_month.strftime("%B") if prev_month != game_files.LastDate else "No Previous Month" %}
-
-  {% set next_month = game_files.GetNextMonth(game_files.LastDate) %}
-  {% set disable_next = '' if next_month != game_files.LastDate else "disabled" %}
-  {% set fmt_next_month = next_month.strftime("%B") if next_month != game_files.LastDate else "No Next Month" %}
-
-  <div class="month-nav-wrapper col-md-3 col-sm-4 gy-2 text-end">
-  {% if game_files.LastDate %}
-    <nav class="text-nowrap">
-      <button id="month-prev" type="button" class="btn btn-outline-secondary" {{ disable_prev }}>
-        <i class="bi bi-chevron-left"></i>{{ fmt_prev_month | escape }}
-      </button>
-      <button id="month-next" type="button" class="ms-2 btn btn-outline-secondary" {{ disable_next }}>
-        {{ fmt_next_month | escape }}<i class="bi bi-chevron-right"></i>
-      </button>
-    </nav>
-  {% else %}
-    <nav class="text-nowrap"></nav>
-  {% endif %}
-  </div>
-
-{% endmacro %}
+{% set next_month = game_files.GetNextMonth(game_files.LastDate) %}
+{% set disable_next = '' if next_month != game_files.LastDate else "disabled" %}
+{% set fmt_next_month = next_month.strftime("%B") if next_month != game_files.LastDate else "No Next Month" %}
 
 {% if game_details and game_files.LastDate %}
   {{error_log("In renderChartSection, selected date is %s".format(game_details.LastDate.strftime('Y-m-d')));}}
@@ -68,8 +30,34 @@
     <canvas id="chartYAxis" height="0" width="0"></canvas>
   </div>
   <div class="row mb-5 gy-2 ms-1">
-    {{playcount(game_files.LastDate)}}
-    {{navigation(game_files)}}
+    {% if game_files.LastDate %}
+      <div class="col">
+        <div class="bg-primary rounded row" id="stats" data-year="{{game_files.LastDate.year}}" data-month="{{game_files.LastDate.month}}">
+          <div class="col" id="stats-header">
+            {{ game_files.LastDate.strftime("%B %Y") | escape }}
+          </div>
+          <div class="col text-end" id="num-plays">No Plays</div>
+        </div>
+      </div>
+    {% else %}
+      <div class="me-1 col">
+        <div class="bg-primary rounded row">NO PLAY COUNT AVAILABLE, GAME FILES NOT FOUND!</div>
+      </div>
+    {% endif %}
+    <div class="month-nav-wrapper col-md-3 col-sm-4 gy-2 text-end">
+      {% if game_files.LastDate %}
+        <nav class="text-nowrap">
+          <button id="month-prev" type="button" class="btn btn-outline-secondary" {{ disable_prev }}>
+            <i class="bi bi-chevron-left"></i>{{ fmt_prev_month | escape }}
+          </button>
+          <button id="month-next" type="button" class="ms-2 btn btn-outline-secondary" {{ disable_next }}>
+            {{ fmt_next_month | escape }}<i class="bi bi-chevron-right"></i>
+          </button>
+        </nav>
+      {% else %}
+        <nav class="text-nowrap"></nav>
+      {% endif %}
+    </div>
   </div>
   <script src="assets/scripts/chart.umd.js"></script>
   <script type="module" src="assets/scripts/chart.js"></script>
