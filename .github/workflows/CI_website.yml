@@ -47,14 +47,14 @@ jobs:
         lfs: true  
         submodules: true
     - name: Set up Config File (with Default API Endpoint)
-      if: "${{ github.event.inputs.use_custom_api == 'false' || github.event_name == 'push' }}"
+      if: ${{ (github.event.inputs.use_custom_api == 'false') || (github.event_name == 'push') }}
       uses: ./.github/actions/web_config
       with:
         api_base: https://${{env.API_HOST}}/${{env.API_PATH}}
         use_display_version: 'true'
         display_version: ${{ github.sha }}
     - name: Set up Config File (with Custom API Endpoint)
-      if: "${{ github.event.inputs.use_custom_api == 'true' }}"
+      if: ${{ github.event.inputs.use_custom_api == 'true' }}
       uses: ./.github/actions/web_config
       with:
         api_base: ${{ github.event.inputs.CUSTOM_API_ENDPOINT }}
