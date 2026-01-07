@@ -3,6 +3,7 @@ from typing import Dict, Optional
 
 from flask import Flask, render_template, current_app, request
 
+from config.AppConfig import AppConfig
 from includes import services
 from models.GameCard import GameCard
 from models.GameDetails import GameDetails
@@ -28,8 +29,15 @@ def index():
         game_card = GameCard(GameDetails.FromDict(game_id=game_id, data=game_details), game_usage)
         games.append(game_card)
 
-    return render_template("index/index.html", games=games)
+    return render_template("index/index.html", games=games, display_version=AppConfig.getConfig().get("DISPLAY_VERSION"))
     
+@app.route("/about.html")
+def about():
+    return render_template("about/about.html", display_version=AppConfig.getConfig().get("DISPLAY_VERSION"))
+
+@app.route("/getinvolved.html")
+def getinvolved():
+    return render_template("getinvolved/getinvolved.html", display_version=AppConfig.getConfig().get("DISPLAY_VERSION"))
 
 @app.route("/gamedata")
 def gamedata():
@@ -90,9 +98,9 @@ def gamedata():
     else:
         err_str = "gamedata.html got request with no game parameter!"
         current_app.logger.error(err_str)
-    return render_template("gamedata.html", game_details=game_details, game_files=game_files, buttons=buttons)
+    return render_template("gamedata.html", game_details=game_details, game_files=game_files, buttons=buttons, display_version=AppConfig.getConfig().get("DISPLAY_VERSION"))
 
-def generatePipelineButtons(game_files:Optional[GameFileInfo]) -> Dict[str, PipelineElement]
+def generatePipelineButtons(game_files:Optional[GameFileInfo]) -> Dict[str, PipelineElement]:
     raw_files = []
     detectors_files = []
     event_files = []
