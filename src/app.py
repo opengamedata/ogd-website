@@ -11,7 +11,7 @@ from models.GameFileInfo import GameFileInfo
 from models.GameUsage import GameUsage
 from models.PipelineElement import PipelineElement
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="assets")
 
 @app.route("/")
 @app.route("/index.html")
