@@ -2,7 +2,7 @@
   "name": "opengamedata",
   "version": "1.0.0",
   "description": "setup",
-  "main": "./site/assets/scripts/app.js",
+  "main": "./src/assets/scripts/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

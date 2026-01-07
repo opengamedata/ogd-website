@@ -5,15 +5,15 @@ const browserSync = require('browser-sync').create();
 function styles () {
     // Transpile Scss to Css 
     // **Excludes partials preceeded with '_' e.g., _theme.scss
-    return gulp.src('./site/assets/styles/scss/**/[!_]*.{scss,sass}')
+    return gulp.src('./src/assets/styles/scss/**/[!_]*.{scss,sass}')
         .pipe(sass({includePaths: ['./node_modules'],outputStyle: 'compressed'})
             .on('error', sass.logError))
-        .pipe(gulp.dest('./site/assets/styles'));
+        .pipe(gulp.dest('./src/assets/styles'));
 };
 
 function clean () {
     // Delete vendor files and generated css
-    return delete(['./site/assets/scripts/vendor','./site/assets/styles/*.css']);
+    return delete(['./src/assets/scripts/vendor','./src/assets/styles/*.css']);
 }
 
 exports.clean = clean; 
@@ -25,16 +25,16 @@ gulp.task('vendor', function() {
       './node_modules/axios/dist/esm/*.js',
       './node_modules/chart.js/dist/*'
     ])
-      .pipe(gulp.dest('./site/assets/scripts/vendor'));
+      .pipe(gulp.dest('./src/assets/scripts/vendor'));
 });
 // Copy third party libraries from /vendor (dev) to /scripts (prod)
 gulp.task('vendor:build', function() {
     return gulp.src([
-      './site/assets/scripts/vendor/bootstrap.bundle.min.js',
-      './site/assets/scripts/vendor/axios.min.js',
-      './site/assets/scripts/vendor/chart.umd.js'
+      './src/assets/scripts/vendor/bootstrap.bundle.min.js',
+      './src/assets/scripts/vendor/axios.min.js',
+      './src/assets/scripts/vendor/chart.umd.js'
     ])
-    .pipe(gulp.dest('./site/assets/scripts'));
+    .pipe(gulp.dest('./src/assets/scripts'));
 });
 
 // Dev task: transpiles Scss, runs vendor:build task, initialize Browser Sync, watch for changes
@@ -43,7 +43,7 @@ gulp.task('proxy', gulp.series('vendor','vendor:build', styles, function () {
       proxy: "localhost:8881"
     });
   
-    gulp.watch('./site/assets/styles/scss/*scss', styles).on('change', browserSync.reload);
+    gulp.watch('./src/assets/styles/scss/*scss', styles).on('change', browserSync.reload);
     gulp.watch('./**/*.php').on('change', browserSync.reload);
     gulp.watch('./**/*.html').on('change', browserSync.reload);
     gulp.watch('./**/*.js').on('change', browserSync.reload);

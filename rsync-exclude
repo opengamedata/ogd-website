@@ -1,7 +1,7 @@
 <!-- custom ignores -->
-site/config/realtime_config.js.template
-site/assets/scripts/vendor
-site/assets/styles/scss
+src/config/realtime_config.js.template
+src/assets/scripts/vendor
+src/assets/styles/scss
 <!-- other stuff -->
 rsync-exclude
 .DS_Store
