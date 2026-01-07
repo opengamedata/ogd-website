@@ -3,8 +3,8 @@ run-name: ${{ format('{0} - {1}', github.workflow, github.event_name == 'push' &
 
 env:
   DEPLOY_HOST: ${{ vars.OGD_STAGING_HOST }}
-  DEPLOY_DIR:          ${{ vars.WEB_PATH }}/${{ github.event.repository.name }}/${{ github.ref_name }}
-  DEPLOY_URL:  ${{ vars.OGD_STAGING_HOST }}/${{ github.event.repository.name }}/${{ github.ref_name }}
+  DEPLOY_DIR:          ${{ vars.WSGI_PATH }}/${{ github.event.repository.name }}/${{ github.ref_name }}
+  DEPLOY_URL:  ${{ vars.OGD_STAGING_HOST }}/${{ vars.WSGI_WEB_PATH }}/${{ github.event.repository.name }}/${{ github.ref_name }}
 
 on:
   workflow_dispatch:
