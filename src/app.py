@@ -14,9 +14,6 @@ from models.PipelineElement import PipelineElement
 app = Flask(__name__)
 
 @app.route("/")
-def home():
-    return 'Temp Home'
-
 @app.route("/index.html")
 def index():
     # Get game list
