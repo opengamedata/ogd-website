@@ -26,15 +26,15 @@ def index():
         game_card = GameCard(GameDetails.FromDict(game_id=game_id, data=game_details), game_usage)
         games.append(game_card)
 
-    return render_template("index/index.html", games=games, display_version=AppConfig.getConfig().get("DISPLAY_VERSION"))
+    return render_template("index/index.html", games=games, display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION", True))
     
 @app.route("/about.html")
 def about():
-    return render_template("about/about.html", display_version=AppConfig.getConfig().get("DISPLAY_VERSION"))
+    return render_template("about/about.html", display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION", True))
 
 @app.route("/getinvolved.html")
 def getinvolved():
-    return render_template("getinvolved/getinvolved.html", display_version=AppConfig.getConfig().get("DISPLAY_VERSION"))
+    return render_template("getinvolved/getinvolved.html", display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION", True))
 
 @app.route("/gamedata")
 def gamedata():
@@ -95,7 +95,7 @@ def gamedata():
     else:
         err_str = "gamedata.html got request with no game parameter!"
         current_app.logger.error(err_str)
-    return render_template("gamedata.html", game_details=game_details, game_files=game_files, buttons=buttons, display_version=AppConfig.getConfig().get("DISPLAY_VERSION"))
+    return render_template("gamedata.html", game_details=game_details, game_files=game_files, buttons=buttons, display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION"))
 
 def generatePipelineButtons(game_files:Optional[GameFileInfo]) -> Dict[str, PipelineElement]:
     raw_files = []

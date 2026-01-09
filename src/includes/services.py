@@ -51,7 +51,7 @@ def getGameUsageByMonth(game_id:str, year:Optional[int] = None, month : Optional
     }
 
     # 1. Make request to API
-    usage_url = urljoin(base=AppConfig.getConfig()['WEBSITE_API_URL_BASE'], url="getGameUsageByMonth")
+    usage_url = urljoin(base=AppConfig.APP_CONFIG.get('WEBSITE_API_URL_BASE', "http://localhost:5000"), url="getGameUsageByMonth")
     api_response = APIRequest(url=usage_url, request_type=RESTType.GET, params=params).Execute(current_app.logger)
 
     # 2. Convert response to a GameUsage object
@@ -86,7 +86,7 @@ def getGameFileInfoByMonth(game_id:str, year:Optional[int]=None, month:Optional[
     }
     
     # 1. Make request to API via cURL
-    info_url = urljoin(base=AppConfig.getConfig()['WEBSITE_API_URL_BASE'], url="getGameFileInfoByMonth")
+    info_url = urljoin(base=AppConfig.APP_CONFIG.get('WEBSITE_API_URL_BASE', "http://localhost:5000"), url="getGameFileInfoByMonth")
     api_response = APIRequest(url=info_url, request_type=RESTType.GET, params=params).Execute(current_app.logger)
 
     # 2. Convert response to a GameFileInfo object
@@ -117,7 +117,7 @@ def getGameUsage(game_id:str) -> Optional[GameUsage]:
     }
     
     # 1. Make request to API via cURL
-    usage_url = urljoin(base=AppConfig.getConfig()['WEBSITE_API_URL_BASE'], url="getMonthlyGameUsage")
+    usage_url = urljoin(base=AppConfig.APP_CONFIG['WEBSITE_API_URL_BASE'], url="getMonthlyGameUsage")
     api_response = APIRequest(url=usage_url, request_type=RESTType.GET, params=params).Execute(current_app.logger)
 
     # 2. Convert response to a GameUsage object
