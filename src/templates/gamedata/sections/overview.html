@@ -22,9 +22,9 @@
           {{game_details.Description}}
         </p>
       </div>
-    <div class="col">
-      <img class="img-fluid rounded" src="{{game_details.ThumbPath}}" alt="Thumbnail for {{game_details.Name}}">
-    </div>
+      <div class="col">
+        <img class="img-fluid rounded" src="{{game_details.ThumbPath}}" alt="Thumbnail for {{game_details.Name}}">
+      </div>
     {% else %}
       <div class="col-md-7 my-auto">NO OVERVIEW AVAILABLE, GAME DETAILS NOT FOUND!</div>
       error_log("Can not generate all elements for the overview in gamedata.php, did not get a valid set of game details!");
