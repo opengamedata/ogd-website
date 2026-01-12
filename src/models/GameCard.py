@@ -13,6 +13,12 @@ class GameCard:
         self._game_link = f"gamedata.html?game={game.ID}"
         self._monthly_sessions = num_in_kilo(game_usage.AverageMonthlySessions()) if game_usage else "0"
 
+    def __str__(self):
+        return f"GameCard: {self.Game}; {self.MonthlySessions} Session Avg"
+
+    def __repr__(self):
+        return f"GameCard: game={self.Game} usage={self.GameUsage} sessions={self.MonthlySessions}"
+
     # get methods
     @property
     def Game(self) -> GameDetails:
