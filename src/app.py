@@ -8,10 +8,21 @@ from includes import services
 from models.GameCard import GameCard
 from models.GameDetails import GameDetails
 from models.GameFileInfo import GameFileInfo
-from models.GameUsage import GameUsage
 from models.PipelineElement import PipelineElement
 
 app = Flask(__name__, static_folder="assets")
+
+@app.template_filter('log')
+def log(msg:str, level:str="INFO"):
+    match level.upper():
+        case "ERR" | "ERROR":
+            app.logger.error(msg)
+        case "WARN" | "WARNING":
+            app.logger.warning(msg)
+        case "INFO" | "INFORMATION":
+            app.logger.info(msg)
+        case "DEBUG":
+            app.logger.debug(msg)
 
 @app.route("/")
 @app.route("/index")
