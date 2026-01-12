@@ -1,6 +1,6 @@
 {% macro renderCard(game_card) %}
 
-{% set monthly_sessions = f"%s Monthly Sessions".format(game_card.MonthlySessions) if game_card.MonthlySessions else "Coming Soon!" %}
+{% set monthly_sessions = "%s Monthly Sessions".format(game_card.MonthlySessions) if game_card.MonthlySessions else "Coming Soon!" %}
 <div class="col">
   <a href="{{ game_card.GameLink | escape }}" class="text-reset text-decoration-none">
     <div class="card shadow">
