@@ -48,10 +48,10 @@ class GameUsage:
         self._months = months
 
     def __str__(self):
-        return f"{self.ID} usage {self.Months[0].Year}{self.Months[0].Month}-{self.Months[1].Year}{self.Months[1].Month}"
+        return f"{self.ID} usage {self.Months[0].Year}/{self.Months[0].Month}-{self.Months[1].Year}/{self.Months[1].Month}"
 
     def __repr__(self):
-        return f"GameUsage: {self.ID} from {self.Months[0].Year}{self.Months[0].Month}-{self.Months[1].Year}{self.Months[1].Month}"
+        return f"GameUsage: {self.ID} from {self.Months[0].Year}/{self.Months[0].Month}-{self.Months[1].Year}/{self.Months[1].Month}"
 
     @staticmethod
     def FromDict(obj:Map):

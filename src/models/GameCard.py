@@ -17,7 +17,7 @@ class GameCard:
         return f"GameCard: {self.Game}; {self.MonthlySessions} Session Avg"
 
     def __repr__(self):
-        return f"GameCard: game={self.Game} usage={self.GameUsage} sessions={self.MonthlySessions}"
+        return f"GameCard: game={self.Game} usage=<{self.GameUsage}> sessions={self.MonthlySessions}"
 
     # get methods
     @property
