@@ -14,6 +14,7 @@ from models.PipelineElement import PipelineElement
 app = Flask(__name__, static_folder="assets")
 
 @app.route("/")
+@app.route("/index")
 @app.route("/index.html")
 def index():
     # Get game list
@@ -28,15 +29,18 @@ def index():
 
     return render_template("index/index.html", games=games, display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION", True))
     
+@app.route("/about")
 @app.route("/about.html")
 def about():
     return render_template("about/about.html", display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION", True))
 
+@app.route("/getinvolved")
 @app.route("/getinvolved.html")
 def getinvolved():
     return render_template("getinvolved/getinvolved.html", display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION", True))
 
 @app.route("/gamedata")
+@app.route("/gamedata.html")
 def gamedata():
     """
     This file is a bit complicated, as the page itself had/has a *lot* of object parsing, date manipulation, and other business logic in what ought to be the "view" portion of the code.
@@ -95,7 +99,7 @@ def gamedata():
     else:
         err_str = "gamedata.html got request with no game parameter!"
         current_app.logger.error(err_str)
-    return render_template("gamedata.html", game_details=game_details, game_files=game_files, buttons=buttons, display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION"))
+    return render_template("gamedata/gamedata.html", game_details=game_details, game_files=game_files, buttons=buttons, display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION"))
 
 def generatePipelineButtons(game_files:Optional[GameFileInfo]) -> Dict[str, PipelineElement]:
     raw_files = []
