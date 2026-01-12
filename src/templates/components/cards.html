@@ -1,6 +1,6 @@
 {% macro renderCard(game_card) %}
 
-{% set monthly_sessions = "%s Monthly Sessions".format(game_card.MonthlySessions) if game_card.MonthlySessions else "Coming Soon!" %}
+{% set monthly_sessions = "{} Monthly Sessions" | format(game_card.MonthlySessions) if game_card.MonthlySessions else "Coming Soon!" %}
 <div class="col">
   <a href="{{ game_card.GameLink | escape }}" class="text-reset text-decoration-none">
     <div class="card shadow">
@@ -10,7 +10,7 @@
         <p class="card-subtitle small">{{ monthly_sessions | escape }}</p>
       </div>
       <div class="card-footer d-flex align-items-center">
-        <img class="avatar me-2" src="assets/extern/images/logos/' . htmlspecialchars($this->game->getDeveloperIconFilename()) . '" alt="avatar"> 
+        <img class="avatar me-2" src="assets/extern/images/logos/{{ game_card.DeveloperIconFilename | escape }}" alt="avatar"> 
         <h5 class="mb-0"> {{ game_card.Game.DeveloperName | escape }} </h5> 
       </div>
     </div>

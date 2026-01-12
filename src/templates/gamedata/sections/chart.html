@@ -10,9 +10,9 @@
 {% set fmt_next_month = next_month.strftime("%B") if next_month != game_files.LastDate else "No Next Month" %}
 
 {% if game_details and game_files.LastDate %}
-  {{error_log("In renderChartSection, selected date is %s".format(game_details.LastDate.strftime('Y-m-d')));}}
+  {{ "In renderChartSection, selected date is {}" | format(game_details.LastDate.strftime("Y-m-d")) | log("DEBUG") }}
 {% else %}
-  {{error_log("Can not generate full month selection elements for the sessions chart in gamedata.php, did not get a valid selected date!")}}
+  {{ "Can not generate full month selection elements for the sessions chart in gamedata.php, did not get a valid selected date!" | log("WARN") }}
 {% endif %}
 <section id="monthly-sessions-chart">
   <div class="row mb-3">
