@@ -23,6 +23,7 @@ def log(msg:str, level:str="INFO"):
             app.logger.info(msg)
         case "DEBUG":
             app.logger.debug(msg)
+    return ''
 
 @app.route("/")
 @app.route("/index")
