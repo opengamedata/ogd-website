@@ -1,6 +1,5 @@
 from pathlib import Path
 from typing import Optional
-from urllib.parse import urljoin
 
 from flask import current_app
 
@@ -9,6 +8,7 @@ from ogd.common.utils.typing import Map
 from ogd.apis.models.APIRequest import APIRequest
 from ogd.apis.models.enums.ResponseStatus import ResponseStatus
 from ogd.apis.models.enums.RESTType import RESTType
+from ogd.apis.utils.APIUtils import urljoin
 
 from config.AppConfig import AppConfig
 # from models.APIResponse import APIResponse
