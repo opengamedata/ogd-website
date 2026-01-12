@@ -2,25 +2,25 @@
 {% block content %}
 <main id="gamedata" class="container-fluid">
   {% with game_details=game_details %}
-    {% include "sections/overview.html" %}
+    {% include "gamedata/sections/overview.html" %}
   {% endwith %}
   {% with game_files=game_files %}
-    {% include "sections/chart.html" %}
+    {% include "gamedata/sections/chart.html" %}
   {% endwith %}
   <div class="row mb-5">
     <div class="col-md col-lg-5">
     {% with game_details=game_details, selected_date=game_files.LastDate, buttons=buttons %}
-      {% include "sections/pipeline.html" %}
+      {% include "gamedata/sections/pipeline.html" %}
     {% endwith %}
     </div>
     <div class="col-md col-lg-7 ps-lg-5 ps-xl-0">
       {% with game_files=game_files, buttons=buttons %}
-        {% include "sections/files.html" %}
+        {% include "gamedata/sections/files.html" %}
       {% endwith %}
     </div> <!-- end column -->
   </div> <!-- end row --> 
   {% with game_files=game_files, buttons=buttons %}
-    {% include "sections/publications.html" %}
+    {% include "gamedata/sections/publications.html" %}
   {% endwith %}
 </main>
 <script type="module" src="assets/scripts/services.js"></script>
