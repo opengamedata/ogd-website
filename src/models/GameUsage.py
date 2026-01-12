@@ -11,6 +11,19 @@ class MonthSessions:
         self._month = month
         self._total_sessions = total_sessions
 
+    @staticmethod
+    def FromDict(obj:Map):
+        if isinstance(obj, MonthSessions):
+            return obj
+        elif isinstance(obj, dict):
+            return MonthSessions(
+                year           = obj.get("year", None),
+                month          = obj.get("month", None),
+                total_sessions = obj.get("total_sessions", 0)
+            )
+        else:
+            raise TypeError(f"MonthSessions.FromDict was given invalid object, with type {type(obj)}")
+
     @property
     def Year(self) -> int:
         return self._year
@@ -30,9 +43,10 @@ class GameUsage:
 
     @staticmethod
     def FromDict(obj:Map):
+        _months = obj.get("sessions", [])
         return GameUsage(
             game_id  = obj.get("game_id"),
-            months = obj.get("sessions", [])
+            months = [MonthSessions.FromDict(month) for month in _months]
         )
 
     @staticmethod
