@@ -6,10 +6,16 @@ from ogd.common.utils.typing import Map
 class MonthSessions:
     """Direct representation of the data structures from the legacy ‎‎MonthlyGameUsage endpoint. 
     """
-    def __init__(self, year:int, month:int, total_sessions:int):
-        self._year = year
-        self._month = month
-        self._total_sessions = total_sessions
+    def __init__(self, year:int, month:int, total_sessions:Optional[int]):
+        self._year           : int           = year
+        self._month          : int           = month
+        self._total_sessions : Optional[int] = total_sessions
+
+    def __str__(self):
+        return f"{self.Year}/{self.Month}: {self.TotalSessions} sessions"
+
+    def __repr__(self):
+        return f"MonthSessions: {self}"
 
     @staticmethod
     def FromDict(obj:Map):
@@ -31,7 +37,7 @@ class MonthSessions:
     def Month(self) -> int:
         return self._month
     @property
-    def TotalSessions(self) -> int:
+    def TotalSessions(self) -> Optional[int]:
         return self._total_sessions
 
 class GameUsage:
@@ -93,7 +99,7 @@ class GameUsage:
         # Loop through months from most recent to oldest
         for month in reversed(self._months):
             # If this month has sessions
-            if month.TotalSessions > 0:
+            if month.TotalSessions and month.TotalSessions > 0:
                 # Add it to our sum
                 sum_sessions += month.TotalSessions
             # If we've found a month with sessions either this iteration or a previous iteration
