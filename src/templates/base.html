@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Open Game Data {{ game.Name or " - " | e }}</title>
+  <title>Open Game Data {{ game.Name if game else " - " | e }}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="assets/extern/images/logos/ogd/OGD-16.png">
