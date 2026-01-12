@@ -1,19 +1,8 @@
-<!-- function renderPublicationsSection(?GameDetails $game_details) -->
-  <?php if ( isset($game_details) && count($game_details->getPublications()) > 0 ) : ?>
-      <hr>
-      <div class="row mb-5 mt-3">
-          <div class="col-md">
-              <?php renderPublicationsSection($game_details); ?>
-          </div>
-      </div>
-  <?php endif; ?>
-
 {% block publications%}
 
 {% if game_details and len(game_details.Publications) > 0 %}
 
 <section id="publications" class="mb-5">
-  <!-- Publications -->
   <h3>Publications</h3>
   <ul class="list-unstyled mt-4">
     {% for publication in game_details.Publications %}
@@ -26,14 +15,16 @@
 </section>
 
 {% else %}
-  <!-- In original implementation, entire publications section was skipped if no game_details found. -->
-  <!-- So, preserving as comment the thing that used to be the default (never rendered) *within* publications section -->
-  <!-- And just wrapping in a <section> block without content, in case of game-details not existing, to preserve original behavior. -->
-  <section id="publications" class="mb-5">
-      <!-- <li class="mb-4 d-flex align-items-start">
-        NO PUBLICATIONS AVAILABLE, GAME DETAILS NOT FOUND!
-      </li>' -->
-  </section>
+
+<!-- In original implementation, entire publications section was skipped if no game_details found. -->
+<!-- So, preserving as comment the thing that used to be the default (never rendered) *within* publications section -->
+<!-- And just wrapping in a <section> block without content, in case of game-details not existing, to preserve original behavior. -->
+<section id="publications" class="mb-5">
+  <!-- <li class="mb-4 d-flex align-items-start">
+    NO PUBLICATIONS AVAILABLE, GAME DETAILS NOT FOUND!
+  </li>' -->
+</section>
+
 {% endif %}
 
 {% endblock publications%}

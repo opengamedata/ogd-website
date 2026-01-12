@@ -1,27 +1,41 @@
 {% extends 'base.html' %}
 {% block content %}
 <main id="gamedata" class="container-fluid">
+  <!-- Overview Section -->
   {% with game_details=game_details %}
     {% include "gamedata/sections/overview.html" %}
   {% endwith %}
+  <!-- Chart Section -->
   {% with game_files=game_files %}
     {% include "gamedata/sections/chart.html" %}
   {% endwith %}
+  <!-- Pipeline Section -->
   <div class="row mb-5">
     <div class="col-md col-lg-5">
     {% with game_details=game_details, selected_date=game_files.LastDate, buttons=buttons %}
       {% include "gamedata/sections/pipeline.html" %}
     {% endwith %}
     </div>
+    <!-- Files Section, within Pipeline Section -->
     <div class="col-md col-lg-7 ps-lg-5 ps-xl-0">
       {% with game_files=game_files, buttons=buttons %}
         {% include "gamedata/sections/files.html" %}
       {% endwith %}
-    </div> <!-- end column -->
-  </div> <!-- end row --> 
-  {% with game_files=game_files, buttons=buttons %}
-    {% include "gamedata/sections/publications.html" %}
-  {% endwith %}
+    </div>
+  </div>
+
+  {% if game_details and len(game_details.Publications) > 0 %}
+  <hr>
+  {% endif %}
+  <!-- Publications Section -->
+  <div class="row mb-5 mt-3">
+    <div class="col-md">
+      {% with game_files=game_files, buttons=buttons %}
+        {% include "gamedata/sections/publications.html" %}
+      {% endwith %}
+    </div>
+  </div>
+
 </main>
 <script type="module" src="assets/scripts/services.js"></script>
 <script type="module" src="assets/scripts/game_usage.js"></script>
