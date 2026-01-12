@@ -54,29 +54,26 @@ def getinvolved():
 @app.route("/gamedata")
 @app.route("/gamedata.html")
 def gamedata():
-    """
-    This file is a bit complicated, as the page itself had/has a *lot* of object parsing, date manipulation, and other business logic in what ought to be the "view" portion of the code.
-    While this has been cleaned up somewhat, there remains a lot going on in the page construction.
-    To create a reasonable tradeoff between coupling and cohesion, the file is structured as follows:
-    1. Declaration: A <?php?> tag containing imports, calls to services functions, and construction of a few elements that are used in multiple sections.
-    2. Section Generation: A <?php?> tag containing function definitions to render each <section> of the page.
-        These functions have a structure that mirrors the overall file structure:
-        * Declaration: declaring of local variables, including defaults for elements of the <section>.
-        * Element Generation: A check for null inputs, wrapped around logic to generate the "intended" elements of the <section>
-            The defaults set in the "Declaration" section typically include a message saying the element could not be generated due to null data.
-            Thus, if the check for null inputs fails, there will be a reasonable explanation rather than a crash.
-        * Section Construction: A return statement that assembles the elements within the structure of the <section>.
-    3. Page Construction: A <?php?> tag that assembles the sections together into the structure of the page.
+    """ Generate the gamedata page.
 
-    Keeping this structure in mind, it should be easier to navigate the file and update logic.
-    In the future, some of the business logic embedded into the section generation functions could be factored out into proper control classes,
-    and then it might be possible to push this file closer to a typical HTML-oriented PHP page script.
+    From old comment block, might be useful for figuring out what we previously identified as things to improve about the generation of the page:
 
-    require_once 'config/AppConfig.php';
-    require_once 'includes/services.php';
-    require_once 'models/GameDetails.php';
-    require_once 'models/GameFileInfo.php';
-    require_once 'components/PipelineButton.php';
+    > This file is a bit complicated, as the page itself had/has a *lot* of object parsing, date manipulation, and other business logic in what ought to be the "view" portion of the code.
+    > While this has been cleaned up somewhat, there remains a lot going on in the page construction.
+    > To create a reasonable tradeoff between coupling and cohesion, the file is structured as follows:
+    > 1. Declaration: A <?php?> tag containing imports, calls to services functions, and construction of a few elements that are used in multiple sections.
+    > 2. Section Generation: A <?php?> tag containing function definitions to render each <section> of the page.
+    >     These functions have a structure that mirrors the overall file structure:
+    >     * Declaration: declaring of local variables, including defaults for elements of the <section>.
+    >     * Element Generation: A check for null inputs, wrapped around logic to generate the "intended" elements of the <section>
+    >         The defaults set in the "Declaration" section typically include a message saying the element could not be generated due to null data.
+    >         Thus, if the check for null inputs fails, there will be a reasonable explanation rather than a crash.
+    >     * Section Construction: A return statement that assembles the elements within the structure of the <section>.
+    > 3. Page Construction: A <?php?> tag that assembles the sections together into the structure of the page.
+ 
+    > Keeping this structure in mind, it should be easier to navigate the file and update logic.
+    > In the future, some of the business logic embedded into the section generation functions could be factored out into proper control classes,
+    > and then it might be possible to push this file closer to a typical HTML-oriented PHP page script.
 
     :return: _description_
     :rtype: _type_

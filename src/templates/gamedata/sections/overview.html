@@ -27,7 +27,7 @@
       </div>
     {% else %}
       <div class="col-md-7 my-auto">NO OVERVIEW AVAILABLE, GAME DETAILS NOT FOUND!</div>
-      error_log("Can not generate all elements for the overview in gamedata.php, did not get a valid set of game details!");
+      {{ "Can not generate all elements for the overview in gamedata.html, did not get a valid set of game details!" | log("WARN") }}
       <div class="col">
         <img class="img-fluid rounded" src="./assets/exter/images/graphics/robohead-512.png" alt="Default icon for missing thumbnail">
       </div>

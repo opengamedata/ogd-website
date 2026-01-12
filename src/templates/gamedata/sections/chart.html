@@ -12,7 +12,7 @@
 {% if game_details and game_files.LastDate %}
   {{ "In renderChartSection, selected date is {}" | format(game_details.LastDate.strftime("Y-m-d")) | log("DEBUG") }}
 {% else %}
-  {{ "Can not generate full month selection elements for the sessions chart in gamedata.php, did not get a valid selected date!" | log("WARN") }}
+  {{ "Can not generate full month selection elements for the sessions chart in gamedata.html, did not get a valid selected date!" | log("WARN") }}
 {% endif %}
 <section id="monthly-sessions-chart">
   <div class="row mb-3">
