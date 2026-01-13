@@ -10,7 +10,7 @@
 {% set fmt_next_month = next_month.strftime("%B") if next_month and next_month != game_files.LastDate else "No Next Month" %}
 
 {% if game_files and game_files.LastDate %}
-  {{ "In renderChartSection, selected date is {}" | format(game_files.LastDate.strftime("Y-m-d")) | log("DEBUG") }}
+  {{ "In renderChartSection, selected date is %s" | format(game_files.LastDate.strftime("Y-m-d")) | log("DEBUG") }}
 {% endif %}
 <section id="monthly-sessions-chart">
   <div class="row mb-3">
