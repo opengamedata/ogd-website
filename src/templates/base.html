@@ -17,7 +17,10 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/gamedata.css')    }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/getinvolved.css') }}">
   {# TODO : test whether we could do like {{ config.WEBSITE_API_URL_BASE) | s | e }} or so to get quote wrapping #}
-  <script>const WEBSITE_API_URL_BASE = "{{ config.WEBSITE_API_URL_BASE }}";</script>
+  <script>
+    const RAW_API_URL_BASE = "{{ config.WEBSITE_API_URL_BASE }}";
+    const WEBSITE_API_URL_BASE = RAW_API_URL_BASE.endsWith("/") ? RAW_API_URL_BASE : RAW_API_URL_BASE + "/";
+  </script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-2FZHES4D1G"></script>
   <script>
