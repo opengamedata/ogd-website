@@ -1,7 +1,7 @@
 <!-- function renderChartSection(?GameFileInfo $game_files) -->
 {% block chart %}
 
-{% set prev_month = game_files.GetPreviousMonth(game_files.LastDate) if game_files else None %}
+{% set prev_month = game_files.GetPrevMonth(game_files.LastDate) if game_files else None %}
 {% set disable_prev = '' if prev_month != game_files.LastDate else "disabled" %}
 {% set fmt_prev_month = prev_month.strftime("%B") if prev_month and prev_month != game_files.LastDate else "No Previous Month" %}
 
