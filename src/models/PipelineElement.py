@@ -1,6 +1,7 @@
+from ogd.common.utils.typing import Map
 
 class PipelineElement:
-    def __init__(self, title:str, text:str, image, image_active, month:str, file_links, selector:str, is_active:bool, is_transition_button:bool):
+    def __init__(self, title:str, text:str, image, image_active, month:str, file_links:Map, selector:str, is_active:bool, is_transition_button:bool):
         self._title = title
         self._text = text
         self._month = month
@@ -27,7 +28,7 @@ class PipelineElement:
     def Month(self):
         return self._month
     @property
-    def FileLinks(self):
+    def FileLinks(self) -> Map:
         return self._file_links
     @property
     def Selector(self) -> str:
