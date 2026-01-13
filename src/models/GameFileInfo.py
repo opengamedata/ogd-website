@@ -89,31 +89,31 @@ class GameFileInfo:
         return str(self._found_matching_range)
     @property
     def RawFileLink(self, html_safe:bool=True) -> Optional[str]:
-        return html.escape(str(self.RawFileLink), quote=True) if html_safe else self.RawFileLink
+        return html.escape(str(self._raw_file), quote=True) if html_safe else self._raw_file
     @property
     def EventsFileLink(self, html_safe:bool=True) -> Optional[str]:
-        return html.escape(str(self.EventsFileLink), quote=True) if html_safe else self.EventsFileLink
+        return html.escape(str(self._events_file), quote=True) if html_safe else self._events_file
     @property
     def EventsTemplateLink(self, html_safe:bool=True) -> Optional[str]:
-        return html.escape(str(self.EventsTemplateLink), quote=True) if html_safe else self.EventsTemplateLink
+        return html.escape(str(self._events_template), quote=True) if html_safe else self._events_template
     @property
     def PlayersFileLink(self, html_safe:bool=True) -> Optional[str]:
-        return html.escape(str(self.PlayersFileLink), quote=True) if html_safe else self.PlayersFileLink
+        return html.escape(str(self._players_file), quote=True) if html_safe else self._players_file
     @property
     def PlayersTemplateLink(self, html_safe:bool=True) -> Optional[str]:
-        return html.escape(str(self.PlayersTemplateLink), quote=True) if html_safe else self.PlayersTemplateLink
+        return html.escape(str(self._players_template), quote=True) if html_safe else self._players_template
     @property
     def PopulationFileLink(self, html_safe:bool=True) -> Optional[str]:
-        return html.escape(str(self.PopulationFileLink), quote=True) if html_safe else self.PopulationFileLink
+        return html.escape(str(self._population_file), quote=True) if html_safe else self._population_file
     @property
     def PopulationTemplateLink(self, html_safe:bool=True) -> Optional[str]:
-        return html.escape(str(self.PopulationTemplateLink), quote=True) if html_safe else self.PopulationTemplateLink
+        return html.escape(str(self._population_template), quote=True) if html_safe else self._population_template
     @property
     def SessionsFileLink(self, html_safe:bool=True) -> Optional[str]:
-        return html.escape(str(self.SessionsFileLink), quote=True) if html_safe else self.SessionsFileLink
+        return html.escape(str(self._sessions_file), quote=True) if html_safe else self._sessions_file
     @property
     def SessionsTemplateLink(self, html_safe:bool=True) -> Optional[str]:
-        return html.escape(str(self.SessionsTemplateLink), quote=True) if html_safe else self.SessionsTemplateLink
+        return html.escape(str(self._sessions_template), quote=True) if html_safe else self._sessions_template
     @property
     def FeatureFiles(self):
         return {
