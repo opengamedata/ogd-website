@@ -12,6 +12,7 @@ from models.GameFileInfo import GameFileInfo
 from models.PipelineElement import PipelineElement
 
 app = Flask(__name__, static_folder="assets")
+app.config.update(AppConfig.APP_CONFIG)
 
 @app.template_filter('log')
 def log(msg:str, level:str="INFO"):
