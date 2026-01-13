@@ -17,12 +17,9 @@ export default class APIResponse {
          }
          /** @type {string} */
          this.message     = response_object.msg;
-         /** @type {string} */
-         this.status      = response_object.status;
       }
       else {
          this.message     = "FAIL: Response object was null";
-         this.status      = null;
          this.req_type    = null;
          this.values_dict = {};
       }
@@ -36,9 +33,6 @@ export default class APIResponse {
    }
    get Message() {
       return this.message;
-   }
-   get Status() {
-      return this.status;
    }
    get asDict() {
       return {
