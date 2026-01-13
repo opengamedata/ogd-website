@@ -124,11 +124,11 @@ class GameFileInfo:
 
     @property
     def DetectorsLink(self, html_safe:bool=True) -> Optional[str]:
-        return html.escape(str(self.DetectorsLink), quote=True) if html_safe else self.DetectorsLink
+        return html.escape(str(self._detectors_link), quote=True) if html_safe else self._detectors_link
 
     @property
     def FeaturesLink(self, html_safe:bool=True) -> Optional[str]:
-        return html.escape(str(self.FeaturesLink), quote=True) if html_safe else self.FeaturesLink
+        return html.escape(str(self._features_link), quote=True) if html_safe else self._features_link
 
     @property
     def HasNoFiles(self) -> bool:
