@@ -111,21 +111,20 @@ def gamedata():
     return render_template("gamedata/gamedata.html", game_details=game_details, game_files=game_files, buttons=buttons, display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION"))
 
 def generatePipelineButtons(game_files:Optional[GameFileInfo]) -> Dict[str, PipelineElement]:
-    raw_files = []
-    detectors_files = []
-    event_files = []
-    extractors_files = []
-    feature_files = []
+    raw_files        = {}
+    detectors_files  = {}
+    event_files      = {}
+    extractors_files = {}
+    feature_files    = {}
     month_name = "NO MONTH AVAILABLE"
 
     if game_files:
-        raw_files        = {'Raw Data':game_files.RawFileLink} if game_files.RawFileLink else {}
-        raw_files        = {'Raw Data':game_files.RawFileLink} if game_files.RawFileLink else {}
-        detectors_files  = {'Detectors':game_files.DetectorsLink} if game_files.DetectorsLink else {}
-        event_files      = {'Calculated Events':game_files.EventsFileLink} if game_files.EventsFileLink else {}
-        extractors_files = {'Extractors':game_files.FeaturesLink} if game_files.FeaturesLink else {} # aka Extractors or Feature Extractors
-        feature_files    = game_files.FeatureFiles if game_files.FeatureFiles else {}
-        month_name       = game_files.LastDate.strftime("%B") if game_files.LastDate else month_name
+        raw_files        = { 'Raw Data':game_files.RawFileLink }             if game_files.RawFileLink    else {}
+        detectors_files  = { 'Detectors':game_files.DetectorsLink }          if game_files.DetectorsLink  else {}
+        event_files      = { 'Calculated Events':game_files.EventsFileLink } if game_files.EventsFileLink else {}
+        extractors_files = { 'Extractors':game_files.FeaturesLink }          if game_files.FeaturesLink   else {} # aka Extractors or Feature Extractors
+        feature_files    = game_files.FeatureFiles                           if game_files.FeatureFiles   else {}
+        month_name       = game_files.LastDate.strftime("%B")                if game_files.LastDate       else month_name
 
 
     # Create Pipeline buttons (including the transition buttons)
