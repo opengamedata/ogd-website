@@ -2,15 +2,15 @@
 
 {% set monthly_sessions = "%s Monthly Sessions" | format(game_card.MonthlySessions) if game_card.MonthlySessions else "Coming Soon!" %}
 <div class="col">
-  <a href="{{ game_card.GameLink | escape }}" class="text-reset text-decoration-none">
+  <a href="{{ game_card.GameLink }}" class="text-reset text-decoration-none">
     <div class="card shadow">
-      <img src="{{ game_card.Game.ThumbPath | escape }}" class="card-img-top" alt="">
+      <img src="{{ game_card.Game.ThumbPath }}" class="card-img-top" alt="">
       <div class="card-body">
         <h4 class="card-title"> {{ game_card.Game.Name | escape }}</h4>
         <p class="card-subtitle small">{{ monthly_sessions | escape }}</p>
       </div>
       <div class="card-footer d-flex align-items-center">
-        <img class="avatar me-2" src="assets/extern/images/logos/{{ game_card.DeveloperIconFilename | escape }}" alt="avatar"> 
+        <img class="avatar me-2" src="assets/extern/images/logos/{{ game_card.Game.DeveloperIconFilename }}" alt="avatar"> 
         <h5 class="mb-0"> {{ game_card.Game.DeveloperName | escape }} </h5> 
       </div>
     </div>
