@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  {% if game_details and len(game_details.Publications) > 0 %}
+  {% if game_details and game_details.Publications | count > 0 %}
   <hr>
   {% endif %}
   <!-- Publications Section -->
