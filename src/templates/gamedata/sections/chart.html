@@ -3,11 +3,11 @@
 
 {% set prev_month = game_files.GetPreviousMonth(game_files.LastDate) if game_files else None %}
 {% set disable_prev = '' if prev_month != game_files.LastDate else "disabled" %}
-{% set fmt_prev_month = prev_month.strftime("%B") if prev_month != game_files.LastDate else "No Previous Month" %}
+{% set fmt_prev_month = prev_month.strftime("%B") if prev_month and prev_month != game_files.LastDate else "No Previous Month" %}
 
 {% set next_month = game_files.GetNextMonth(game_files.LastDate) if game_files else None %}
 {% set disable_next = '' if next_month != game_files.LastDate else "disabled" %}
-{% set fmt_next_month = next_month.strftime("%B") if next_month != game_files.LastDate else "No Next Month" %}
+{% set fmt_next_month = next_month.strftime("%B") if next_month and next_month != game_files.LastDate else "No Next Month" %}
 
 {% if game_files and game_files.LastDate %}
   {{ "In renderChartSection, selected date is {}" | format(game_files.LastDate.strftime("Y-m-d")) | log("DEBUG") }}
