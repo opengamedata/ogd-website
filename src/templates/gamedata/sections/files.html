@@ -29,7 +29,7 @@
       </p>
     {% endif %}
   </div>
-    {% for btn_name, btn in buttons %}
+    {% for btn in buttons.values() %}
       {{ pipelines.renderPipelineTarget(btn) }}
     {% endfor %}
 </section>
