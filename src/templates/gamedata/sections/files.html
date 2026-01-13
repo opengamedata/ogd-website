@@ -2,7 +2,7 @@
 <!-- function renderPipelineTargetSection(?GameFileInfo game_files, array buttons) -->
 {% block targets %}
 
-{% set block_class   = '' if game_files and game_files.HasNoFiles else 'd-none' }
+{% set block_class   = '' if game_files and game_files.HasNoFiles else 'd-none' %}
 
 <section id="pipeline-target">
   <div class="pipeline-target-block {{block_class}}" id="pipeline-target-none">
