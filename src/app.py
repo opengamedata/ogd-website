@@ -1,4 +1,5 @@
 import re
+from datetime import date, timedelta
 from typing import Dict, Optional
 
 from flask import Flask, render_template, current_app, request
@@ -94,13 +95,9 @@ def gamedata():
             err_str = f"Failed to find game details for game_id={game_id}, got no response object!"
             current_app.logger.error(err_str)
         # 3. Get game file info from API
-        """ HACK ALERT! Dumb, stupid, awful hack that assumes a thing called
-        "get game file-info by *month*" will be fine if you don't give it a month whose file info you want,
-        and will say "that's alright good buddy, I'll just give you info on the most recent month."
-        As if it's obvious that a thing that says "request a month" would consider the month optional...
-        Future version of API should provide endpoint to allow request of most recent month for a game, directly.
-        """
-        game_files = services.getGameFileInfoByMonth(game_id)
+        # In order to provide a meaningful param for year and month, do what the API originally did and just set last month as our starting selection.
+        last_month = date.today().replace(day=1) - timedelta(days=1)
+        game_files = services.getGameFileInfoByMonth(game_id, year=last_month.year, month=last_month.month)
         if not game_files:
             err_str = f"getGameFileInfoByMonth request, for game_id={game_id} with year=null and month=null, got no response object!"
             current_app.logger.error(err_str)
