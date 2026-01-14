@@ -41,7 +41,7 @@ const getGameUsage = (gameId) => {
         }
     })
     .then(function (response) {
-        return new APIResponse(response.data);
+        return new APIResponse(response);
     });
 
     return data;

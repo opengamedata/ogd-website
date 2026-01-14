@@ -6,20 +6,17 @@ export default class APIResponse {
    constructor(response_object) {
       if (response_object != null) {
          /** @type {string} */
-         this.req_type    = response_object.type;
-         try {
-            /** @type {object} */
-            this.values_dict = response_object.val;
-         }
-         catch (err) {
-            console.error(`Got an error when trying to JSON.parse the following:\n${response_object}`)
-            this.values_dict = response_object.val
-         }
+         this.req_type    = response_object.data.type;
+         /** @type {object} */
+         this.values_dict = response_object.data.val;
          /** @type {string} */
-         this.message     = response_object.msg;
+         this.message     = response_object.data.msg;
+         /** @type {int} */
+         this.status      = response_object.status;
       }
       else {
          this.message     = "FAIL: Response object was null";
+         this.status      = null;
          this.req_type    = null;
          this.values_dict = {};
       }
@@ -33,6 +30,14 @@ export default class APIResponse {
    }
    get Message() {
       return this.message;
+   }
+   get Status() {
+      if (this.status >= 200 && this.status < 300) {
+         return "SUCCESS";
+      }
+      else {
+         return "ERROR";
+      }
    }
    get asDict() {
       return {
