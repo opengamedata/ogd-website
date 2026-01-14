@@ -545,7 +545,30 @@
         "thumbnail_path" : "./assets/images/thumbs/transformation-quest-thumb.png",
         "event_readme_link": "https://github.com/fielddaylab/transformation-quest/blob/develop/README.MD",
         "feature_readme_link": "https://github.com/opengamedata/opengamedata-core/blob/master/src/ogd/games/TRANSFORMATION_QUEST/README.md",
-        "studies": []
+        "studies": [
+            {
+                "name": "Vygotskian hybridizing of motion and mapping: Learning about geometric transformations in block-based programming environments",
+                "authors" : [
+                    "Hernández-Zavaleta, J. E.", "Brady, C.", "Becker, S.", "Clark, D. B."
+                ],
+                "abstract": "Research on geometric transformations suggests that early learners possess intuitive understandings grounded in motion metaphors, transitioning to mappings. The processes through which students transition between these two conceptions are not fully understood. We propose that Vygotskian hybridizing (related to Vygotsky’s articulation of everyday and scientific concepts) may provide a lens for thinking about the relationship between these conceptions. Design features of block-based programming environments provide affordances to support hybridizing by providing a co-action space for learning. We conducted a comparative case study of four grade seven and eight students working in a Scratch task (Code the Quilts) and a game (Transformations Quest) to construct understandings of geometric transformations. Our findings suggest: (1) students hybridized their personal experience of motion and mathematical knowledge of mapping to build geometric transformations understandings and (2) the co-action space in which students worked promoted distributed interactions between students, block-based environments, and tasks to support hybridizing.",
+                "paper_link": "https://doi.org/10.1080/10986065.2023.2191074",
+                "year": "2025",
+                "project_code_link": "",
+                "published_in": "Mathematical Thinking and Learning, 27(1), 25–59."
+            },
+            {
+                "name": "Academically meaningful play: Designing digital games for the classroom to support meaningful gameplay, meaningful learning, and meaningful access",
+                "authors" : [
+                    "Douglas B. Clark", "Jesús E. Hernández-Zavaleta", "Sandra Becker"
+                ],
+                "abstract": "What does it mean for a game to engage players in academically meaningful play? Much has been written about the integration of educational learning within the design of games in terms of intrinsic/endogenous design. While these framings capture the positioning of learning within games, they provide less insight into what might distinguish design choices that are powerful in terms of both learning and gameplay from design choices that might be limiting from one or both of these perspectives. In this article, we therefore propose a framework for thinking about academically meaningful play that builds upon and extends more general ideas about meaningful play (Salen & Zimmerman, 2003). The proposed framework focuses on (a) discernability of choice outcomes, (b) integration of choice outcomes into unfolding game state, (c) meaningful choices grounded in core academic ideas, and (d) thematic and challenge access. We analyze three academic games that focus on geometric transformations as comparative cases to consider the potential affordances of the proposed framework for analyzing the implications of design choices.",
+                "paper_link": "https://doi.org/10.1016/j.compedu.2022.104704",
+                "year" : "2022",
+                "project_code_link": "",
+                "published_in": "Computers & Education, Volume 194"
+            }
+        ]
     },
     "WAVES": {
         "game_name": "Wave Combinator",
