@@ -2,13 +2,15 @@ from typing import Any, Dict, List, Optional
 
 class Publication:
     def __init__(self, name:Optional[str],   authors:Optional[List[str]], year:Optional[int],
-                 published_in:Optional[str], paper_link:Optional[str],    project_code_link:Optional[str]):
+                 published_in:Optional[str], paper_link:Optional[str],    project_code_link:Optional[str],
+                 abstract:Optional[str]):
         self._name              : Optional[str]       = name
         self._authors           : Optional[List[str]] = authors
         self._year              : Optional[int]       = year
         self._published_in      : Optional[str]       = published_in
         self._paper_link        : Optional[str]       = paper_link
         self._project_code_link : Optional[str]       = project_code_link
+        self._abstract          : Optional[str]       = abstract
 
     @staticmethod
     def FromObj(obj:Dict[str, Any]):
@@ -18,7 +20,8 @@ class Publication:
             authors           = obj.get('authors'),
             year              = obj.get('year'),
             project_code_link = obj.get('project_code_link'),
-            published_in      = obj.get('published_in')
+            published_in      = obj.get('published_in'),
+            abstract          = obj.get('abstract')
         )
 
     @property
@@ -45,6 +48,9 @@ class Publication:
     @property
     def PublishedIn(self) -> Optional[str]:
         return self._published_in
+    @property
+    def Abstract(self) -> Optional[str]:
+        return self._abstract
     # @property
     # def FormattedPublication(self) -> str:
     #     return f"{', '.join(self.Authors or [])}. ({self.Year}). {self.FormattedPaperLink} {self.PublishedIn}. <br>{self.FormattedCodeLink}"
