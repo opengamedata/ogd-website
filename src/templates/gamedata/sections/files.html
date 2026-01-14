@@ -7,7 +7,7 @@
 {% set block_class   = '' if game_files and game_files.HasNoFiles else 'd-none' %}
 
 <section id="pipeline-target">
-  <div class="pipeline-target-block {{block_class}}" id="pipeline-target-none">
+  <div id="pipeline-target-none" class="pipeline-target-block {{block_class}}">
     <div class="d-flex">
       <img src="assets/images/icons/pipeline-none.svg" class="me-4 mb-3" alt="Icon for empty pipeline step">
       <div id="pipeline-target-summary">
@@ -31,9 +31,9 @@
       </p>
     {% endif %}
   </div>
-    {% for btn in buttons.values() %}
-      {{ pipelines.renderPipelineTarget(btn) }}
-    {% endfor %}
+  {% for btn in buttons.values() %}
+    {{ pipelines.renderPipelineTarget(btn) }}
+  {% endfor %}
 </section>
 
 {% endblock targets %}
