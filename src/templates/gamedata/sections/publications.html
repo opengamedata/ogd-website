@@ -9,13 +9,13 @@
       <li class="mb-4 d-flex align-items-start">
         <img class="me-3" src="assets/images/icons/publication.svg" alt="Icon for a publication">
         <div>
-          {{ publication.Authors | join(", ") }}. ({{ publication.Year }}).
-          {% if self.PaperLink %}
-            <a href="{{ publication.PaperLink }}" target="_blank">{{ publication.Name }}.</a>
+          {{ publication.Authors | join(", ") | e }}. ({{ publication.Year }}).
+          {% if publication.PaperLink %}
+            <a href="{{ publication.PaperLink }}" target="_blank">{{ publication.Name | e}}.</a>
           {% else %}
-            {{ publication.Name }}.
+            {{ publication.Name | e}}.
           {% endif %}
-          {{ publication.PublishedIn }}.
+          {{ publication.PublishedIn | e}}.
           <br>
           {% if publication._project_code_link %}
             <a class="btn btn-outline-secondary btn-publication mt-3" href="{{ publication.ProjectCodeLink }}" target="_blank">View Project Code</a>
