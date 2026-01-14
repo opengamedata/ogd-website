@@ -17,6 +17,39 @@
         "feature_readme_link": "https://github.com/opengamedata/opengamedata-core/blob/master/src/ogd/games/AQUALAB/README.md",
         "studies": [
             {
+                "name": "Integrating Large Language Models and Machine Learning to Detect Struggle in Educational Games",
+                "authors" : [
+                    "Xiner Liu", "Zhanlan Wei", "Ryan S Baker", "Shari J Metcalf", "Jiayi Zhang", "Amanda Barany", "Stefan Slater", "Luke Swanson", "David J Gagnon"
+                ],
+                "abstract": "This study explores the integration of Large Language Models (LLMs), specifically GPT-4o, with machine learning (ML) to automatically detect struggle behaviors in a science exploration game. We evaluate GPT-4o’s ability to analyze text replays, which convert raw gameplay logs into human-readable sequences of player actions, against existing machine-learned struggle detectors. The LLM and ML approaches achieve comparable performance but have complementary strengths. GPT-4o is effective at identifying struggle in instances where the human-engineered features used in traditional ML models fail to capture meaningful behavioral patterns, while ML detectors perform better at identifying struggle in tasks that involve numerical reasoning (e.g., frequent pauses) and in more complex tasks where structured features provide clearer signals.",
+                "paper_link": "https://doi.org/10.1007/978-3-031-98462-4_50",
+                "year": "2025",
+                "project_code_link": "",
+                "published_in": "In: Cristea, A.I., Walker, E., Lu, Y., Santos, O.C., Isotani, S. (eds) Artificial Intelligence in Education. AIED 2025. Lecture Notes in Computer Science(), vol 15881. Springer, Cham."
+            },
+            {
+                "name": "Identifying When and Why Students Choose to Quit Jobs in a Science Exploration Game",
+                "authors" : [
+                    "Xiner Liu", "Stefan Slater", "Luke Swanson", "Shari J Metcalf", "David J Gagnon", "Ryan S Baker"
+                ],
+                "abstract": "Students in open-ended educational games have a number of different pathways that they can select to work productively through a learning activity. Educators and system designers may want to know which of these pathways are most effective for engagement, learning, or other desirable outcomes. In this paper, we investigate which prior jobs and factors are associated with higher rates of student quitting behavior in an educational science exploration game. We use a series of Chi squared analyses to identify the jobs with the highest rates of quitting overall, and we calculate logistic regressions within specific jobs to determine the potential factors that lead to students quitting those jobs. Our analysis revealed that for 23 of the 40 jobs examined, having experience in at least one previous job significantly decreased the chances of students quitting the subsequent job, and that completing specific prior jobs reduces quit rates on specific later jobs. In our discussion, we describe the challenges associated with modeling quitting behavior, and how these analyses could be used to better optimize students’ pathways through the game environment. Specially, guiding students through specific sequences of preliminary jobs before tackling more challenging jobs can improve their engagement and reduce dropout rates, thus optimizing their learning pathways.",
+                "paper_link": "https://doi.org/10.1007/978-3-031-74138-8_5",
+                "year": "2025",
+                "project_code_link": "",
+                "published_in": "In: Plass, J.L., Ochoa, X. (eds) Serious Games. JCSG 2024. Lecture Notes in Computer Science, vol 15259. Springer, Cham."
+            },
+            {
+                "name": "Shifts in Student Attitudes and Beliefs About Science Through Extended Play in an Immersive Science Game",
+                "authors" : [
+                    "Shari J Metcalf", "David Gagnon", "Stefan Slater"
+                ],
+                "abstract": "This research considers the impact of a digital science game that provides immersive experiences in which participants take on the role of a scientist and learn through active engagement with simulated science environments and tools. Wake: Tales from the Aqualab is an immersive web-based middle school science game designed to teach science practices of experimentation, modeling, and argumentation in aquatic ecosystems. This paper describes findings from a study of approximately 250 middle school students who used a beta version of the game over two weeks. A pre-post survey of affective measures found sig-nificant gains in student science identity, self-efficacy, and interest. Classroom observations and interviews with students and teachers supported these findings, suggesting that the immersive qualities of the game helped students think of them-selves as scientists and engage in authentic science practices, contributing to shifts in students' attitudes and beliefs about science.",
+                "paper_link": "https://doi.org/10.1007/978-3-031-47328-9_25",
+                "year": "2024",
+                "project_code_link": "",
+                "published_in": "In: Bourguet, ML., Krüger, J.M., Pedrosa, D., Dengel, A., Peña-Rios, A., Richter, J. (eds) Immersive Learning Research Network. iLRN 2023. Communications in Computer and Information Science, vol 1904. Springer, Cham. "
+            },
+            {
                 "name": "Struggling to Detect Struggle in Students Playing a Science Exploration Game",
                 "authors" : [
                     "Liu, X.", "Slater, S.", "Andres, J.", "Swanson, L.", "Scianna, J.", "Gagnon, D.", "Baker, R.S."
@@ -37,39 +70,6 @@
                 "year": "2022",
                 "project_code_link": "",
                 "published_in": "Iyer, S. et al. (Eds.) (2022). Proceedings of the 30th International Conference on Computers in Education. Asia-Pacific Society for Computers in Education"
-            },
-            {
-                "name": "Identifying When and Why Students Choose to Quit Jobs in a Science Exploration Game",
-                "authors" : [
-                    "Xiner Liu", "Stefan Slater", "Luke Swanson", "Shari J Metcalf", "David J Gagnon", "Ryan S Baker"
-                ],
-                "abstract": "Students in open-ended educational games have a number of different pathways that they can select to work productively through a learning activity. Educators and system designers may want to know which of these pathways are most effective for engagement, learning, or other desirable outcomes. In this paper, we investigate which prior jobs and factors are associated with higher rates of student quitting behavior in an educational science exploration game. We use a series of Chi squared analyses to identify the jobs with the highest rates of quitting overall, and we calculate logistic regressions within specific jobs to determine the potential factors that lead to students quitting those jobs. Our analysis revealed that for 23 of the 40 jobs examined, having experience in at least one previous job significantly decreased the chances of students quitting the subsequent job, and that completing specific prior jobs reduces quit rates on specific later jobs. In our discussion, we describe the challenges associated with modeling quitting behavior, and how these analyses could be used to better optimize students’ pathways through the game environment. Specially, guiding students through specific sequences of preliminary jobs before tackling more challenging jobs can improve their engagement and reduce dropout rates, thus optimizing their learning pathways.",
-                "paper_link": "https://doi.org/10.1007/978-3-031-74138-8_5",
-                "year": "2025",
-                "project_code_link": "",
-                "published_in": "In: Plass, J.L., Ochoa, X. (eds) Serious Games. JCSG 2024. Lecture Notes in Computer Science, vol 15259. Springer, Cham."
-            },
-            {
-                "name": "Aqualab: Establishing Validity of an Adventure Game for Middle School Science Practices",
-                "authors" : [
-                    "Yoon Jeon Kim", " Shari J. Metcalf", "Jennifer Scianna", "Glenda Perez", "David Gagnon"
-                ],
-                "abstract": "In this work-in-progress poster, we will present how a team including game designers, learning scientists, and assessment scientists collaborated on an online adventure game, Aqualab, with the goal of creating a comprehensive long-format game that can be used across multiple classroom sessions to support development science inquiry practices as well as assess different learning pathways within the game. In this work-in-progress poster, we discuss how the team approached design and development of the game to ensure validity of the game, and how we are planning to further investigate validity evidence of the game as a whole. ",
-                "paper_link": "https://icce2022.apsce.net/uploads/P2_WIPP_093.pdf",
-                "year": "2022",
-                "project_code_link": "",
-                "published_in": "Iyer, S. et al. (Eds.) (2022). Proceedings of the 30th International Conference on Computers in Education. Asia-Pacific Society for Computers in Education"
-            },
-            {
-                "name": "Integrating Large Language Models and Machine Learning to Detect Struggle in Educational Games",
-                "authors" : [
-                    "Xiner Liu", "Zhanlan Wei", "Ryan S Baker", "Shari J Metcalf", "Jiayi Zhang", "Amanda Barany", "Stefan Slater", "Luke Swanson", "David J Gagnon"
-                ],
-                "abstract": "This study explores the integration of Large Language Models (LLMs), specifically GPT-4o, with machine learning (ML) to automatically detect struggle behaviors in a science exploration game. We evaluate GPT-4o’s ability to analyze text replays, which convert raw gameplay logs into human-readable sequences of player actions, against existing machine-learned struggle detectors. The LLM and ML approaches achieve comparable performance but have complementary strengths. GPT-4o is effective at identifying struggle in instances where the human-engineered features used in traditional ML models fail to capture meaningful behavioral patterns, while ML detectors perform better at identifying struggle in tasks that involve numerical reasoning (e.g., frequent pauses) and in more complex tasks where structured features provide clearer signals.",
-                "paper_link": "https://doi.org/10.1007/978-3-031-98462-4_50",
-                "year": "2025",
-                "project_code_link": "",
-                "published_in": "In: Cristea, A.I., Walker, E., Lu, Y., Santos, O.C., Isotani, S. (eds) Artificial Intelligence in Education. AIED 2025. Lecture Notes in Computer Science(), vol 15881. Springer, Cham."
             }
         ]
     },
@@ -350,6 +350,17 @@
                 "year": "2022",
                 "project_code_link": "",
                 "published_in": "Meaningful Play 2022"
+            },
+            {
+                "name": "Counting the Game: Visualizing Changes in Play by Incorporating Game Events",
+                "authors" : [
+                    "Jennifer Scianna", "David Gagnon", "Mariah A Knowles"
+                ],
+                "abstract": "Lakeland is an educational game developed with the intent of exposing secondary science students to complex systems, namely phosphorous cycling. Data collected anonymously through embedded logging structures was sampled to include sessions where players returned to play more than once during December 2019 consistent with classroom play. Using Epistemic Network Analysis, games from the same player were compared to identify significant differences in how players responded to game events. Consistent with prior research around systems thinking, players’ ability to think through temporally distant phenomena, as evidenced by changes in their use of time manipulation and short vs. self-sustaining strategies in Game 1 and Game 2, demonstrate the potential for ENA to uncover and even assess complex student behaviors using log data. Furthermore, this study highlights the importance of including computer-generated data alongside the human-generated reactions being logged.",
+                "paper_link": "https://doi.org/10.1007/978-3-030-67788-6_15",
+                "year": "2021",
+                "project_code_link": "",
+                "published_in": "In: Ruis, A.R., Lee, S.B. (eds) Advances in Quantitative Ethnography. ICQE 2021. Communications in Computer and Information Science, vol 1312. Springer, Cham."
             }
         ]
     },
@@ -389,6 +400,17 @@
         "feature_readme_link": "https://github.com/opengamedata/opengamedata-core/blob/master/src/ogd/games/PENGUINS/README.md",
         "studies": [
             {
+                "name": "Demonstrating Replay for Highly Scalable and Cost-Effective User Research of Virtual Reality Learning Games",
+                "authors" : [
+                    "David J Gagnon", "Kevin Ponto", "Luke Swanson", "Ross Tredinnick"
+                ],
+                "abstract": "Observing users interacting with a learning game, often referred to as playtesting, is a critical component of usability testing. Unfortunately, this practice is expensive, requiring users and researchers to be in the same place at the same time as the participants. With Virtual Reality, this difficulty is amplified due to the experience being hidden from researcher view by default, and the extra complexity of setting up casting to an external monitor, especially with groups. In this paper we develop and utilize a replay-based approach to usability testing that relieves these concerns. The approach uses a low-bandwidth stream of telemetry signals that are generated by the original play session. These signals are then reconstructed into a full representation of the original experience at a different time or place and leveraged to identify usability issues. Once the issues have been discovered, automated processes are developed to computationally identify their presence and severity in arbitrarily large public audiences. This work contributes a demonstrated use of replay for Virtual Reality usability research, and a novel use of replay combined with educational data mining to develop an automated process for studying large audiences at low cost.",
+                "paper_link": "https://doi.org/10.56198/54rfwf69 ",
+                "year": "2025",
+                "project_code_link": "",
+                "published_in": "Immersive Learning Research - Academic, 1(1), 44-50."
+            },
+            {
                 "name": "Waddle: Developing Empathy for Adélie Penguins By Direct Embodiment in Virtual Reality",
                 "authors" : [
                     "Gagnon, D.J.","Ponto, K.","Verbeke, M.","Nathan, M.","Kopp, K.","Tredinnick, R."
@@ -409,17 +431,6 @@
                 "year": "2023",
                 "project_code_link": "",
                 "published_in": "In 29th ACM Symposium on Virtual Reality Software and Technology (VRST 2023), October 09--11, 2023, Christchurch, New Zealand. ACM, New York, NY, USA"
-            },
-            {
-                "name": "Demonstrating Replay for Highly Scalable and Cost-Effective User Research of Virtual Reality Learning Games",
-                "authors" : [
-                    "David J Gagnon", "Kevin Ponto", "Luke Swanson", "Ross Tredinnick"
-                ],
-                "abstract": "Observing users interacting with a learning game, often referred to as playtesting, is a critical component of usability testing. Unfortunately, this practice is expensive, requiring users and researchers to be in the same place at the same time as the participants. With Virtual Reality, this difficulty is amplified due to the experience being hidden from researcher view by default, and the extra complexity of setting up casting to an external monitor, especially with groups. In this paper we develop and utilize a replay-based approach to usability testing that relieves these concerns. The approach uses a low-bandwidth stream of telemetry signals that are generated by the original play session. These signals are then reconstructed into a full representation of the original experience at a different time or place and leveraged to identify usability issues. Once the issues have been discovered, automated processes are developed to computationally identify their presence and severity in arbitrarily large public audiences. This work contributes a demonstrated use of replay for Virtual Reality usability research, and a novel use of replay combined with educational data mining to develop an automated process for studying large audiences at low cost.",
-                "paper_link": "https://doi.org/10.56198/54rfwf69 ",
-                "year": "2025",
-                "project_code_link": "",
-                "published_in": "Immersive Learning Research - Academic, 1(1), 44-50."
             }
         ]
     },
@@ -494,6 +505,17 @@
         "event_readme_link": "https://github.com/opengamedata/opengamedata-core/blob/master/src/ogd/games/THERMOVR/README.md",
         "feature_readme_link": "https://github.com/opengamedata/opengamedata-core/blob/master/src/ogd/games/THERMOVR/README.md",
         "studies": [
+            {
+                "name": "Virtual Labs for Undergraduate Engineering: Does Virtual Reality have any advantages over a web-based simulation or traditional homework assignment?",
+                "authors" : [
+                    "David J Gagnon", "Arganthael Berson", "John M Pfotenhauer"
+                ],
+                "abstract": "In Fall 2024, we studied the use of ThermoLab, a publically available virtual laboratory designed to support conceptual understanding in undergraduate thermodynamics. We conducted a randomized control experiment at a large public university in the midwest, with 163 participants, comparing the use of the web-and VR-based virtual laboratory with a business-as-usual control condition. The purpose of this experiment is to better understand the advantages of tradeoffs of highly novel and immersive, but generally more logistically challenging Virtual Reality learning experiences, in comparison to a virtual laboratory that can be run within a web browser. We used previously validated instruments to measure thermodynamics conceptual understanding, perceived usefulness, usability, as well as researcher developed instruments for enjoyment. The results showed that the ThermoLab virtual laboratory supported increases in student understanding of thermodynamics concepts, but only in the web version. Both versions performed better than the control in terms of enjoyment, and perceived usefulness. This study therefore demonstrates the value of the ThermoLab virtual laboratory in undergraduate engineering education, but cautions that VR may not be worth the additional challenges it brings.",
+                "paper_link": "https://peer.asee.org/57329",
+                "year": "2025",
+                "project_code_link": "",
+                "published_in": "Paper presented at 2025 ASEE Annual Conference & Exposition , Montreal, Quebec, Canada ."
+            },
             {
                 "name": "ThermoVR: Using Virtual Reality and Playful Simulation to Teach and Assess Introductory Thermodynamics Concepts",
                 "authors" : [
