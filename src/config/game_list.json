@@ -37,6 +37,17 @@
                 "year": "2022",
                 "project_code_link": "",
                 "published_in": "Iyer, S. et al. (Eds.) (2022). Proceedings of the 30th International Conference on Computers in Education. Asia-Pacific Society for Computers in Education"
+            },
+            {
+                "name": "Modeling Player Progression in an Educational Game Using Ordered Networks",
+                "authors" : [
+                        "Xiner Liu", "Jennifer Scianna", "Shari J. Metcalf", "Zhanlan Wei", "Ryan S. Baker", "Amanda Barany", "Luke Swanson", "David J. Gagnon" 
+                ],
+                "abstract": "Understanding the sequence of player decisions in open-ended educational games provides insight into how those decisions influence player persistence or readiness for later challenges. This study uses Ordered Network Analysis to examine how players move between jobs of varying difficulty in the educational game Wake. To scaffold players, Wake breaks down multi-phase scientific investigations into smaller “jobs”. Each job is manually coded based on its difficulty level in Experimentation, Modeling, or Argumentation. We use these difficulty ratings, along with whether the player completed or quit it, as codes to model player progression. We see that players who completed a job with a high quit rate on their first attempt more often followed paths with gradually increasing difficulty prior to accepting that job. In contrast, other players who quit the same job with a high quit rate on their first attempt were more likely to have failed prior jobs requiring basic skills in Experimentation or Modeling when moving from jobs that did not involve such components. They also tended to remain within jobs without such components across multiple transitions, which may reflect lower preparedness or content knowledge compared to those who completed the later difficult job. Findings also show that players who completed the difficult job on their second attempt spent the time between attempts completing jobs with lower difficulty, which may have helped strengthen foundational skills relevant to the target job or restore confidence. These findings point to opportunities for progression-aware intervention design based on how successful and unsuccessful players move through different types of jobs.",
+                "paper_link": "https://doi.org/10.1007/978-3-032-12229-2_24",
+                "year": "2025",
+                "project_code_link": "",
+                "published_in": "In: Carmona, G., Lima, C., Santos, M.J., Benítez, H., Montero-Moguel, L., Galarza-Tohen, B. (eds) Advances in Quantitative Ethnography. ICQE 2025. Communications in Computer and Information Science, vol 2677. Springer, Cham."
             }
         ]
     },
