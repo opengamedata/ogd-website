@@ -6,6 +6,7 @@ src/**/AppConfig.php
 src/**/AppConfig.py
 **/php_errors.log
 cspell.json
+**/*.bak
 
 # compiled output
 /src/assets/styles/*.css
