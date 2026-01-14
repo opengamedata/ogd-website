@@ -22,29 +22,29 @@ class Publication:
         )
 
     @property
-    def Authors(self) -> Optional[List[str]]:
-        return self._authors
+    def Authors(self) -> List[str]:
+        return self._authors or []
     @property
     def Name(self) -> Optional[str]:
         return self._name
     @property
     def PaperLink(self) -> Optional[str]:
         return self._paper_link
-    @property
-    def FormattedPaperLink(self) -> Optional[str]:
-        return f"<a href=\"{self.PaperLink}\" target=\"_blank\">{self.Name}.</a>" if self.PaperLink else f"{self.Name}."
+    # @property
+    # def FormattedPaperLink(self) -> Optional[str]:
+    #     return f"<a href=\"{self.PaperLink}\" target=\"_blank\">{self.Name}.</a>" if self.PaperLink else f"{self.Name}."
     @property
     def Year(self) -> Optional[int]:
         return self._year
     @property
     def ProjectCodeLink(self) -> Optional[str]:
         return self._project_code_link
-    @property
-    def FormattedCodeLink(self) -> str:
-        return f"<a class=\"btn btn-outline-secondary btn-publication mt-3\" href=\"{self.ProjectCodeLink}\" target=\"_blank\">View Project Code</a>" if self._project_code_link else "<span>(Project Code Not Available)</span>"
+    # @property
+    # def FormattedCodeLink(self) -> str:
+    #     return f"<a class=\"btn btn-outline-secondary btn-publication mt-3\" href=\"{self.ProjectCodeLink}\" target=\"_blank\">View Project Code</a>" if self._project_code_link else "<span>(Project Code Not Available)</span>"
     @property
     def PublishedIn(self) -> Optional[str]:
         return self._published_in
-    @property
-    def FormattedPublication(self) -> str:
-        return f"{', '.join(self.Authors or [])}. ({self.Year}). {self.FormattedPaperLink} {self.PublishedIn}. <br>{self.FormattedCodeLink}"
+    # @property
+    # def FormattedPublication(self) -> str:
+    #     return f"{', '.join(self.Authors or [])}. ({self.Year}). {self.FormattedPaperLink} {self.PublishedIn}. <br>{self.FormattedCodeLink}"
