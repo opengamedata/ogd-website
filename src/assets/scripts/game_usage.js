@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             var currentMonthName = new Date(currentYear, currentJSMonth).toLocaleString('default', { month: 'long' });
 
             gameUsage = new GameUsage(response.Values.gameId, response.Values.sessions);
-            currentSession = gameUsage.sessions.find(e => e.month === currentMonth && e.year === currentYear);
+            currentSession = gameUsage.sessions.find(e => e.month === currentMonth && e.year === currentYear) ?? gameUsage.sessions.at(-1);
             // update the game usage information
             var monthlySessions = currentSession.total_sessions < 1000 ? currentSession.total_sessions : (currentSession.total_sessions / 1000).toFixed(0) + 'K';
             numPlays.innerHTML = monthlySessions + ' sessions';
