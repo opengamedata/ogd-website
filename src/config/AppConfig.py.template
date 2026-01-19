@@ -7,6 +7,7 @@ from ogd.common.utils.typing import Map
 class AppConfig:
     # Set Api Url base string (populated in Github actions)
     APP_CONFIG : Final[Map] = {}
+    APP_CONFIG['LOCAL'] = True
     APP_CONFIG['DISPLAY_VERSION'] = False
     APP_CONFIG['WEBSITE_API_URL_BASE'] = 'OGD_API_PATH_BASE'
 
