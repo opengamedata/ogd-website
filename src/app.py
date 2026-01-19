@@ -11,25 +11,25 @@ from models.GameDetails import GameDetails
 from models.GameFileInfo import GameFileInfo
 from models.PipelineElement import PipelineElement
 
-app = Flask(__name__, static_folder="assets")
-app.config.update(AppConfig.APP_CONFIG)
+application = Flask(__name__, static_folder="assets")
+application.config.update(AppConfig.APP_CONFIG)
 
-@app.template_filter('log')
+@application.template_filter('log')
 def log(msg:str, level:str="INFO"):
     match level.upper():
         case "ERR" | "ERROR":
-            app.logger.error(msg)
+            application.logger.error(msg)
         case "WARN" | "WARNING":
-            app.logger.warning(msg)
+            application.logger.warning(msg)
         case "INFO" | "INFORMATION":
-            app.logger.info(msg)
+            application.logger.info(msg)
         case "DEBUG":
-            app.logger.debug(msg)
+            application.logger.debug(msg)
     return ""
 
-@app.route("/")
-@app.route("/index")
-@app.route("/index.html")
+@application.route("/")
+@application.route("/index")
+@application.route("/index.html")
 def index():
     # Get game list
     gamelist = services.getGameList()
@@ -43,18 +43,18 @@ def index():
 
     return render_template("index/index.html", games=games, display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION", True))
     
-@app.route("/about")
-@app.route("/about.html")
+@application.route("/about")
+@application.route("/about.html")
 def about():
     return render_template("about/about.html", display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION", True))
 
-@app.route("/getinvolved")
-@app.route("/getinvolved.html")
+@application.route("/getinvolved")
+@application.route("/getinvolved.html")
 def getinvolved():
     return render_template("getinvolved/getinvolved.html", display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION", True))
 
-@app.route("/gamedata")
-@app.route("/gamedata.html")
+@application.route("/gamedata")
+@application.route("/gamedata.html")
 def gamedata():
     """ Generate the gamedata page.
 
@@ -169,4 +169,4 @@ def generatePipelineButtons(game_files:Optional[GameFileInfo]) -> Dict[str, Pipe
     }
 
 if __name__ == '__main__':
-    app.run()
+    application.run()
