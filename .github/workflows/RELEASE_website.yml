@@ -95,6 +95,9 @@ jobs:
         remote_user: ${{ secrets.VPN_USER }}
         remote_key:  ${{ secrets.VPN_KEY }}
 
+    - name: Set up venv for the deploy
+      run: ssh -o StrictHostKeyChecking=no -T -i ./key.txt ${{ secrets.DEPLOY_USER }}@${{ env.DEPLOY_HOST }} "cd ${{ env.DEPLOY_DIR }}; python -m venv; source venv/bin/activate; python -m pip install -r requirements.txt --system-site-packages"
+
   # 4. Cleanup & complete
     - name: Upload logs as artifacts
       uses: actions/upload-artifact@v4
