@@ -2,8 +2,6 @@ import sys
 import os
 from pathlib import Path
 
-from config.AppConfig import AppConfig
-
 # Ensure this path is writable by the user the WSGI daemon runs as
 os.environ['OGD_FLASK_APP_LOG_FILE'] = '/var/log/flask-apps/ogd-website.log'
 
@@ -14,6 +12,7 @@ HOME_FOLDER = "placeholder home"
 if not HOME_FOLDER in sys.path:
     sys.path.append(HOME_FOLDER)
 
+from config.AppConfig import AppConfig
 if not AppConfig.APP_CONFIG['LOCAL']:
     os.chdir(HOME_FOLDER)
     activation_file = Path(HOME_FOLDER) / ".venv" / "bin" / "activate_this.py"
