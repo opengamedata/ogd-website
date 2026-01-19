@@ -95,6 +95,8 @@ jobs:
         remote_user: ${{ secrets.VPN_USER }}
         remote_key:  ${{ secrets.VPN_KEY }}
 
+    - name: Upload requirements.txt
+      run: scp -o StrictHostKeyChecking=no -T -i ./key.txt ./requirements.txt ${{ secrets.DEPLOY_USER }}@${{ env.DEPLOY_HOST }}:${{ env.DEPLOY_DIR }}
     - name: Set up venv for the deploy
       run: ssh -o StrictHostKeyChecking=no -T -i ./key.txt ${{ secrets.DEPLOY_USER }}@${{ env.DEPLOY_HOST }} "cd ${{ env.DEPLOY_DIR }}; python -m venv --system-site-packages; source venv/bin/activate; python -m pip install -r requirements.txt"
 
