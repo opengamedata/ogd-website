@@ -15,7 +15,7 @@ if not HOME_FOLDER in sys.path:
 
 from config.AppConfig import AppConfig
 if not AppConfig.APP_CONFIG['LOCAL']:
-    py_version = '.'.join([str(sys.version_info.major), str(sys.version_info.minor)])
+    py_version = ".".join([str(sys.version_info.major), str(sys.version_info.minor)])
     packages_dir = Path(HOME_FOLDER) / "lib" / f"python{py_version}" / "site-packages"
 
     site.addsitedir(str(packages_dir))
