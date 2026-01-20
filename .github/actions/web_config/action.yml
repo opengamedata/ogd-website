@@ -32,7 +32,7 @@ runs:
       run: cp src/config/AppConfig.py.template src/config/AppConfig.py 
       shell: bash
     - name: Set to Non-Local Deploy
-      run: sed -i 's@APP_CONFIG\['\''LOCAL'\''\]\s*=\s*True@APP_CONFIG['\''LOCAL'\''] = '\''False'\''@g' src/config/AppConfig.py
+      run: sed -i 's@APP_CONFIG\['\''LOCAL'\''\]\s*=\s*True@APP_CONFIG['\''LOCAL'\''] = False@g' src/config/AppConfig.py
       shell: bash
     - name: Set API Base URL
       run: sed -i 's@APP_CONFIG\['\''WEBSITE_API_URL_BASE'\''\]\s*=\s*'\''.*'\''@APP_CONFIG['\''WEBSITE_API_URL_BASE'\''] = '\''${{inputs.api_base}}'\''@g' src/config/AppConfig.py
