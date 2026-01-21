@@ -8,14 +8,14 @@
   <link rel="icon" type="image/x-icon" href="assets/extern/images/logos/ogd/OGD-16.png">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Inter:wght@400;500;700">
   <link rel="stylesheet" href="https://use.typekit.net/zra8nem.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/bootstrap.css')   | purgeapp }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css')      | purgeapp }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/hero.css')        | purgeapp }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css')      | purgeapp }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/dashboard.css')   | purgeapp }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/about.css')       | purgeapp }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/gamedata.css')    | purgeapp }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/getinvolved.css') | purgeapp }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/bootstrap.css')   }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css')      }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/hero.css')        }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css')      }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/dashboard.css')   }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/about.css')       }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/gamedata.css')    }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/getinvolved.css') }}">
   {# TODO : test whether we could do like {{ config.WEBSITE_API_URL_BASE) | s | e }} or so to get quote wrapping #}
   <script>
     const RAW_API_URL_BASE = "{{ config.WEBSITE_API_URL_BASE }}";
