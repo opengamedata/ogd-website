@@ -27,6 +27,25 @@ def log(msg:str, level:str="INFO"):
             application.logger.debug(msg)
     return ""
 
+@application.template_filter('purgeapp')
+def purgeapp(url:str) -> str:
+    """HACK: Custom filter to remove `app.wsgi/` from any url_for paths.
+
+    This should allow us to take advantage of using url_for(...) even while the URLs technically include
+    `.../app.wsgi/...` somewhere within them.
+    Currently, this is causing 404s because we end up with hrefs whose paths look something like:
+    `web.site/path/to/branch/app.wsgi/assets/style/styles.css` or similar.
+
+    Hopefully, we'll be able to solve the fundamental issue of app.wsgi being in the URL at all,
+    but until then, this might get us back to sane file paths.
+
+    :param url: The URL from which to purge `app.wsgi/`
+    :type url: str
+    :return: The URL with `app.wsgi/` stripped
+    :rtype: str
+    """
+    return re.sub(pattern="app.wsgi/", repl="", string=url)
+
 @application.route("/")
 @application.route("/index")
 @application.route("/index.html")
