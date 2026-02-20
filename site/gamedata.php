@@ -359,7 +359,9 @@ function renderTemplatesSection(?GameFileInfo $game_files, string $game_id)
 
         $events_class   = $events_template   ? '' : $events_class;
         $players_class  = $players_template  ? '' : $players_class;
+        $player_dash_class  = $game_files->getPlayersFileLink() ? '' : 'd-none';
         $pop_class      = $pop_template      ? '' : $pop_class;
+        $pop_dash_class = $game_files->getPopulationFileLink() ? '' : 'd-none';
         $sessions_class = $sessions_template ? '' : $sessions_class;
     }
 
@@ -372,9 +374,9 @@ function renderTemplatesSection(?GameFileInfo $game_files, string $game_id)
             <div class="btn-group-vertical">
                 <a id="events-data"     class="btn btn-secondary btn-outline-secondary mb-2 {$events_class}"   href="{$events_template}">Events Template</a>
                 <a id="players-data"    class="btn btn-secondary btn-outline-secondary mb-2 {$players_class}"  href="{$players_template}">Player Features Template</a>
-                <a id="players-dash"    class="btn btn-secondary btn-outline-secondary mb-2 {$players_class}"  href="{$players_dashboard}">Player Dashboard Tool</a>
+                <a id="players-dash"    class="btn btn-secondary btn-outline-secondary mb-2 {$player_dash_class}"  href="{$players_dashboard}">Player Dashboard Tool</a>
                 <a id="population-data" class="btn btn-secondary btn-outline-secondary mb-2 {$pop_class}"      href="{$pop_template}">Population Features Template</a>
-                <a id="population-dash" class="btn btn-secondary btn-outline-secondary mb-2 {$pop_class}"      href="{$pop_dashboard}">Population Dashboard Tool</a>
+                <a id="population-dash" class="btn btn-secondary btn-outline-secondary mb-2 {$pop_dash_class}" href="{$pop_dashboard}">Population Dashboard Tool</a>
                 <a id="sessions-data"   class="btn btn-secondary btn-outline-secondary mb-2 {$sessions_class}" href="{$sessions_template}">Session Features Template</a>
             </div>
 
