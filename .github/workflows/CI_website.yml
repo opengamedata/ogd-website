@@ -59,6 +59,7 @@ jobs:
       uses: ./.github/actions/web_config
       with:
         api_base: ${{ github.event.inputs.CUSTOM_API_ENDPOINT }}
+        dash_base: https://ogd-design-dashboard.vercel.app/
     
   # 2. Build 
     - name: Install Node
