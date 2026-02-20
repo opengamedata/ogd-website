@@ -51,6 +51,7 @@ jobs:
       uses: ./.github/actions/web_config
       with:
         api_base: https://${{env.API_HOST}}/${{env.API_PATH}}
+        dash_base: https://ogd-design-dashboard.vercel.app/
         use_display_version: 'true'
         display_version: ${{ github.sha }}
     - name: Set up Config File (with Custom API Endpoint)
