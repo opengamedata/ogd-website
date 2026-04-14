@@ -112,6 +112,80 @@
         "feature_readme_link": null,
         "studies": []
     },
+    "CONECTADO": {
+        "game_name": "Conectado",
+        "game_description": "This simple puzzle game introduces kids to crystals! Players try their hand at arranging molecules with different shapes and properties into an ordered, stable configuration.",
+        "target_audience": "Ages 11-17",
+        "subject": "Social Sciences / Citizenship / Anti-bullying education",
+        "developers": [
+            {
+                "name": "e-UCM (eLearning Research Group)",
+                "link": "https://www.e-ucm.es/"
+            }
+        ],
+        "play_link": "https://e-ucm.github.io/ConectadoWeb/?wisconsin=true",
+        "source_link": "https://github.com/e-ucm/ConectadoWeb",
+        "thumbnail_path" : "./assets/images/thumbs/conectado-thumb.png",
+        "event_readme_link": "https://github.com/opengamedata/opengamedata-core/tree/master/src/ogd/games/CONECTADO",
+        "feature_readme_link": null,
+        "studies": [
+            {
+                "name": "Validation of a cyberbullying serious game using game analytics",
+                "authors" : [
+                    "Calvo-Morata, A.", "Rotaru, D. C.", "Alonso-Fernández, C.", "Freire-Morán, M.", "Martínez-Ortiz, I.", "Fernández-Manjón, B."
+                ],
+                "abstract": "Bullying is a serious social problem at schools, very prevalent independently of culture and country, and particularly acute for teenagers. With the irruption of always-on communications technology, the problem, now termed cyberbullying, is no longer restricted to school premises and hours. There are many different approaches to address cyberbullying, such as school buddies, educational videos, or involving police in counseling; however, awareness continues to be insufficient. We have developed Conectado, a serious game to be used in the classroom to increase awareness on bullying and cyberbullying in schools. While playing the game, students gain a first-hand immersive experience of the problem and the associated emotions, fostering awareness and empathy with victims. This paper describes Conectado and presents its validation with actual students using game analytics.  ",
+                "paper_link": "https://ieeexplore.ieee.org/document/8520778",
+                "year": "2018",
+                "project_code_link": null,
+                "published_in": "IEEE Transactions on Learning Technologies, 13(1)"
+            },
+            {
+                "name": "Creating awareness on bullying and cyberbullying among young people: Validating the effectiveness and design of the serious game Conectado",
+                "authors" : [
+                    "Calvo-Morata, A.", "Alonso-Fernández, C.", "Freire, M.", "Martínez-Ortiz, I.", "Fernández-Manjón, B."
+                ],
+                "abstract": "Serious games have proven to be educational tools with numerous positive effects, capable of promoting learning, changing behavior, or improving training and skills development, among other effects. Serious games can also be applied to address and prevent social problems. This study describes the experiments and analyses we have carried out to test the effectiveness of Conectado, a serious game created to prevent bullying and cyberbullying in schools by increasing awareness of the problem in players. We have used the results from these experiments to answer different research questions regarding the game’s acceptance and effectiveness, validating several characteristics of the game design. We have also studied the influence of players’ characteristics on the effect of the game, as well as the relationship between the in-game behaviors of players and their degree of awareness. We have verified a positive effect of the game in terms of an increase of awareness regarding bullying and cyberbullying for all target users, and have provided further insight into how this increase is related to different players’ characteristics and behaviors.  ",
+                "paper_link": "https://www.sciencedirect.com/science/article/abs/pii/S0736585321000071",
+                "year": "2021",
+                "project_code_link": null,
+                "published_in": "Telematics and Informatics, 60"
+            },
+            {
+                "name": "Evidence-based evaluation of a serious game to increase bullying awareness",
+                "authors" : [
+                    "Alonso-Fernández, C.", "Calvo-Morata, A.", "Freire, M.", "Martínez-Ortiz, I.", "Fernández-Manjón, B."
+                ],
+                "abstract": "Game Learning Analytics can be used to conduct evidence-based evaluations of the effect that serious games produce on their players by combining in-game user interactions and traditional evaluation methods. We illustrate this approach with a case-study where we conduct an evidence-based evaluation of a serious game’s effectiveness to increase awareness of bullying. In this paper, we describe: (1) the full process of tracking in-game interactions, analyzing the traces collected using the standard xAPI-SG format, and deriving game learning analytics variables (to be used as evidences); and (2) the use of those variables to predict the increase in bullying awareness. We consider that this process can be generalized and replicated to systematize, and therefore simplify, evidence-based evaluations for other serious games based on the interaction data of their players.  ",
+                "paper_link": "https://www.tandfonline.com/doi/abs/10.1080/10494820.2020.1799031",
+                "year": "2020",
+                "project_code_link": null,
+                "published_in": "Interactive Learning Environments, 31(2)"
+            },
+            {
+                "name": "Applicability of a cyberbullying videogame as a teacher tool: Comparing teachers and educational sciences students",
+                "authors" : [
+                    "Calvo-Morata, A.", "Freire-Moran, M.", "Martinez-Ortiz, I.", "Fernandez-Manjon, B."
+                ],
+                "abstract": "Conectado is a serious game designed to increase the awareness of young people on bullying and cyberbullying in schools. It is designed as an educational tool for teachers to be used in classrooms with their students to provide a common experience in class about bullying and cyberbullying. When playing the game, students are placed in the role of victims, making them reflect on the problems, consequences, and strategies that do and do not work. In addition, by making students role-play as victims, the game increases empathy with actual victims. After a game-play session, teachers can start an open conversation about bullying and cyberbullying with students based on their shared in-game experiences. Since the game is designed to be used in the classroom as an educational tool, it is not only important that it is effective, but also the current and future educators find it potentially applicable to their classrooms. This article presents the results of how the serious game Conectado, previously validated with students, has been tested with 93 actual teachers in eight schools and with 113 educational sciences students in two university centers. Conectado has been well accepted, and both teachers and students of educational sciences see it as a useful tool for classroom use, which can help to promote empathy with victims and raise bullying awareness among their students.  ",
+                "paper_link": "https://ieeexplore.ieee.org/abstract/document/8701437",
+                "year": "2019",
+                "project_code_link": null,
+                "published_in": "IEEE Access, 7"
+            },
+            {
+                "name": "Conectado in the classroom: applying a video game for the prevention of bullying at the school",
+                "authors" : [
+                    "Calvo-Morata, A.", "García-Diego, C.", "Freire, M.", "Martínez-Ortiz, I.", "Fernández-Manjón, B."
+                ],
+                "abstract": "  ",
+                "paper_link": "https://library.iated.org/view/CALVOMORATA2019CON",
+                "year": "2019",
+                "project_code_link": null,
+                "published_in": "12th annual International Conference of Education, Research and Innovation"
+            }
+        ]
+    },
     "CRYSTAL": {
         "game_name": "Crystal Cave",
         "game_description": "This simple puzzle game introduces kids to crystals! Players try their hand at arranging molecules with different shapes and properties into an ordered, stable configuration.",
