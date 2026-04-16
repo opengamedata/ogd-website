@@ -95,6 +95,10 @@ class GameDetails
                 $path = 'mit/mit-64.png';
             break;
 
+            case 'e-UCM':
+                $path = 'eUCM/eucm-64.png';
+            break;
+
             case 'Field Day Lab':
             default:
                 $path = 'fieldday/fieldday-64.png';
