@@ -78,7 +78,7 @@ function renderOverviewSection(?GameDetails $game_details)
                     <div class="button-bar">
                         <a class="btn btn-secondary" href="{$game_details->getDeveloperLink()}" target="_blank">Developer: {$game_details->getDeveloperName()}</a>
                         <a class="btn btn-secondary" href="{$game_details->getPlayLink()}" target="_blank">Play Game</a>
-                        <a class="btn btn-secondary" href="{$game_details->getSourceLink()}" target="_blank">Source Code</a>'
+                        <a class="btn btn-secondary" href="{$game_details->getSourceLink()}" target="_blank">Source Code</a>
                         {$publications_link}
                     </div>
                 </div>
@@ -336,6 +336,31 @@ function renderPipelineTargetSection(?GameFileInfo $game_files, array $buttons)
         HTML;
 }
 
+function renderVisualizationDashboardSection(?GameFileInfo $game_files, string $game_id)
+{
+    $player_dash_class  = 'd-none';
+    $pop_dash_class     = 'd-none';
+    $players_dashboard  = '';
+    $pop_dashboard      = '';
+
+    if (isset($game_files)) {
+        $player_dash_class  = $game_files->getPlayersFileLink() ? '' : 'd-none';
+        $pop_dash_class = $game_files->getPopulationFileLink() ? '' : 'd-none';
+        $players_dashboard = \AppConfig::GetConfig()['DASHBOARD_URL_BASE'] . "?game=".$game_id."&year=".$game_files->getFirstYear()."&month=".$game_files->getFirstMonth()."&level=player";
+        $pop_dashboard = \AppConfig::GetConfig()['DASHBOARD_URL_BASE'] . "?game=".$game_id."&year=".$game_files->getFirstYear()."&month=".$game_files->getFirstMonth()."&level=population";
+    }
+    return <<<HTML
+        <section id="visualization-dashboard" class="mb-5">
+            <h3>Visualization</h3>
+            <p>Visualize the data for the selected month in the OpenGameData dashboard.</p>
+            <div class="btn-group-vertical">
+                <a id="players-dash"    class="btn btn-secondary btn-outline-secondary mb-2 {$player_dash_class}"  href="{$players_dashboard}" target="_blank">View Player Data in Dashboard</a>
+                <a id="population-dash" class="btn btn-secondary btn-outline-secondary mb-2 {$pop_dash_class}" href="{$pop_dashboard}" target="_blank">View Population Data in Dashboard</a>
+            </div>
+        </section>
+        HTML;
+}
+
 function renderTemplatesSection(?GameFileInfo $game_files, string $game_id)
 {
     $events_class   = 'd-none';
@@ -352,35 +377,29 @@ function renderTemplatesSection(?GameFileInfo $game_files, string $game_id)
 
         $events_template   = $game_files->getEventsTemplateLink();
         $players_template  = $game_files->getPlayersTemplateLink();
-        $players_dashboard = \AppConfig::GetConfig()['DASHBOARD_URL_BASE'] . "?game=".$game_id."&year=".$game_files->getFirstYear()."&month=".$game_files->getFirstMonth()."&level=player";
         $pop_template      = $game_files->getPopulationTemplateLink();
-        $pop_dashboard = \AppConfig::GetConfig()['DASHBOARD_URL_BASE'] . "?game=".$game_id."&year=".$game_files->getFirstYear()."&month=".$game_files->getFirstMonth()."&level=population";
         $sessions_template = $game_files->getSessionsTemplateLink();
 
         $events_class   = $events_template   ? '' : $events_class;
         $players_class  = $players_template  ? '' : $players_class;
-        $player_dash_class  = $game_files->getPlayersFileLink() ? '' : 'd-none';
         $pop_class      = $pop_template      ? '' : $pop_class;
-        $pop_dash_class = $game_files->getPopulationFileLink() ? '' : 'd-none';
         $sessions_class = $sessions_template ? '' : $sessions_class;
     }
 
     return <<<HTML
         <section id="templates" class="mb-5">
             <!-- Templates -->
-            <h3>Templates and Tools</h3>
-            <p>These samples link out to a github codespace and are useful for exploration and visualization. They are also effective starting spots for your own experiments.</p>
+            <h3>Templates</h3>
+            <p>These samples link out to a github codespace and are useful for exploration. They are also effective starting spots for your own experiments.</p>
 
             <div class="btn-group-vertical">
                 <a id="events-data"     class="btn btn-secondary btn-outline-secondary mb-2 {$events_class}"   href="{$events_template}">Events Template</a>
                 <a id="players-data"    class="btn btn-secondary btn-outline-secondary mb-2 {$players_class}"  href="{$players_template}">Player Features Template</a>
-                <a id="players-dash"    class="btn btn-secondary btn-outline-secondary mb-2 {$player_dash_class}"  href="{$players_dashboard}">Player Dashboard Tool</a>
                 <a id="population-data" class="btn btn-secondary btn-outline-secondary mb-2 {$pop_class}"      href="{$pop_template}">Population Features Template</a>
-                <a id="population-dash" class="btn btn-secondary btn-outline-secondary mb-2 {$pop_dash_class}" href="{$pop_dashboard}">Population Dashboard Tool</a>
                 <a id="sessions-data"   class="btn btn-secondary btn-outline-secondary mb-2 {$sessions_class}" href="{$sessions_template}">Session Features Template</a>
             </div>
 
-        </section>'
+        </section>
         HTML;
 }
 
@@ -389,7 +408,7 @@ function renderPublicationsSection(?GameDetails $game_details)
     $publications = <<<HTML
         <li class="mb-4 d-flex align-items-start">
             NO PUBLICATIONS AVAILABLE, GAME DETAILS NOT FOUND!
-        </li>'
+        </li>
         HTML;
 
     if (isset($game_details)) {
@@ -409,7 +428,7 @@ function renderPublicationsSection(?GameDetails $game_details)
         <section id="publications" class="mb-5">
             <!-- Publications -->
             <h3>Publications</h3>
-            <ul class="list-unstyled mt-4">'
+            <ul class="list-unstyled mt-4">
                 {$publications}
             </ul>
         </section>
@@ -426,7 +445,9 @@ function renderPublicationsSection(?GameDetails $game_details)
         </div>
         <div class="col-md col-lg-7 ps-lg-5 ps-xl-0">
             <?php echo renderPipelineTargetSection($game_files, $buttons); ?>
-            <hr>                
+            <hr>
+            <?php echo renderVisualizationDashboardSection($game_files, $game_id); ?>
+            <hr>
             <?php echo renderTemplatesSection($game_files, $game_id); ?>
         </div> <!-- end column -->
     </div> <!-- end row --> 
