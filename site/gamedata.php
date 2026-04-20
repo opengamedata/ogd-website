@@ -26,12 +26,12 @@ require_once 'models/GameFileInfo.php';
 require_once 'components/PipelineButton.php';
 
 // Declare variables
-$game_id = null;
 $game_details = null;
 $game_files = null;
-
 $buttons = null;
+$selected_month = new DateTimeImmutable("-1 month");
 
+error_log("Got request for gamedata.php");
 if (isset($_GET['game']) && $_GET['game'] != '') {
 
     // 1. sanitize game ID by removing any characters that aren't alpha-numeric or an underscore
@@ -43,15 +43,17 @@ if (isset($_GET['game']) && $_GET['game'] != '') {
         error_log($err_str);
     }
     // 3. Get game file info from API
-    /* HACK ALERT! Dumb, stupid, awful hack that assumes a thing called
-       "get game file-info by *month*" will be fine if you don't give it a month whose file info you want,
-       and will say "that's alright good buddy, I'll just give you info on the most recent month."
-       As if it's obvious that a thing that says "request a month" would consider the month optional...
-       Future version of API should provide endpoint to allow request of most recent month for a game, directly.
+    /* HACK ALERT! While this is better than the initial stupidity we had,
+       it is still assumed that the endpoint will return the most recent month *if* we give it a month that doesn't exist.
     */
-    $game_files = services\getGameFileInfoByMonth($game_id);
-    if (!isset($game_files)) {
-        $err_str = "getGameFileInfoByMonth request, for game_id=".$game_id." with year=null and month=null, got no response object!";
+    $year = idate('Y', strtotime("-1 month"));
+    $month = idate('m', strtotime("-1 month"));
+    $game_files = services\getGameFileInfoByMonth($game_id, $year, $month);
+    if (isset($game_files)) {
+        $selected_month = $game_files->getLastDate();
+    }
+    else {
+        $err_str = "getGameFileInfoByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", got no response object!";
         error_log($err_str);
     }
     $buttons = generatePipelineButtons($game_files);
@@ -62,6 +64,34 @@ else {
 }
 
 ?>
+<?php require 'includes/header.php'; ?>
+<main id="gamedata" class="container-fluid">
+    <?php echo renderOverviewSection($game_details); ?>
+    <?php echo renderChartSection($game_files); ?>
+    <div class="row mb-5">
+        <div class="col-md col-lg-5">
+        <?php echo renderPipelineSection($game_details, $selected_month, $buttons); ?>
+        </div>
+        <div class="col-md col-lg-7 ps-lg-5 ps-xl-0">
+            <?php echo renderPipelineTargetSection($game_files, $buttons); ?>
+            <hr>                
+            <?php echo renderTemplatesSection($game_files); ?>
+        </div> <!-- end column -->
+    </div> <!-- end row --> 
+    <?php if ( isset($game_details) && count($game_details->getPublications()) > 0 ) : ?>
+        <hr>
+        <div class="row mb-5 mt-3">
+            <div class="col-md">
+                <?php renderPublicationsSection($game_details); ?>
+            </div>
+        </div>
+    <?php endif; ?>
+</main>
+<script type="module" src="assets/scripts/services.js"></script>
+<script type="module" src="assets/scripts/game_usage.js"></script>
+<!-- Begin Footer Include -->
+<?php require 'includes/footer.php'; ?>
+
 <?php
 function renderOverviewSection(?GameDetails $game_details)
 {
@@ -90,7 +120,7 @@ function renderOverviewSection(?GameDetails $game_details)
         $thumb_elem = '<img class="img-fluid rounded" src="' . $game_details->getThumbPath() . '">';
     }
     else {
-        error_log("Can not generate all elements for the overview in gamedata.php, did not get a valid set of game details!");
+        error_log("Could not generate all elements in renderOverviewSection in gamedata.php, game_details was not set!");
     }
     
     return <<<HTML
@@ -122,6 +152,7 @@ function renderChartSection(?GameFileInfo $game_files) {
 
         $selected_date = $game_files->getLastDate();
         error_log("In renderChartSection, selected date is ".($selected_date ? $selected_date->format('Y-m-d') : 'null'));
+
         if ($selected_date) {
             $selected_year = $selected_date->format('Y');
             $selected_month = $selected_date->format('n');
@@ -164,6 +195,9 @@ function renderChartSection(?GameFileInfo $game_files) {
             error_log("Can not generate full month selection elements for the sessions chart in gamedata.php, did not get a valid selected date!\n\$selected_date=".strval($selected_date));
         }
     }
+    else {
+        error_log("Could not generate all elements in renderChartSection in gamedata.php, game_files was not set!");
+    }
     return <<<HTML
     <section id="monthly-sessions-chart">
         <div class="row mb-3">
@@ -196,22 +230,21 @@ function renderChartSection(?GameFileInfo $game_files) {
 
 function generatePipelineButtons(?GameFileInfo $game_files)
 {
-    $raw_files = [];
-    $detectors_files = [];
-    $event_files = [];
+    $raw_files        = [];
+    $detectors_files  = [];
+    $event_files      = [];
     $extractors_files = [];
-    $feature_files = [];
-    $month_name = "NO MONTH AVAILABLE";
+    $feature_files    = [];
+    $month_name       = "NO MONTH AVAILABLE";
 
     if (isset($game_files)) {
         $raw_files        = $game_files->getRawFileLink(false)    ? array('Raw Data'          => $game_files->getRawFileLink(false))    : [];
         $detectors_files  = $game_files->getDetectorsLink(false)  ? array('Detectors'         => $game_files->getDetectorsLink(false))  : [];
         $event_files      = $game_files->getEventsFileLink(false) ? array('Calculated Events' => $game_files->getEventsFileLink(false)) : [];
         $extractors_files = $game_files->getFeaturesLink(false)   ? array('Extractors'        => $game_files->getFeaturesLink(false))   : []; // aka Extractors or Feature Extractors
-        $feature_files    = $game_files->getFeatureFiles()        ? $game_files->getFeatureFiles()                             : [];
-        $month_name       = $game_files->getLastDate() ? $game_files->getLastDate()->format('F') : $month_name;
+        $feature_files    = $game_files->getFeatureFiles()        ? $game_files->getFeatureFiles()                                      : [];
+        $month_name       = $game_files->getLastDate()            ? $game_files->getLastDate()->format('F') : $month_name;
     }
-
 
     // Create Pipeline buttons (including the transition buttons)
     // $title, $image, $image_active, $selector, $file_links, $month, $text, $is_active, $is_a_transition_button)
@@ -314,6 +347,9 @@ function renderPipelineTargetSection(?GameFileInfo $game_files, array $buttons)
                       && $game_files->getFeatureFiles(false) == false;
         $block_class = $have_no_files ? '' : $block_class;
     }
+    else {
+        error_log("Could not generate all elements in renderPipelineTargetSection in gamedata.php, game_files was not set!");
+    }
 
     return <<<HTML
         <section id="pipeline-target">
@@ -360,6 +396,9 @@ function renderTemplatesSection(?GameFileInfo $game_files)
         $pop_class      = $pop_template      ? '' : $pop_class;
         $sessions_class = $sessions_template ? '' : $sessions_class;
     }
+    else {
+        error_log("Could not generate all elements in renderTemplatesSection in gamedata.php, game_files was not set!");
+    }
 
     return <<<HTML
         <section id="templates" class="mb-5">
@@ -398,6 +437,9 @@ function renderPublicationsSection(?GameDetails $game_details)
         }
         $publications = implode("\n", $elements);
     }
+    else {
+        error_log("Could not generate all elements in renderPublicationsSection in gamedata.php, game_details was not set!");
+    }
 
     return <<<HTML
         <section id="publications" class="mb-5">
@@ -410,30 +452,3 @@ function renderPublicationsSection(?GameDetails $game_details)
         HTML;
 }
 ?>
-<?php require 'includes/header.php'; ?>
-<main id="gamedata" class="container-fluid">
-    <?php echo renderOverviewSection($game_details); ?>
-    <?php echo renderChartSection($game_files); ?>
-    <div class="row mb-5">
-        <div class="col-md col-lg-5">
-        <?php echo renderPipelineSection($game_details, $game_files->getLastDate(), $buttons); ?>
-        </div>
-        <div class="col-md col-lg-7 ps-lg-5 ps-xl-0">
-            <?php echo renderPipelineTargetSection($game_files, $buttons); ?>
-            <hr>                
-            <?php echo renderTemplatesSection($game_files); ?>
-        </div> <!-- end column -->
-    </div> <!-- end row --> 
-    <?php if ( isset($game_details) && count($game_details->getPublications()) > 0 ) : ?>
-        <hr>
-        <div class="row mb-5 mt-3">
-            <div class="col-md">
-                <?php renderPublicationsSection($game_details); ?>
-            </div>
-        </div>
-    <?php endif; ?>
-</main>
-<script type="module" src="assets/scripts/services.js"></script>
-<script type="module" src="assets/scripts/game_usage.js"></script>
-<!-- Begin Footer Include -->
-<?php require 'includes/footer.php'; ?>

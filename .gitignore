@@ -43,6 +43,7 @@ yarn-error.log
 testem.log
 /typings
 tests
+cspell.json
 
 # e2e
 /e2e/*.js

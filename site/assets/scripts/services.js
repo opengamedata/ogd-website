@@ -1,21 +1,21 @@
 import axios from "../scripts/axios.min.js"
 import APIResponse from "../scripts/APIResponse.js"
 
-const getGameUsageByMonth = (gameId, year, month) => {
-    const url = WEBSITE_API_URL_BASE + 'getGameUsageByMonth';
-    let data = axios.get(url, {
-        params: {
-            game_id: gameId,
-            year: year, //optional
-            month: month //optional
-        }
-    })
-    .then(function (response) {
-        return new APIResponse(response.data);
-    });
+// const getGameUsageByMonth = (gameId, year, month) => {
+//     const url = WEBSITE_API_URL_BASE + 'getGameUsageByMonth';
+//     let data = axios.get(url, {
+//         params: {
+//             game_id: gameId,
+//             year: year, //optional
+//             month: month //optional
+//         }
+//     })
+//     .then(function (response) {
+//         return new APIResponse(response.data);
+//     });
 
-    return data;
-}
+//     return data;
+// }
 
 const getGameFiles = (gameId, year, month) => {
     const url = WEBSITE_API_URL_BASE + 'getGameFileInfoByMonth';
@@ -47,4 +47,5 @@ const getGameUsage = (gameId) => {
     return data;
 }
 
-export { getGameUsageByMonth, getGameUsage, getGameFiles };
+// export { getGameUsageByMonth, getGameUsage, getGameFiles };
+export { getGameUsage, getGameFiles };

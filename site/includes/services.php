@@ -1,10 +1,47 @@
 <?php
 namespace services;
 
+use APIResponse;
+
 require_once 'models/APIResponse.php';
 require_once 'models/GameDetails.php';
 require_once 'models/GameFileInfo.php';
 require_once 'models/GameUsage.php';
+
+function executeAPIRequest(string $endpoint, array $params): ?APIResponse
+{
+    $ret_val = null;
+
+    $base = \AppConfig::GetConfig()['WEBSITE_API_URL_BASE'];
+    if (!str_ends_with($base, "/"))
+    {
+        $base = $base."/";
+    }
+    $url = $base . $endpoint . '?' . http_build_query($params);
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($curl, CURLOPT_FAILONERROR,    true);
+    $response_raw = curl_exec($curl);
+    curl_close($curl);
+
+    error_log("Sent a request to ".$url."\nReceived response: ".json_encode($ret_val));
+
+    if ($response_raw != false) {
+        $response_object = $response_raw ? json_decode(($response_raw)) : null;
+
+        $ret_val = \APIResponse::fromObj($response_object);
+    }
+    else {
+        $err_str = $endpoint." request, with params ".json_encode($params).", got no response object!";
+        if (curl_errno($curl) != 0) {
+            $err_str .= "\nError occurred: ".curl_errno($curl)." - ".curl_error($curl);
+        }
+        error_log($err_str);
+    }
+
+    return $ret_val;
+}
 
 /* Get Games from game_list
  * Returns list or false
@@ -32,55 +69,53 @@ function getGameDetails(string $game_id)
  * <param> string year - optional
  * <param> string month - optional
  */
-function getGameUsageByMonth(string $game_id, $year = null, $month = null): ?\GameUsage
-{
-    $ret_val = null;
+// function getGameUsageByMonth(string $game_id, $year = null, $month = null): ?\GameUsage
+// {
+//     $ret_val = null;
 
-    $params = array(
-        'game_id' => $game_id,
-        'year' => $year,
-        'month' => $month
-    );
+//     $year = $year ?? idate('Y', strtotime("-1 month"));
+//     $month = $month ?? idate('m', strtotime("-1 month"));
+//     $params = array(
+//         'game_id' => $game_id,
+//         'year' => $year,
+//         'month' => $month
+//     );
 
-    # 1. Make request to API via cURL
-    $usage_url = \AppConfig::GetConfig()['WEBSITE_API_URL_BASE'] . 'getGameUsageByMonth';
+//     # 1. Make request to API via cURL
+//     $response_raw = executeAPIRequest('getGameUsageByMonth', $params);
 
-    $curl = curl_init($usage_url . '?' . http_build_query($params));
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-    $response_raw = curl_exec($curl);
-    curl_close($curl);
+//     # 2. Convert response to a GameUsage object
+//     if ($response_raw != false) {
+//         $response_object = $response_raw ? json_decode(($response_raw)) : null;
 
-    # 2. Convert response to a GameUsage object
-    if ($response_raw != false) {
-        $response_object = $response_raw ? json_decode(($response_raw)) : null;
+//         $api_response = \APIResponse::fromObj($response_object);
+//         if ($api_response->Status() == "SUCCESS") {
+//             $ret_val = \GameUsage::fromObj($api_response->Value());
+//         }
+//         else {
+//             $err_str = "getGameUsageByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", was unsuccessful:\n".$api_response->Message();
+//             error_log($err_str);
+//         }
+//     }
+//     else {
+//         $err_str = "getGameUsageByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", got no response object!";
+//         error_log($err_str);
+//     }
 
-        $api_response = \APIResponse::fromObj($response_object);
-        if ($api_response->Status() == "SUCCESS") {
-            $ret_val = \GameUsage::fromObj($api_response->Value());
-        }
-        else {
-            $err_str = "getGameUsageByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", was unsuccessful:\n".$api_response->Message();
-            error_log($err_str);
-        }
-    }
-    else {
-        $err_str = "getGameUsageByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", got no response object!";
-        error_log($err_str);
-    }
-
-    return $ret_val;
-}
+//     return $ret_val;
+// }
 
 /* Get game file info from API
  * <param> string game_id
  * <param> string year --optional
  * <param> string month --optional
  */
-function getGameFileInfoByMonth(string $game_id, $year = null, $month = null) : ?\GameFileInfo
+function getGameFileInfoByMonth(string $game_id, ?int $year, ?int $month) : ?\GameFileInfo
 {
     $ret_val = null;
 
+    $year = $year ?? idate('Y', strtotime("-1 month"));
+    $month = $month ?? idate('m', strtotime("-1 month"));
     $params = array(
         'game_id' => $game_id,
         'year' => $year,
@@ -88,34 +123,17 @@ function getGameFileInfoByMonth(string $game_id, $year = null, $month = null) : 
     );
     
     # 1. Make request to API via cURL
-    $info_url =  \AppConfig::GetConfig()['WEBSITE_API_URL_BASE'] . 'getGameFileInfoByMonth';
-
-    $curl = curl_init($info_url . '?' . http_build_query($params));
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-    $response_raw = curl_exec($curl);
-    curl_close($curl);
-
     # 2. Convert response to a GameFileInfo object
-    if ($response_raw != false) {
-        $response_object = $response_raw ? json_decode(($response_raw)) : null;
-
-        $api_response = \APIResponse::fromObj($response_object);
-        $game_files = null;
-        if ($api_response->Status() == "SUCCESS") {
-            $game_files = \GameFileInfo::fromObj($api_response->Value());
-        }
-        else {
-            $err_str = "getGameFileInfoByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", was unsuccessful:\n".$api_response->Message();
-            error_log($err_str);
-        }
+    $api_response = executeAPIRequest('getGameFileInfoByMonth', $params);
+    if (isset($api_response) && $api_response->Status() == "SUCCESS") {
+        $ret_val = \GameFileInfo::fromObj($api_response->Value());
     }
     else {
-        $err_str = "getGameFileInfoByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", got no response object!";
+        $err_str = "getGameFileInfoByMonth request, with params".json_encode($params).", was unsuccessful:\n".$api_response->Message();
         error_log($err_str);
     }
 
-    return $game_files;
+    return $ret_val;
 }
 
 /* Get game usage from API
@@ -130,31 +148,14 @@ function getGameUsage(string $game_id): ?\GameUsage
     );
     
     # 1. Make request to API via cURL
-    $usage_url = \AppConfig::GetConfig()['WEBSITE_API_URL_BASE'] . 'getMonthlyGameUsage';
-
-    $curl = curl_init($usage_url . '?' . http_build_query($params));
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-    $response_raw = curl_exec($curl);
-    curl_close($curl);
-
-    error_log("Sent a request for getGameUsage to ".$usage_url);
+    $api_response = executeAPIRequest('getMonthlyGameUsage', $params);
 
     # 2. Convert response to a GameUsage object
-    if ($response_raw != false) {
-        $response_object = $response_raw ? json_decode(($response_raw)) : null;
-
-        $api_response = \APIResponse::fromObj($response_object);
-        if ($api_response->Status() == "SUCCESS") {
-            $ret_val = \GameUsage::fromObj($api_response->Value());
-        }
-        else {
-            $err_str = "getGameUsage request, with game_id=".$game_id.", was unsuccessful:\n".$api_response->Message();
-            error_log($err_str);
-        }
+    if (isset($api_response) && $api_response->Status() == "SUCCESS") {
+        $ret_val = \GameUsage::fromObj($api_response->Value());
     }
     else {
-        $err_str = "getGameUsage request, with game_id=".$game_id.", got no response object!";
+        $err_str = "getGameUsage request, with game_id=".$game_id.", was unsuccessful:\n".$api_response->Message();
         error_log($err_str);
     }
 

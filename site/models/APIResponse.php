@@ -15,19 +15,19 @@ class APIResponse
     }
 
     public static function fromObj($obj) {
-        $type   = isset($obj->{'type'})   ? $obj->{'type'}             : null;
-        $val    = isset($obj->{'val'})    ? json_decode($obj->{'val'}) : null;
-        $msg    = isset($obj->{'msg'})    ? $obj->{'msg'}              : null;
-        $status = isset($obj->{'status'}) ? $obj->{'status'}           : null;
+        $type   = isset($obj->{'type'})   ? $obj->{'type'}   : null;
+        $val    = isset($obj->{'val'})    ? $obj->{'val'}    : null;
+        $msg    = isset($obj->{'msg'})    ? $obj->{'msg'}    : null;
+        $status = isset($obj->{'status'}) ? $obj->{'status'} : null;
         return new static($type, $val, $msg, $status);
     }
 
     public static function fromJson($json) {
         $obj = json_decode($json);
-        $type   = isset($obj->{'type'})   ? $obj->{'type'}             : null;
-        $val    = isset($obj->{'val'})    ? json_decode($obj->{'val'}) : null;
-        $msg    = isset($obj->{'msg'})    ? $obj->{'msg'}              : null;
-        $status = isset($obj->{'status'}) ? $obj->{'status'}           : null;
+        $type   = isset($obj->{'type'})   ? $obj->{'type'}   : null;
+        $val    = isset($obj->{'val'})    ? $obj->{'val'}    : null;
+        $msg    = isset($obj->{'msg'})    ? $obj->{'msg'}    : null;
+        $status = isset($obj->{'status'}) ? $obj->{'status'} : null;
         return new static($type, $val, $msg, $status);
     }
 
