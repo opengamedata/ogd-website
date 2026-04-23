@@ -20,6 +20,8 @@ env:
   # SECONDARY_DIR:  ${{ vars.WEB_PATH }}/opengamedata/
   API_HOST:    ${{ vars.OGD_SERVICES_HOST }}
   API_PATH:    ${{ vars.API_BASE_URL }}/files/app.wsgi/
+  DASH_HOST:   ${{ vars.OGD_SERVICES_HOST }}
+  DASH_PATH:   designer-dashboard/main/
   
 jobs:
   production_deploy:
@@ -43,7 +45,7 @@ jobs:
       uses: ./.github/actions/web_config
       with:
         api_base: https://${{env.API_HOST}}/${{env.API_PATH}}
-        dash_base: https://ogd-design-dashboard.vercel.app/
+        dash_base: https://${{env.DASH_HOST}}/${{env.DASH_PATH}}
         use_display_version: 'false'
     
   # 2. Build 
