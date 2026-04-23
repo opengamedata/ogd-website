@@ -21,7 +21,7 @@ env:
   API_HOST:    ${{ vars.OGD_SERVICES_HOST }}
   API_PATH:    ${{ vars.API_BASE_URL }}/files/app.wsgi/
   DASH_HOST:   ${{ vars.OGD_SERVICES_HOST }}
-  DASH_PATH:   designer-dashboard/main/
+  DASH_PATH:   designer-dashboard/v1.0.0/
   
 jobs:
   production_deploy:
