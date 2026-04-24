@@ -115,6 +115,8 @@ class GameDetails:
                 path = 'pbs/pbs-64.png'
             case 'MIT Education Arcade':
                 path = 'mit/mit-64.png'
+            case 'e-UCM':
+                path = 'eUCM/eucm-64.png'
             case _:
                 path = 'fieldday/fieldday-64.png'
         return html.escape(path, quote=True) if html_safe else path
