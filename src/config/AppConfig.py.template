@@ -10,6 +10,7 @@ class AppConfig:
     APP_CONFIG['LOCAL'] = True
     APP_CONFIG['DISPLAY_VERSION'] = False
     APP_CONFIG['WEBSITE_API_URL_BASE'] = 'OGD_API_PATH_BASE'
+    APP_CONFIG['DASHBOARD_URL_BASE'] = 'https://ogd-design-dashboard.vercel.app/'
 
     # If hostname starts with localhost
     # if request.host in {'localhost', '127.0.0.1'}:
