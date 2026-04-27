@@ -8,9 +8,9 @@ Website front-end to the OpenGameData archive.
 
 - Node - newer version; setup with LTS 18.14.1
 - cURL
-- Apache Server running localhost:8881 with vhosts pointing to `%project_dir%/site`
-  - PHP - version 8.1
-  - php_curl bindings
+- Python 3.12 or higher
+  - Flask 2.3.3
+  - See `requirements.txt` for more details
 
 NOTE: a local install of PHP and the php_curl bindings are sufficient to test the site, though a full local Apache Server will provide the best emulation of the deploy environment.
 
