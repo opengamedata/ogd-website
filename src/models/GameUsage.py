@@ -55,6 +55,9 @@ class GameUsage:
 
     @staticmethod
     def FromDict(obj:Map):
+        if not isinstance(obj, dict):
+            print(f"GameUsage was asked to use an object of type {type(obj)} for parsing, with value:\n'{obj}'\nAttempting to load as json")
+            obj = json.loads(str(obj))
         _months = obj.get("sessions", [])
         return GameUsage(
             game_id  = obj.get("game_id"),
