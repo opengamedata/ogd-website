@@ -45,18 +45,10 @@ Alternately, you may use an online instance of the File API.
 
 There are a few options for running the website locally:
 
-TODO : instructions for running with Flask
+1. Run `flask run` in the `%project_dir%/src` folder to start Flask development server
 
-1. Run `gulp proxy` to start dev server, proxying <http://localhost:8881>
-
-    - scss, js, php files are watched and will reload on change with Browser sync.
-    - See gulpfile.js for other gulp functions if needed (i.e., clean, build).
-
-2. Run `php -S 127.0.0.1:5000` to start PHP development server
-
-    - Files are not watched, but changes will be reflected upon manually reloading the page.
     - Changes to scss are not automatically built to update the generated css files.
 
-3. Run local Apache Server
+2. Run local Apache Server
 
     - TODO
