@@ -40,12 +40,41 @@
 
 <hr>                
 
+{% block dashboards %}
+
+<section id="visualization-dashboard" class="mb-5">
+  <!-- Templates -->
+  <h3>Visualization</h3>
+  <p>Visualize the data for the selected month in the OpenGameData dashboard.</p>
+
+  {% if game_files %}
+    {% set player_dash_class  = '' if game_files.PlayersFileLink         else 'd-none' %}
+    {% set pop_dash_class     = '' if game_files.PopulationFileLink      else 'd-none' %}
+    {% set players_dashboard  = '' if game_files.PlayersDashboardLink    else '' %}
+    {% set pop_dashboard      = '' if game_files.PopulationDashboardLink else '' %}
+
+    <div class="btn-group-vertical">
+      <a id="players-dash"    class="btn btn-secondary btn-outline-secondary mb-2 {$player_dash_class}"  href="{$players_dashboard}" target="_blank">View Player Data in Dashboard</a>
+      <a id="population-dash" class="btn btn-secondary btn-outline-secondary mb-2 {$pop_dash_class}" href="{$pop_dashboard}" target="_blank">View Population Data in Dashboard</a>
+    </div>
+  {% else %}
+    <div class="btn-group-vertical">
+      <a id="players-dash"    class="btn btn-secondary btn-outline-secondary mb-2 d-none" href="" target="_blank">View Player Data in Dashboard</a>
+      <a id="population-dash" class="btn btn-secondary btn-outline-secondary mb-2 d-non"  href="" target="_blank">View Population Data in Dashboard</a>
+    </div>
+  {% endif %}
+</section>
+
+{% endblock dashboards %}
+
+<hr>                
+
 {% block templates %}
 
 <section id="templates" class="mb-5">
   <!-- Templates -->
   <h3>Templates</h3>
-  <p>These samples link out to a github codespace and are useful for exploration and visualization. They are also effective starting spots for your own experiments.</p>
+  <p>These samples link out to a github codespace and are useful for exploration. They are also effective starting spots for your own experiments.</p>
 
   {% if game_files %}
     {% set events_class  = '' if game_files.EventsTemplateLink     else 'd-none' %}

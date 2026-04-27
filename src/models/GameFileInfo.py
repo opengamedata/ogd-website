@@ -4,12 +4,16 @@ from typing import Dict, List, Optional
 
 from dateutil.relativedelta import relativedelta
 
+from config.AppConfig import AppConfig
+
 class GameFileInfo:
     """GameFileInfo
         Realistically, should be named DatasetInfo
         Contains all data for modeling a dataset, including date range, and links to files, templates, and generator code.
     """
-    def __init__(self, first_month:Optional[int], first_year:Optional[int], last_month:Optional[int], last_year:Optional[int],
+    def __init__(self, game_id:Optional[str],
+                 first_month:Optional[int],   first_year:Optional[int],
+                 last_month:Optional[int],    last_year:Optional[int],
                  found_matching_range:Optional[bool],
                  raw_file        : Optional[str]=None,
                  events_file     : Optional[str]=None, events_template     : Optional[str]=None,
@@ -17,6 +21,7 @@ class GameFileInfo:
                  players_file    : Optional[str]=None, players_template    : Optional[str]=None,
                  population_file : Optional[str]=None, population_template : Optional[str]=None,
                  detectors_link  : Optional[str]=None, features_link       : Optional[str]=None):
+        self._game_id              = game_id
         self._first_month          = first_month
         self._first_year           = first_year
         self._last_month           = last_month
@@ -35,8 +40,9 @@ class GameFileInfo:
         self._features_link        = features_link
 
     @staticmethod
-    def FromDict(raw_dict:Dict):
+    def FromDict(raw_dict:Dict, game_id:Optional[str]):
         return GameFileInfo(
+            game_id              = game_id if game_id else raw_dict.get('game_id', "UNKNOWN"),
             first_month          = raw_dict.get('first_month'),
             first_year           = raw_dict.get('first_year'),
             last_year            = raw_dict.get('last_year'),
@@ -56,6 +62,9 @@ class GameFileInfo:
         )
 
     # Get methods
+    @property
+    def GameID(self) -> Optional[str]:
+        return self._game_id
     @property
     def FirstMonth(self) -> Optional[int]:
         return self._first_month
@@ -103,11 +112,21 @@ class GameFileInfo:
     def PlayersTemplateLink(self, html_safe:bool=True) -> Optional[str]:
         return html.escape(str(self._players_template), quote=True) if html_safe else self._players_template
     @property
+    def PlayersDashboardLink(self, html_safe:bool=True) -> Optional[str]:
+        dash_base = AppConfig.APP_CONFIG.get("DASHBOARD_URL_BASE")
+        dash_url  = f"{dash_base}?game={self.GameID}&year={self.FirstYear}&month={self.FirstMonth}&level=player"
+        return html.escape(dash_url, quote=True) if html_safe else dash_url
+    @property
     def PopulationFileLink(self, html_safe:bool=True) -> Optional[str]:
         return html.escape(str(self._population_file), quote=True) if html_safe else self._population_file
     @property
     def PopulationTemplateLink(self, html_safe:bool=True) -> Optional[str]:
         return html.escape(str(self._population_template), quote=True) if html_safe else self._population_template
+    @property
+    def PopulationDashboardLink(self, html_safe:bool=True) -> Optional[str]:
+        dash_base = AppConfig.APP_CONFIG.get("DASHBOARD_URL_BASE")
+        dash_url  = f"{dash_base}?game={self.GameID}&year={self.FirstYear}&month={self.FirstMonth}&level=population"
+        return html.escape(dash_url, quote=True) if html_safe else dash_url
     @property
     def SessionsFileLink(self, html_safe:bool=True) -> Optional[str]:
         return html.escape(str(self._sessions_file), quote=True) if html_safe else self._sessions_file

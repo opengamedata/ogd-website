@@ -93,7 +93,7 @@ def getGameFileInfoByMonth(game_id:str, year:Optional[int]=None, month:Optional[
     if api_response:
         if api_response.Status == ResponseStatus.OK:
             if api_response.Value:
-                ret_val = GameFileInfo.FromDict(api_response.Value)
+                ret_val = GameFileInfo.FromDict(api_response.Value, game_id=game_id)
             else:
                 err_str = f"getGameFileInfoByMonth request, for game_id={game_id} with year={year} and month={month}, had empty value element!\nResponse message: {api_response.Message}"
                 current_app.logger.error(err_str)
