@@ -6,6 +6,7 @@ from flask import current_app
 from ogd.common.utils.fileio import loadJSONFile
 from ogd.common.utils.typing import Map
 from ogd.apis.models.APIRequest import APIRequest
+from ogd.apis.models.APIResponse import APIResponse
 from ogd.apis.models.enums.ResponseStatus import ResponseStatus
 from ogd.apis.models.enums.RESTType import RESTType
 from ogd.apis.utils.APIUtils import urljoin
@@ -87,7 +88,7 @@ def getGameFileInfoByMonth(game_id:str, year:Optional[int]=None, month:Optional[
     
     # 1. Make request to API via cURL
     info_url = urljoin(base=AppConfig.APP_CONFIG.get('WEBSITE_API_URL_BASE', "http://localhost:5000"), url="getGameFileInfoByMonth")
-    api_response = APIRequest(url=info_url, request_type=RESTType.GET, params=params, timeout=5).Execute(current_app.logger)
+    api_response : APIResponse = APIRequest(url=info_url, request_type=RESTType.GET, params=params, timeout=5).Execute(current_app.logger)
 
     # 2. Convert response to a GameFileInfo object
     if api_response:
