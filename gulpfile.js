@@ -44,7 +44,7 @@ gulp.task('proxy', gulp.series('vendor','vendor:build', styles, function () {
     });
   
     gulp.watch('./src/assets/styles/scss/*scss', styles).on('change', browserSync.reload);
-    gulp.watch('./**/*.php').on('change', browserSync.reload);
+    gulp.watch('./**/*.py').on('change', browserSync.reload);
     gulp.watch('./**/*.html').on('change', browserSync.reload);
     gulp.watch('./**/*.js').on('change', browserSync.reload);
 }));
