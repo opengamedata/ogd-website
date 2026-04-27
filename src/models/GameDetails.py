@@ -1,4 +1,5 @@
 import html
+import json
 from typing import List, Optional
 
 from ogd.common.utils.typing import Map
@@ -29,6 +30,9 @@ class GameDetails:
 
     @staticmethod
     def FromDict(game_id:str, data:Map) -> "GameDetails":
+        if not isinstance(data, dict):
+            print(f"GameDetails was asked to use an object of type {type(data)} for parsing, with value:\n'{obj}'\nAttempting to load as json")
+            obj = json.loads(str(data))
         # build the array for publications
         publications = []
         for value in data.get('studies', []):
