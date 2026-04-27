@@ -41,6 +41,9 @@ class GameFileInfo:
 
     @staticmethod
     def FromDict(raw_dict:Dict, game_id:Optional[str]):
+        if not isinstance(raw_dict, dict):
+            print(f"GameFileInfo was asked to use an object of type {type(obj)} for parsing, with value:\n'{obj}'\nAttempting to load as json")
+            obj = json.loads(str(obj))
         return GameFileInfo(
             game_id              = game_id if game_id else raw_dict.get('game_id', "UNKNOWN"),
             first_month          = raw_dict.get('first_month'),
