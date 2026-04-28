@@ -47,6 +47,7 @@ jobs:
         api_base: https://${{env.API_HOST}}/${{env.API_PATH}}
         dash_base: https://${{env.DASH_HOST}}/${{env.DASH_PATH}}
         use_display_version: 'false'
+        remote_app_path: ${{ env.DEPLOY_DIR }}
     
   # 2. Build 
     - name: Install Node
@@ -91,11 +92,16 @@ jobs:
         # --chmod : For each directory (D) and file (F), give user (u) and group (g) rwx permissions.
         #           Give others (o) only read permissions, plus execute for directories.
         switches: -vrctO --exclude-from 'rsync-exclude' --chmod=Du=rwx,Dg=rwx,Do=rx,Fu=rwx,Fg=rwx,Fo=r
-        path: /site/*
+        path: /src/*
         remote_path: ${{ env.DEPLOY_DIR }}
         remote_host: ${{ env.DEPLOY_HOST }}
         remote_user: ${{ secrets.VPN_USER }}
         remote_key:  ${{ secrets.VPN_KEY }}
+
+    - name: Upload requirements.txt
+      run: scp -o StrictHostKeyChecking=no -T -i ./key.txt ./requirements.txt ${{ secrets.DEPLOY_USER }}@${{ env.DEPLOY_HOST }}:${{ env.DEPLOY_DIR }}
+    - name: Set up venv for the deploy
+      run: ssh -o StrictHostKeyChecking=no -T -i ./key.txt ${{ secrets.DEPLOY_USER }}@${{ env.DEPLOY_HOST }} "cd ${{ env.DEPLOY_DIR }}; python -m venv --system-site-packages ./.venv; source .venv/bin/activate; python -m pip install -r requirements.txt"
 
   # 4. Cleanup & complete
     - name: Upload logs as artifacts

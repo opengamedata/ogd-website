@@ -1,0 +1,101 @@
+
+<!-- function renderPipelineTargetSection(?GameFileInfo game_files, array buttons) -->
+{% block targets %}
+
+{% import "components/pipelines.html" as pipelines %}
+
+{% set block_class   = '' if game_files and game_files.HasNoFiles else 'd-none' %}
+
+<section id="pipeline-target">
+  <div id="pipeline-target-none" class="pipeline-target-block {{block_class}}">
+    <div class="d-flex">
+      <img src="assets/images/icons/pipeline-none.svg" class="me-4 mb-3" alt="Icon for empty pipeline step">
+      <div id="pipeline-target-summary">
+        <h3>No Data</h3>
+        {% if game_files and game_files.LastDate %}
+          <p class="pipeline-target-month">
+            Month of {{ game_files.LastDate.strftime('B') | escape }}
+          </p>
+        {% else %}
+          <p class="pipeline-target-month"></p>
+        {% endif %}
+      </div>
+    </div>
+    {% if game_files and game_files.LastDate %}
+      <p id="pipeline-target-no-data-for-month">
+        There is currently no data for the month of {{ game_files.LastDate.strftime('%B') | escape }}
+      </p>
+    {% else %}
+      <p id="pipeline-target-no-data-for-month">
+        There is currently no data, and no selected date.
+      </p>
+    {% endif %}
+  </div>
+  {% for btn in buttons.values() %}
+    {{ pipelines.renderPipelineTarget(btn) }}
+  {% endfor %}
+</section>
+
+{% endblock targets %}
+
+<hr>                
+
+{% block dashboards %}
+
+<section id="visualization-dashboard" class="mb-5">
+  <!-- Templates -->
+  <h3>Visualization</h3>
+  <p>Visualize the data for the selected month in the OpenGameData dashboard.</p>
+
+  {% if game_files %}
+    {% set player_dash_class  = '' if game_files.PlayersFileLink         else 'd-none' %}
+    {% set pop_dash_class     = '' if game_files.PopulationFileLink      else 'd-none' %}
+    {% set players_dashboard  = '' if game_files.PlayersDashboardLink    else '' %}
+    {% set pop_dashboard      = '' if game_files.PopulationDashboardLink else '' %}
+
+    <div class="btn-group-vertical">
+      <a id="players-dash"    class="btn btn-secondary btn-outline-secondary mb-2 {$player_dash_class}"  href="{$players_dashboard}" target="_blank">View Player Data in Dashboard</a>
+      <a id="population-dash" class="btn btn-secondary btn-outline-secondary mb-2 {$pop_dash_class}" href="{$pop_dashboard}" target="_blank">View Population Data in Dashboard</a>
+    </div>
+  {% else %}
+    <div class="btn-group-vertical">
+      <a id="players-dash"    class="btn btn-secondary btn-outline-secondary mb-2 d-none" href="" target="_blank">View Player Data in Dashboard</a>
+      <a id="population-dash" class="btn btn-secondary btn-outline-secondary mb-2 d-non"  href="" target="_blank">View Population Data in Dashboard</a>
+    </div>
+  {% endif %}
+</section>
+
+{% endblock dashboards %}
+
+<hr>                
+
+{% block templates %}
+
+<section id="templates" class="mb-5">
+  <!-- Templates -->
+  <h3>Templates</h3>
+  <p>These samples link out to a github codespace and are useful for exploration. They are also effective starting spots for your own experiments.</p>
+
+  {% if game_files %}
+    {% set events_class  = '' if game_files.EventsTemplateLink     else 'd-none' %}
+    {% set session_class = '' if game_files.SessionsTemplateLink   else 'd-none' %}
+    {% set player_class  = '' if game_files.PlayersTemplateLink    else 'd-none' %}
+    {% set pop_class     = '' if game_files.PopulationTemplateLink else 'd-none' %}
+
+    <div class="btn-group-vertical">
+      <a id="events-data"     class="btn btn-secondary btn-outline-secondary mb-2 {{events_class}}"   href="{{game_files.EventsTemplateLink}}">Events Template</a>
+      <a id="sessions-data"   class="btn btn-secondary btn-outline-secondary mb-2 {{sessions_class}}" href="{{game_files.SessionsTemplateLink}}">Session Features Template</a>
+      <a id="players-data"    class="btn btn-secondary btn-outline-secondary mb-2 {{players_class}}"  href="{{game_files.PlayersTemplateLink}}">Player Features Template</a>
+      <a id="population-data" class="btn btn-secondary btn-outline-secondary mb-2 {{pop_class}}"      href="{{game_files.PopulationTemplateLink}}">Population Features Template</a>
+    </div>
+  {% else %}
+    <div class="btn-group-vertical">
+      <a id="events-data"     class="btn btn-secondary btn-outline-secondary mb-2 d-none" href="">Events Template</a>
+      <a id="sessions-data"   class="btn btn-secondary btn-outline-secondary mb-2 d-none" href="">Session Features Template</a>
+      <a id="players-data"    class="btn btn-secondary btn-outline-secondary mb-2 d-none" href="">Player Features Template</a>
+      <a id="population-data" class="btn btn-secondary btn-outline-secondary mb-2 d-none" href="">Population Features Template</a>
+    </div>
+  {% endif %}
+</section>
+
+{% endblock templates %}

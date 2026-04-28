@@ -1,0 +1,26 @@
+<!-- Data Pipeline -->
+{% block pipeline %}
+
+{% import "components/pipelines.html" as pipelines %}
+
+<!-- function renderPipelineSection(?GameDetails $game_details, ?DateTimeImmutable $selected_date, array $buttons) -->
+{% set section_class = '' if game_details and game_details.Publications | count > 0 else 'mb-5' %}
+<section id="pipelines" class="{$section_class}">
+  <div class="pipelines-wrapper">
+    <div class="pipelines-container">
+      <h3 id="pipeline-header">Data Pipeline</h3>
+      <div id="pipeline-month">
+        {% if selected_date %}
+          Month of {{ selected_date.strftime("%B") }}
+        {% endif %}
+      </div>
+      <div class="pipeline-segments-wrapper mt-2">
+        {% for btn_name, btn in buttons.items() %}
+          {{ pipelines.renderPipelineSegment(btn) }}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock pipeline %}

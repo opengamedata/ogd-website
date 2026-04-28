@@ -1,0 +1,53 @@
+{% macro renderPipelineSegment(pipe_element) %}
+
+{% set outline_class  = "btn-outline-secondary" if pipe_element.IsActive else "" %}
+{% set inactive_class = "" if not pipe_element.IsActive else "d-none" %}
+{% set active_class   = "" if pipe_element.IsActive else "d-none" %}
+{% set disabled_prop  = "disabled" if pipe_element.IsDisabled else "" %}
+
+<div class="d-flex">
+  <div class="mt-3">
+    {% if pipe_element.IsTransition %}
+      {% set btn_class = "text-nowrap btn shadow btn-pipeline btn-pipeline-transition position-relative %s" | format(outline_class) %}
+      <button id="{{ pipe_element.Selector }}-btn" class="{{ btn_class }}" type="button" {{ disabled }}>
+        <img id="btn-image-{{ pipe_element.Selector }}" src="assets/images/icons/{{ pipe_element.Image }}" alt="The {{ pipe_element.Title | escape }} button" />
+        <span>{{ pipe_element.Title | escape }}</span>
+      </button>
+    {% else %}
+      {% set btn_class = "text-nowrap btn shadow btn-pipeline btn-pipeline-segment position-relative %s" | format(outline_class) %}
+      <button id="{{ pipe_element.Selector }}-btn" class="{{ btn_class }}" type="button" {{ disabled }}>
+        <img id="btn-image-{{ pipe_element.Selector }}"        src="assets/images/icons/{{ pipe_element.Image }}"       class="btn-pipeline-segment-image {{ inactive_class }}"         alt="The icon for the {{ pipe_element.Title | escape }} option"/>
+        <img id="btn-image-active-{{ pipe_element.Selector }}" src="assets/images/icons/{{ pipe_element.ActiveImage }}" class="btn-pipeline-segment-image-active {{ active_class }}"  alt="The active icon for the {{ pipe_element.Title | escape }} option"/>
+        <span>{{ pipe_element.Title | escape }}</span>
+      </button>
+    {% endif %}
+  </div>
+</div>
+
+{% endmacro %}
+
+{% macro renderPipelineTarget(pipe_element) %}
+
+  {% set inactive_class = "" if pipe_element.IsActive else "d-none" %}
+  {% set icon_class     = 'bi-box-arrow-up-right' if pipe_element.IsTransition else 'bi-arrow-down' %}
+  {% set target         = ' target="_blank"'      if pipe_element.IsTransition else '' %}
+
+  <div class="pipeline-target-block {{ inactive_class }}" id="pipeline-target-{{ pipe_element.Selector }}">
+    <div class="d-flex">
+        <img src="assets/images/icons/{{ pipe_element.ActiveImage }}" class="me-4 mb-3" alt="Icon for the {{ pipe_element.Title }} segment".>
+        <div id="pipeline-target-summary">
+            <h3>{{ pipe_element.Title | escape }}</h3>
+            <p class="pipeline-target-month">Month of {{ pipe_element.Month | escape }}</p>
+        </div>
+    </div>
+    <p>
+      {{ pipe_element.Text | escape }}
+    </p>
+    <div class="btn-group-vertical" id="pipeline-target-links-{{ pipe_element.Selector }}">
+      {% for link_text, href in pipe_element.FileLinks.items() %}
+        <a class="btn btn-primary mb-2" href="{{ href }}" {{ target }}>{{ link_text | escape }}<i class="bi {{ icon_class }}"></i></a>
+      {% endfor %}
+    </div>                    
+  </div>
+
+{% endmacro %}

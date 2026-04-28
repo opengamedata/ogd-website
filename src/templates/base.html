@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Open Game Data {{ game.Name if game else " - " | e }}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="assets/extern/images/logos/ogd/OGD-16.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Inter:wght@400;500;700">
+  <link rel="stylesheet" href="https://use.typekit.net/zra8nem.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/bootstrap.css')   }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css')      }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/hero.css')        }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css')      }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/dashboard.css')   }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/about.css')       }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/gamedata.css')    }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/getinvolved.css') }}">
+  {# TODO : test whether we could do like {{ config.WEBSITE_API_URL_BASE) | s | e }} or so to get quote wrapping #}
+  <script>
+    const RAW_API_URL_BASE = "{{ config.WEBSITE_API_URL_BASE }}";
+    const WEBSITE_API_URL_BASE = RAW_API_URL_BASE.endsWith("/") ? RAW_API_URL_BASE : RAW_API_URL_BASE + "/";
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2FZHES4D1G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-2FZHES4D1G');
+  </script>
+</head>
+<body>
+  {% block header %}
+    {% include "header.html" %}
+  {% endblock header %}
+  {% block content %}
+  <section class="hero-about w-100 px-3 py-5 px-md-5 bg-dark text-white d-flex">
+    <div class="col-sm-6 mt-auto my-md-auto">
+      <h1 class="display-1">Open Game Data</h1>
+      <p class="lead">Open Game Data is an open-source and community-maintained technology for conducting design
+        research with educational game data.</p>
+    </div>
+  </section>
+  {% endblock content %}
+  {% block footer %}
+    {% with display_version=config['DISPLAY_VERSION'] %}
+      {% include "footer.html" %}
+    {% endwith %}
+  {% endblock footer %}
+</body>
+<!-- Bootstrap 5 Javascript -->
+<script               src="{{ url_for('static', filename='scripts/bootstrap.bundle.min.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='scripts/axios.min.js') }}"></script>
+<!-- Custom Javascript -->
+<script src="{{ url_for('static', filename='scripts/app.js')}}"></script>
+
+</html>

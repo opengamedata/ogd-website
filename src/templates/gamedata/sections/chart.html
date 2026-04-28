@@ -1,0 +1,62 @@
+<!-- function renderChartSection(?GameFileInfo $game_files) -->
+{% block chart %}
+
+{% set prev_month = game_files.GetPrevMonth(game_files.LastDate) if game_files else None %}
+{% set disable_prev = '' if prev_month != game_files.LastDate else "disabled" %}
+{% set fmt_prev_month = prev_month.strftime("%B") if prev_month and prev_month != game_files.LastDate else "No Previous Month" %}
+
+{% set next_month = game_files.GetNextMonth(game_files.LastDate) if game_files else None %}
+{% set disable_next = '' if next_month != game_files.LastDate else "disabled" %}
+{% set fmt_next_month = next_month.strftime("%B") if next_month and next_month != game_files.LastDate else "No Next Month" %}
+
+{% if game_files and game_files.LastDate %}
+  {{ "In renderChartSection, selected date is %s" | format(game_files.LastDate.strftime("Y-m-d")) | log("DEBUG") }}
+{% endif %}
+<section id="monthly-sessions-chart">
+  <div class="row mb-3">
+    <div class="col">
+      <h3 class="mb-0">Monthly Player Activity</h3>
+    </div>
+  </div>
+  <!-- Chart -->
+  <div class="position-relative">
+    <div id="chart-wrapper" class="position-relative">
+      <div id="chart" class="position-relative">
+        <canvas id="activityChart" style="height: 0;"></canvas>
+      </div>
+    </div>
+    <canvas id="chartYAxis" height="0" width="0"></canvas>
+  </div>
+  <div class="row mb-5 gy-2 ms-1">
+    {% if game_files and game_files.LastDate %}
+      <div class="col">
+        <div class="bg-primary rounded row" id="stats" data-year="{{game_files.LastDate.year}}" data-month="{{game_files.LastDate.month}}">
+          <div class="col" id="stats-header">
+            {{ game_files.LastDate.strftime("%B %Y") | escape }}
+          </div>
+          <div class="col text-end" id="num-plays">No Plays</div>
+        </div>
+      </div>
+    {% else %}
+      <div class="me-1 col">
+        <div class="bg-primary rounded row">NO PLAY COUNT AVAILABLE, GAME FILES NOT FOUND!</div>
+      </div>
+    {% endif %}
+    <div class="month-nav-wrapper col-md-3 col-sm-4 gy-2 text-end">
+      <nav class="text-nowrap">
+        {% if game_files and game_files.LastDate %}
+          <button id="month-prev" type="button" class="btn btn-outline-secondary" {{ disable_prev }}>
+            <i class="bi bi-chevron-left"></i>{{ fmt_prev_month | escape }}
+          </button>
+          <button id="month-next" type="button" class="ms-2 btn btn-outline-secondary" {{ disable_next }}>
+            {{ fmt_next_month | escape }}<i class="bi bi-chevron-right"></i>
+          </button>
+        {% endif %}
+      </nav>
+    </div>
+  </div>
+  <script src="assets/scripts/chart.umd.js"></script>
+  <script type="module" src="assets/scripts/chart.js"></script>
+</section>
+
+{% endblock chart %}

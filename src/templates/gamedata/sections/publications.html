@@ -1,0 +1,44 @@
+{% block publications%}
+
+{% if game_details and game_details.Publications | count > 0 %}
+
+<section id="publications" class="mb-5">
+  <h3>Publications</h3>
+  <ul class="list-unstyled mt-4">
+    {% for publication in game_details.Publications %}
+      <li class="mb-4 d-flex align-items-start">
+        <img class="me-3" src="assets/images/icons/publication.svg" alt="Icon for a publication">
+        <div>
+          {{ publication.Authors | join(", ") | e }}. ({{ publication.Year }}).
+          {% if publication.PaperLink %}
+            <a href="{{ publication.PaperLink }}" target="_blank">{{ publication.Name | e}}.</a>
+          {% else %}
+            {{ publication.Name | e}}.
+          {% endif %}
+          {{ publication.PublishedIn | e}}.
+          <br>
+          {% if publication._project_code_link %}
+            <a class="btn btn-outline-secondary btn-publication mt-3" href="{{ publication.ProjectCodeLink }}" target="_blank">View Project Code</a>
+          {% else %}
+            <span>(Project Code Not Available)</span>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+{% else %}
+
+<!-- In original implementation, entire publications section was skipped if no game_details found. -->
+<!-- So, preserving as comment the thing that used to be the default (never rendered) *within* publications section -->
+<!-- And just wrapping in a <section> block without content, in case of game-details not existing, to preserve original behavior. -->
+<section id="publications" class="mb-5">
+  <!-- <li class="mb-4 d-flex align-items-start">
+    NO PUBLICATIONS AVAILABLE, GAME DETAILS NOT FOUND!
+  </li>' -->
+</section>
+
+{% endif %}
+
+{% endblock publications%}
