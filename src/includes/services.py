@@ -25,6 +25,7 @@ def getGameList() -> Map:
         Returns list or False
     """ 
     game_list = loadJSONFile(filename='game_list.json', path=Path("./config/"))
+    print(f"Found the following for game list:\n{game_list}")
     return game_list or {}
 
 def getGameDetails(game_id:str) -> Optional[GameDetails]:
