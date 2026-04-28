@@ -57,7 +57,7 @@ def index():
     # foreach(gamelist as key => value)
         # Get game usage from api for each game
         game_usage = services.getGameUsage(game_id=game_id)
-        game_card = GameCard(GameDetails.FromDict(game_id=game_id, data=game_details), game_usage)
+        game_card = GameCard(GameDetails.FromDict(game_id=game_id, raw_dict=game_details), game_usage)
         games.append(game_card)
 
     return render_template("index/index.html", games=games, display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION", True))

@@ -29,24 +29,24 @@ class GameDetails:
         return GameDetails.FromDict(game_id, data)
 
     @staticmethod
-    def FromDict(game_id:str, data:Map) -> "GameDetails":
-        if not isinstance(data, dict):
-            print(f"GameDetails was asked to use an object of type {type(data)} for parsing, with value:\n'{obj}'\nAttempting to load as json")
-            obj = json.loads(str(data))
+    def FromDict(game_id:str, raw_dict:Map) -> "GameDetails":
+        if not isinstance(raw_dict, dict):
+            print(f"GameDetails was asked to use an object of type {type(raw_dict)} for parsing, with value:\n'{obj}'\nAttempting to load as json")
+            obj = json.loads(str(raw_dict))
         # build the array for publications
         publications = []
-        for value in data.get('studies', []):
+        for value in raw_dict.get('studies', []):
             publications.append(Publication.FromObj(value))
 
         return GameDetails(
             game_id=game_id,
-            name=data.get('game_name', "UNRECOGNIZED GAME"),
-            description=data.get('game_description', "N/A"),
-            thumbnail_path=data.get('thumbnail_path'),
-            play_link=data.get('play_link'),
-            source_link=data.get('source_link'),
-            developer_name=data.get('developers', [])[0].get('name'),
-            developer_link=data.get('developers', [])[0].get('link'),
+            name=raw_dict.get('game_name', "UNRECOGNIZED GAME"),
+            description=raw_dict.get('game_description', "N/A"),
+            thumbnail_path=raw_dict.get('thumbnail_path'),
+            play_link=raw_dict.get('play_link'),
+            source_link=raw_dict.get('source_link'),
+            developer_name=raw_dict.get('developers', [])[0].get('name'),
+            developer_link=raw_dict.get('developers', [])[0].get('link'),
             publications=publications
         )
 

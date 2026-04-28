@@ -54,13 +54,13 @@ class GameUsage:
         return f"GameUsage: {self.ID} from {self.Months[0].Year}/{self.Months[0].Month}-{self.Months[1].Year}/{self.Months[1].Month}"
 
     @staticmethod
-    def FromDict(obj:Map):
-        if not isinstance(obj, dict):
-            print(f"GameUsage was asked to use an object of type {type(obj)} for parsing, with value:\n'{obj}'\nAttempting to load as json")
-            obj = json.loads(str(obj))
-        _months = obj.get("sessions", [])
+    def FromDict(raw_dict:Map):
+        if not isinstance(raw_dict, dict):
+            print(f"GameUsage was asked to use an object of type {type(raw_dict)} for parsing, with value:\n'{raw_dict}'\nAttempting to load as json")
+            raw_dict = json.loads(str(raw_dict))
+        _months = raw_dict.get("sessions", [])
         return GameUsage(
-            game_id  = obj.get("game_id"),
+            game_id  = raw_dict.get("game_id"),
             months = [MonthSessions.FromDict(month) for month in _months]
         )
 
