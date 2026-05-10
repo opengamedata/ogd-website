@@ -38,12 +38,12 @@ def getGameDetails(game_id:str) -> Optional[GameDetails]:
     # API will return just one game, for now access game_id and return contents
     return GameDetails.FromDict(game_id=game_id, raw_dict=game_list[game_id]) if len(game_list[game_id]) > 0 else None
 
-""" Get game usage from API
- * <param> string game_id
- * <param> string year - optional
- * <param> string month - optional
- """
 def getGameUsageByMonth(game_id:str, year:Optional[int] = None, month : Optional[int] = None) -> Optional[GameUsage]:
+    """ Get game usage from API
+    * <param> string game_id
+    * <param> string year - optional
+    * <param> string month - optional
+    """
     ret_val = None
 
     params = {
@@ -73,12 +73,12 @@ def getGameUsageByMonth(game_id:str, year:Optional[int] = None, month : Optional
 
     return ret_val
 
-""" Get game file info from API
- * <param> string game_id
- * <param> string year --optional
- * <param> string month --optional
- """
 def getGameFileInfoByMonth(game_id:str, year:Optional[int]=None, month:Optional[int]=None) -> Optional[GameFileInfo]:
+    """ Get game file info from API
+    * <param> string game_id
+    * <param> string year --optional
+    * <param> string month --optional
+    """
     ret_val = None
 
     params = {
@@ -108,10 +108,10 @@ def getGameFileInfoByMonth(game_id:str, year:Optional[int]=None, month:Optional[
 
     return ret_val
 
-""" Get game usage from API
- * <param> string game_id
- """
 def getGameUsage(game_id:str) -> Optional[GameUsage]:
+    """ Get game usage from API
+    * <param> string game_id
+    """
     ret_val = None
 
     params = {
