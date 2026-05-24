@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Optional
+from typing import Dict, Optional
 
 from flask import current_app
 
@@ -10,6 +10,7 @@ from ogd.apis.models.APIResponse import APIResponse
 from ogd.apis.models.enums.ResponseStatus import ResponseStatus
 from ogd.apis.models.enums.RESTType import RESTType
 from ogd.apis.models.files.GameSummary import GameSummary
+from ogd.apis.models.files.GameSummaries import GameSummaries
 from ogd.apis.utils.APIUtils import urljoin
 
 from config.AppConfig import AppConfig
@@ -18,7 +19,7 @@ from models.GameDetails import GameDetails
 from models.GameFileInfo import GameFileInfo
 from models.GameUsage import GameUsage
 
-def getGameList() -> Map:
+def getGameList() -> Dict[str, GameDetails]:
     """ Get Games from game_list
         
         TODO : remove, we can just use the loadJSONFile function.
@@ -27,7 +28,7 @@ def getGameList() -> Map:
     """ 
     game_list = loadJSONFile(filename='game_list.json', path=Path("./config/"))
     print(f"Found the following for game list:\n{game_list}")
-    return game_list or {}
+    return {game_id:GameDetails.FromDict(game_id=game_id, raw_dict=game_details) for game_id,game_details in game_list.items()}
 
 def getGameDetails(game_id:str) -> Optional[GameDetails]:
     """ Get single game details from game_list
@@ -37,27 +38,27 @@ def getGameDetails(game_id:str) -> Optional[GameDetails]:
     # Get full list of games
     game_list = getGameList()
     # API will return just one game, for now access game_id and return contents
-    return GameDetails.FromDict(game_id=game_id, raw_dict=game_list[game_id]) if len(game_list[game_id]) > 0 else None
+    return game_list.get(game_id)
 
-def getGameSummaries() -> Dict[str, GameSummary]:
-    ret_val = None
+# def getGameSummaries() -> Dict[str, GameSummary]:
+#     ret_val = None
 
-    url = urljoin(base=AppConfig.APP_CONFIG.get('WEBSITE_API_URL_BASE', "http://localhost:5000"), url=GameSummary.PATH)
-    api_response = APIRequest(url=url, request_type=RESTType.GET, params={}).Execute(current_app.logger)
+#     url = urljoin(base=AppConfig.APP_CONFIG.get('WEBSITE_API_URL_BASE', "http://localhost:5000"), url=GameSummary.PATH)
+#     api_response = APIRequest(url=url, request_type=RESTType.GET, params={}).Execute(current_app.logger)
 
-    if api_response:
-        if api_response.Status == ResponseStatus.OK:
-            if api_response.Value:
-                ret_val = {key:GameSummary.FromAPIResponse() for key,val in api_response.Value.items()}
-            else:
-                err_str = f"getGameUsageByMonth request, for game_id={game_id} with year={year} and month={month}, had empty value element!:\nResponse message: {api_response.Message}"
-                current_app.logger.error(err_str)
-        else:
-            err_str = f"getGameUsageByMonth request, for game_id={game_id} with year={year} and month={month}, was unsuccessful:\n{api_response.Message}"
-            current_app.logger.error(err_str)
-    else:
-        err_str = f"getGameUsageByMonth request, for game_id={game_id} with year={year} and month={month}, got no response object!"
-        current_app.logger.error(err_str)
+#     if api_response:
+#         if api_response.Status == ResponseStatus.OK:
+#             if api_response.Value:
+#                 ret_val = {key:GameSummary.FromAPIResponse() for key,val in api_response.Value.items()}
+#             else:
+#                 err_str = f"getGameUsageByMonth request, for game_id={game_id} with year={year} and month={month}, had empty value element!:\nResponse message: {api_response.Message}"
+#                 current_app.logger.error(err_str)
+#         else:
+#             err_str = f"getGameUsageByMonth request, for game_id={game_id} with year={year} and month={month}, was unsuccessful:\n{api_response.Message}"
+#             current_app.logger.error(err_str)
+#     else:
+#         err_str = f"getGameUsageByMonth request, for game_id={game_id} with year={year} and month={month}, got no response object!"
+#         current_app.logger.error(err_str)
 
 def getGameUsageByMonth(game_id:str, year:Optional[int] = None, month : Optional[int] = None) -> Optional[GameUsage]:
     """ Get game usage from API
