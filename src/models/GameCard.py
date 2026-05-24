@@ -7,11 +7,11 @@ from models.GameDetails import GameDetails
 class GameCard:
     """The data used by a GameCard
     """
-    def __init__(self, game:GameDetails, game_usage:Optional[GameSummary]=None):
+    def __init__(self, game:GameDetails, game_data_summary:Optional[GameSummary]=None):
         self._game = game
-        self._game_data_summary = game_usage
+        self._game_data_summary = game_data_summary
         self._game_link = f"gamedata.html?game={game.ID}"
-        self._monthly_sessions = game_usage.AverageSessionCount if game_usage else None
+        self._monthly_sessions = game_data_summary.AverageSessionCount if game_data_summary else None
 
     def __str__(self):
         return f"GameCard: {self.Game}; {self.MonthlySessions} Session Avg"
