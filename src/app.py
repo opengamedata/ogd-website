@@ -4,6 +4,8 @@ from typing import Dict, Optional
 
 from flask import Flask, render_template, current_app, request
 
+from ogd.apis.models.files.GameSummaries import GameSummaries, GameSummary, GameSummariesRequest
+
 from config.AppConfig import AppConfig
 from includes import services
 from models.GameCard import GameCard
@@ -50,17 +52,21 @@ def log(msg:str, level:str="INFO"):
 @application.route("/index")
 @application.route("/index.html")
 def index():
-    # Get game list
-    gamelist = services.getGameList()
-    games = []
-    for game_id,game_details in gamelist.items():
-    # foreach(gamelist as key => value)
-        # Get game usage from api for each game
-        game_usage = services.getGameUsage(game_id=game_id)
-        game_card = GameCard(GameDetails.FromDict(game_id=game_id, raw_dict=game_details), game_usage)
-        games.append(game_card)
+    # Get info about the games.
+    game_details = services.getGameList()
+    game_data_summaries = GameSummariesRequest(
+        api_base_url=AppConfig.APP_CONFIG.get('WEBSITE_API_URL_BASE', "http://localhost:5000"),
+        timeout=1
+    ).Execute(logger=current_app.logger)
 
-    return render_template("index/index.html", games=games, display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION", True))
+    game_cards = []
+    for game_id,game_details in game_details.items():
+        if isinstance(game_data_summaries, GameSummaries):
+            game_usage = game_data_summaries.get(game_id)
+        game_card = GameCard(game=game_details, game_data_summary=game_usage)
+        game_cards.append(game_card)
+
+    return render_template("index/index.html", games=game_cards, display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION", True))
     
 @application.route("/about")
 @application.route("/about.html")
