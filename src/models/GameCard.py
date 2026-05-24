@@ -1,16 +1,18 @@
 from typing import Optional
 
+from ogd.apis.models.files.GameSummaries import GameSummary
+
 from models.GameDetails import GameDetails
 from models.GameUsage import GameUsage
 
 class GameCard:
     """The data used by a GameCard
     """
-    def __init__(self, game:GameDetails, game_usage:Optional[GameUsage]=None):
+    def __init__(self, game:GameDetails, game_usage:Optional[GameSummary]=None):
         self._game = game
         self._game_usage = game_usage
         self._game_link = f"gamedata.html?game={game.ID}"
-        self._monthly_sessions = GameCard._to_kilo(game_usage.AverageMonthlySessions()) if game_usage else "0"
+        self._monthly_sessions = game_usage.AverageSessionCount if game_usage else None
 
     def __str__(self):
         return f"GameCard: {self.Game}; {self.MonthlySessions} Session Avg"
@@ -23,13 +25,13 @@ class GameCard:
     def Game(self) -> GameDetails:
         return self._game
     @property
-    def GameUsage(self) -> Optional[GameUsage]:
+    def GameUsage(self) -> Optional[GameSummary]:
         return self._game_usage
     @property
     def GameLink(self) -> str:
         return self._game_link
     @property
-    def MonthlySessions(self) -> str:
+    def MonthlySessions(self) -> Optional[int]:
         return self._monthly_sessions
 
     @staticmethod
