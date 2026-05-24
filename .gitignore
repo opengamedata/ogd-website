@@ -1,5 +1,5 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
-.vscode/
+.vscode/*.json
 **/__pycache__/
 .venv*
 src/**/AppConfig.php
