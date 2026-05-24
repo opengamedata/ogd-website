@@ -3,14 +3,13 @@ from typing import Optional
 from ogd.apis.models.files.GameSummaries import GameSummary
 
 from models.GameDetails import GameDetails
-from models.GameUsage import GameUsage
 
 class GameCard:
     """The data used by a GameCard
     """
     def __init__(self, game:GameDetails, game_usage:Optional[GameSummary]=None):
         self._game = game
-        self._game_usage = game_usage
+        self._game_data_summary = game_usage
         self._game_link = f"gamedata.html?game={game.ID}"
         self._monthly_sessions = game_usage.AverageSessionCount if game_usage else None
 
@@ -18,15 +17,15 @@ class GameCard:
         return f"GameCard: {self.Game}; {self.MonthlySessions} Session Avg"
 
     def __repr__(self):
-        return f"GameCard: game={self.Game} usage=<{self.GameUsage}> sessions={self.MonthlySessions}"
+        return f"GameCard: game={self.Game} usage=<{self.GameDataSummary}> sessions={self.MonthlySessions}"
 
     # get methods
     @property
     def Game(self) -> GameDetails:
         return self._game
     @property
-    def GameUsage(self) -> Optional[GameSummary]:
-        return self._game_usage
+    def GameDataSummary(self) -> Optional[GameSummary]:
+        return self._game_data_summary
     @property
     def GameLink(self) -> str:
         return self._game_link
