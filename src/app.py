@@ -64,8 +64,8 @@ def index():
     game_cards = []
     for game_id,game_details in game_details.items():
         if isinstance(game_data_summaries, GameSummaries):
-            game_usage = game_data_summaries.get(game_id)
-        game_card = GameCard(game=game_details, game_data_summary=game_usage)
+            game_summary = game_data_summaries.get(game_id)
+        game_card = GameCard(game=game_details, game_data_summary=game_summary)
         game_cards.append(game_card)
 
     return render_template("index/index.html", games=game_cards, display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION", True))
