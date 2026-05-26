@@ -26,7 +26,7 @@ env:
   DEPLOY_DIR:  /var/www/apps/website/develop/
   DEPLOY_URL:  ${{ vars.OGD_STAGING_HOST }}/apps/website/develop/
   API_HOST:    ${{ vars.OGD_SERVICES_HOST }}
-  API_PATH:    ${{ vars.API_BASE_URL }}/files/app.wsgi/
+  API_PATH:    ${{ vars.API_BASE_URL }}/files/latest/app.wsgi/
   DASH_HOST:   ${{ vars.OGD_SERVICES_HOST }}
   DASH_PATH:   designer-dashboard/v1.0.0/
   
