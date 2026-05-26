@@ -1,6 +1,6 @@
 flask==2.3.3
-opengamedata-api-files==2.1.*
-opengamedata-api-utils==2.0.*
-opengamedata-common>=2.0.0b5
 python-dateutil==2.9.*
 requests==2.32.*
+opengamedata-api-files==2.1.*
+opengamedata-api-utils==2.0.*
+opengamedata-common>=2.0.0b6
