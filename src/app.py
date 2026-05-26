@@ -1,10 +1,12 @@
+import html
 import re
 from datetime import date, timedelta
 from typing import Dict, Optional
 
 from flask import Flask, render_template, current_app, request
 
-from ogd.apis.models.files.GameSummaries import GameSummaries, GameSummary, GameSummariesRequest
+from ogd.apis.models.files.GameSummaries import GameSummaries, GameSummariesRequest
+from ogd.apis.models.files.DatasetResources import DatasetResourcesRequest, DatasetResources
 
 from config.AppConfig import AppConfig
 from includes import services
@@ -108,7 +110,7 @@ def gamedata():
 
     # Declare variables
     game_details = None
-    game_files = None
+    dataset_files = None
     buttons = None
 
     raw_game_id = request.args.get("game")
@@ -123,17 +125,25 @@ def gamedata():
         # 3. Get game file info from API
         # In order to provide a meaningful param for year and month, do what the API originally did and just set last month as our starting selection.
         last_month = date.today().replace(day=1) - timedelta(days=1)
-        game_files = services.getGameFileInfoByMonth(game_id, year=last_month.year, month=last_month.month)
-        if not game_files:
-            err_str = f"getGameFileInfoByMonth request, for game_id={game_id} with year=null and month=null, got no response object!"
+        dataset_files = DatasetResourcesRequest(
+            api_base_url=AppConfig.APP_CONFIG.get('WEBSITE_API_URL_BASE', "http://localhost:5000"),
+            game_id=game_id,
+            year=last_month.year,
+            month=last_month.month,
+            timeout=1
+        ).Execute(logger=current_app.logger)
+        # game_files = services.getGameFileInfoByMonth(game_id, year=last_month.year, month=last_month.month)
+        if isinstance(dataset_files, DatasetResources):
+            buttons = generatePipelineButtons(dataset_files)
+        else:
+            err_str = f"Request for DatasetResources on {game_id} {last_month} dataset did not get a successful result!"
             current_app.logger.error(err_str)
-        buttons = generatePipelineButtons(game_files)
     else:
         err_str = "gamedata.html got request with no game parameter!"
         current_app.logger.error(err_str)
-    return render_template("gamedata/gamedata.html", game_details=game_details, game_files=game_files, buttons=buttons, display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION"))
+    return render_template("gamedata/gamedata.html", game_details=game_details, game_files=dataset_files, buttons=buttons, display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION"))
 
-def generatePipelineButtons(game_files:Optional[GameFileInfo]) -> Dict[str, PipelineElement]:
+def generatePipelineButtons(game_files:Optional[DatasetResources]) -> Dict[str, PipelineElement]:
     raw_files        = {}
     detectors_files  = {}
     event_files      = {}
@@ -142,12 +152,16 @@ def generatePipelineButtons(game_files:Optional[GameFileInfo]) -> Dict[str, Pipe
     month_name = "NO MONTH AVAILABLE"
 
     if game_files:
-        raw_files        = { 'Raw Data':game_files.RawFileLink }             if game_files.RawFileLink    else {}
-        detectors_files  = { 'Detectors':game_files.DetectorsLink }          if game_files.DetectorsLink  else {}
-        event_files      = { 'Calculated Events':game_files.EventsFileLink } if game_files.EventsFileLink else {}
-        extractors_files = { 'Extractors':game_files.FeaturesLink }          if game_files.FeaturesLink   else {} # aka Extractors or Feature Extractors
-        feature_files    = game_files.FeatureFiles                           if game_files.FeatureFiles   else {}
-        month_name       = game_files.LastDate.strftime("%B")                if game_files.LastDate       else month_name
+        raw_files        = { "Raw Data"          : html.escape(str(game_files.GameEventsFile), quote=True) } if game_files.GameEventsFile  else {}
+        detectors_files  = { "Detectors"         : html.escape(str(game_files.DetectorsLink),  quote=True) } if game_files.DetectorsLink   else {}
+        event_files      = { "Calculated Events" : html.escape(str(game_files.AllEventsFile),  quote=True) } if game_files.AllEventsFile   else {}
+        extractors_files = { "Extractors"        : html.escape(str(game_files.FeaturesLink),   quote=True) } if game_files.FeaturesLink    else {} # aka Extractors or Feature Extractors
+        feature_files    = {
+            "Session Features"    : html.escape(str(game_files.SessionsFile),   quote=True),
+            "Player Features"     : html.escape(str(game_files.PlayersFile),    quote=True),
+            "Population Features" : html.escape(str(game_files.PopulationFile), quote=True)
+        } if game_files.SessionsFile or game_files.PlayersFile or game_files.PopulationFile else {}
+        month_name       = game_files.EndDate.strftime("%B") if isinstance(game_files.EndDate, date) else month_name
 
 
     # Create Pipeline buttons (including the transition buttons)
