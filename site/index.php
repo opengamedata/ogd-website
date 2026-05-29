@@ -14,7 +14,7 @@ $games = [];
 foreach($gamelist as $key => $value)
 {
     // Get game usage from api for each game
-    $game_usage = services\getGameUsage($key);
+    $game_usage = null; // services\getGameUsage($key);
 
     $game_card = new GameCard(GameDetails::fromArray($key, $value), $game_usage);
     array_push($games, $game_card);

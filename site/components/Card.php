@@ -26,7 +26,7 @@ class Card
                             <img src="' . $this->game->getThumbPath() . '" class="card-img-top" alt="">
                             <div class="card-body">
                                 <h4 class="card-title">' . htmlspecialchars($this->game->getName()) . '</h4>
-                                <p class="card-subtitle small">' . ($_monthly_sessions ? $_monthly_sessions . ' Monthly Sessions' : 'Coming Soon!') . '</p>
+                                <!--<p class="card-subtitle small">' . ($_monthly_sessions ? $_monthly_sessions . ' Monthly Sessions' : 'Coming Soon!') . '</p>-->
                             </div>
                             <div class="card-footer d-flex align-items-center">
                                 <img class="avatar me-2" src="assets/extern/images/logos/' . htmlspecialchars($this->game->getDeveloperIconFilename()) . '" alt="avatar"> 
