@@ -54,8 +54,8 @@
     {% set pop_dashboard      = '' if game_files.PopulationDashboardLink else '' %}
 
     <div class="btn-group-vertical">
-      <a id="players-dash"    class="btn btn-secondary btn-outline-secondary mb-2 {$player_dash_class}"  href="{$players_dashboard}" target="_blank">View Player Data in Dashboard</a>
-      <a id="population-dash" class="btn btn-secondary btn-outline-secondary mb-2 {$pop_dash_class}" href="{$pop_dashboard}" target="_blank">View Population Data in Dashboard</a>
+      <a id="players-dash"    class="btn btn-secondary btn-outline-secondary mb-2 {{player_dash_class}}"  href="{{players_dashboard}}" target="_blank">View Player Data in Dashboard</a>
+      <a id="population-dash" class="btn btn-secondary btn-outline-secondary mb-2 {{pop_dash_class}}" href="{{pop_dashboard}}" target="_blank">View Population Data in Dashboard</a>
     </div>
   {% else %}
     <div class="btn-group-vertical">
