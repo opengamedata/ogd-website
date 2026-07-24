@@ -100,6 +100,7 @@ function getGameFileInfoByMonth(string $game_id, $year = null, $month = null) : 
     if ($response_raw != false) {
         $response_object = $response_raw ? json_decode(($response_raw)) : null;
 
+        error_log("Raw response object from request to ".$info_url." was: ".$response_raw);
         $api_response = \APIResponse::fromObj($response_object);
         $game_files = null;
         if ($api_response->Status() == "SUCCESS") {
