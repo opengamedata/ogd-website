@@ -50,10 +50,6 @@ if (isset($_GET['game']) && $_GET['game'] != '') {
        Future version of API should provide endpoint to allow request of most recent month for a game, directly.
     */
     $game_files = services\getGameFileInfoByMonth($game_id);
-    if (!isset($game_files)) {
-        $err_str = "getGameFileInfoByMonth request, for game_id=".$game_id." with year=null and month=null, got no response object!";
-        error_log($err_str);
-    }
     $buttons = generatePipelineButtons($game_files);
 }
 else {
