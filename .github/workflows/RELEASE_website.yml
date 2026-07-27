@@ -19,7 +19,7 @@ env:
   # SECONDARY_HOST: ${{ vars.OGD_SERVICES_HOST }}
   # SECONDARY_DIR:  ${{ vars.WEB_PATH }}/opengamedata/
   API_HOST:    ${{ vars.OGD_SERVICES_HOST }}
-  API_PATH:    wsgi-bin/opengamedata-website-api/production/app.wsgi/
+  API_PATH:    wsgi-bin/opengamedata/apis/files/app.wsgi/
   DASH_URL:    ogd-design-dashboard.vercel.app
   
 jobs:
