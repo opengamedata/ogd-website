@@ -60,12 +60,12 @@ function getGameUsageByMonth(string $game_id, $year = null, $month = null): ?\Ga
             $ret_val = \GameUsage::fromObj($api_response->Value());
         }
         else {
-            $err_str = "getGameUsageByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", was unsuccessful:\n".$api_response->Message();
+            $err_str = $usage_url." request, for game_id=".$game_id." with year=".$year." and month=".$month.", was unsuccessful:\n".$api_response->Message();
             error_log($err_str);
         }
     }
     else {
-        $err_str = "getGameUsageByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", got no response object!";
+        $err_str = $usage_url." request, for game_id=".$game_id." with year=".$year." and month=".$month.", got no response object!";
         error_log($err_str);
     }
 
@@ -106,12 +106,12 @@ function getGameFileInfoByMonth(string $game_id, $year = null, $month = null) : 
             $game_files = \GameFileInfo::fromObj($api_response->Value());
         }
         else {
-            $err_str = "getGameFileInfoByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", was unsuccessful:\n".$api_response->Message();
+            $err_str = $info_url." request, for game_id=".$game_id." with year=".$year." and month=".$month.", was unsuccessful:\n".$api_response->Message();
             error_log($err_str);
         }
     }
     else {
-        $err_str = "getGameFileInfoByMonth request, for game_id=".$game_id." with year=".$year." and month=".$month.", got no response object!";
+        $err_str = $info_url." request, for game_id=".$game_id." with year=".$year." and month=".$month.", got no response object!";
         error_log($err_str);
     }
 
@@ -149,12 +149,12 @@ function getGameUsage(string $game_id): ?\GameUsage
             $ret_val = \GameUsage::fromObj($api_response->Value());
         }
         else {
-            $err_str = "getGameUsage request, with game_id=".$game_id.", was unsuccessful:\n".$api_response->Message();
+            $err_str = $usage_url." request, with game_id=".$game_id.", was unsuccessful:\n".$api_response->Message();
             error_log($err_str);
         }
     }
     else {
-        $err_str = "getGameUsage request, with game_id=".$game_id.", got no response object!";
+        $err_str = $usage_url." request, with game_id=".$game_id.", got no response object!";
         error_log($err_str);
     }
 
