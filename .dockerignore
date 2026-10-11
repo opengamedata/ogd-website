@@ -3,13 +3,20 @@ src/config/realtime_config.js.template
 src/assets/scripts/vendor
 src/assets/styles/scss
 <!-- other stuff -->
+gha-creds-*.json
 rsync-exclude
+*__pycache__/*
+.github/
+.vscode/
+tests/
 .DS_Store
 .gitignore
 .gitmodules
 .git
+.pylintrc
 node_modules
 deploy.rb
+CITATION.cff
 Gruntfile.coffee
 Gulpfile.js
 package.json
@@ -19,4 +26,5 @@ README.md
 .sublime-grunt.cache
 coffee_out.js
 browserify_out.js
-minify_out.js.report.txt
+minify_out.js.report.txto
+*.log
