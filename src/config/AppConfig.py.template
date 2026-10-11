@@ -1,6 +1,6 @@
 from typing import Final
 
-from flask import request
+# from flask import request
 
 from ogd.common.utils.typing import Map
 
