@@ -4,7 +4,7 @@ from typing import Dict, Optional
 
 from flask import Flask, render_template, current_app, request
 
-from config.AppConfig import AppConfig
+from AppConfig import AppConfig
 from includes import services
 from models.GameCard import GameCard
 from models.GameDetails import GameDetails

@@ -5,7 +5,7 @@ from typing import Dict, List, Optional
 
 from dateutil.relativedelta import relativedelta
 
-from config.AppConfig import AppConfig
+from AppConfig import AppConfig
 
 class GameFileInfo:
     """GameFileInfo

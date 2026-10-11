@@ -11,7 +11,7 @@ from ogd.apis.models.enums.ResponseStatus import ResponseStatus
 from ogd.apis.models.enums.RESTType import RESTType
 from ogd.apis.utils.APIUtils import urljoin
 
-from config.AppConfig import AppConfig
+from AppConfig import AppConfig
 # from models.APIResponse import APIResponse
 from models.GameDetails import GameDetails
 from models.GameFileInfo import GameFileInfo
