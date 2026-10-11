@@ -9,14 +9,6 @@ inputs:
     description: "Local path to config folder"
     required: false
     default: 'config'
-  api_base:
-    description: "Base URL for the API."
-    required: true
-    default: 'api placeholder'
-  dash_base:
-    description: "Base URL for the Data Dashboard."
-    required: true
-    default: 'dash placeholder'
   use_display_version:
     description: "Whether to include versioning info in the site footer"
     required: false
@@ -25,6 +17,14 @@ inputs:
     description: "The version number/hash to display, if version is being displayed"
     required: false
     default: 'UNKNOWN VERSION'
+  api_base:
+    description: "Base URL for the API."
+    required: true
+    default: 'api placeholder'
+  dash_base:
+    description: "Base URL for the Data Dashboard."
+    required: true
+    default: 'dash placeholder'
 runs:
   using: "composite"
   steps:
@@ -34,13 +34,13 @@ runs:
     - name: Set to Non-Local Deploy
       run: sed -i 's@APP_CONFIG\['\''LOCAL'\''\]\s*=\s*True@APP_CONFIG['\''LOCAL'\''] = False@g' ${{ inputs.config_path }}/AppConfig.py
       shell: bash
+    - name: Set Display Version
+      if: ${{ inputs.use_display_version == 'true' }}
+      run: sed -i 's@APP_CONFIG\['\''DISPLAY_VERSION'\''\]\s*=\s*False@APP_CONFIG['\''DISPLAY_VERSION'\''] = '\''${{inputs.display_version}}'\''@g' ${{ inputs.config_path }}/AppConfig.py
+      shell: bash
     - name: Set API Base URL
       run: sed -i 's@APP_CONFIG\['\''WEBSITE_API_URL_BASE'\''\]\s*=\s*'\''.*'\''@APP_CONFIG['\''WEBSITE_API_URL_BASE'\''] = '\''${{inputs.api_base}}'\''@g' ${{ inputs.config_path }}/AppConfig.py
       shell: bash
     - name: Set Dashboard Base URL
       run: sed -i 's@APP_CONFIG\['\''DASHBOARD_URL_BASE'\''\]\s*=\s*'\''.*'\''@APP_CONFIG['\''DASHBOARD_URL_BASE'\''] = '\''${{inputs.dash_base}}'\''@g' ${{ inputs.config_path }}/AppConfig.py
-      shell: bash
-    - name: Set Display Version
-      if: ${{ inputs.use_display_version == 'true' }}
-      run: sed -i 's@APP_CONFIG\['\''DISPLAY_VERSION'\''\]\s*=\s*False@APP_CONFIG['\''DISPLAY_VERSION'\''] = '\''${{inputs.display_version}}'\''@g' ${{ inputs.config_path }}/AppConfig.py
       shell: bash
