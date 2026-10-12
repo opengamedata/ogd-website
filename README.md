@@ -17,10 +17,11 @@ NOTE: a local install of PHP and the php_curl bindings are sufficient to test th
 ### Build the Website
 
 1. Create a copy of `AppConfig.py` from the `AppConfig.py.template` file in the `%project_dir%/src/config` folder.  
-    NOTE: This approach ensures local config settings are not committed by mistake. Any desired changes to the default configuration can be copied back to the `.template` file and committed.
+    * NOTE: This approach ensures local config settings are not committed by mistake. Any desired changes to the default configuration can be copied back to the `.template` file and committed.
 2. Run `npm install` in your `%project_dir%`
 3. Run `gulp build` to build the site for deployment.  
-    NOTE: Transpiled css and vendor js files are excluded from GIT
+    * If you don't have gulp installed, run `npx gulp build` to execute from the node installation of gulp.
+    * NOTE: Transpiled css and vendor js files are excluded from GIT
 
 ### Run the dev API backend
 
