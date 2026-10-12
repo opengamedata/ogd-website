@@ -2,8 +2,8 @@
 .vscode/
 **/__pycache__/
 .venv*
-src/**/AppConfig.php
-src/**/AppConfig.py
+**/AppConfig.php
+**/AppConfig.py
 **/php_errors.log
 cspell.json
 **/*.bak
