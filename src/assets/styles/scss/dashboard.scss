@@ -21,7 +21,9 @@
         &::after { bottom: 0; }
     }
     .landing-intro {
-        max-width: 75ch;
+        font-size: 1.125rem;
+        line-height: 1.6;
+        max-width: 65ch;
         margin-bottom: 3rem;
     }
     .landing-info-grid {
