@@ -20,9 +20,8 @@ FROM node:26-trixie-slim AS css
 WORKDIR /app
 
 COPY src/ ./src
-RUN --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    npm install
+COPY package*.json .
+RUN npm install
 # Need to install gulp package before we can run the build
 RUN apt-get update && apt-get install -y gulp
 RUN --mount=type=bind,source=gulpfile.js,target=gulpfile.js \
