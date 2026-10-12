@@ -61,7 +61,7 @@ jobs:
     needs: [setup, build]
     uses: ./.github/workflows/DEPLOY_FileAPI.yml
     with:
-      service_name: "ogd-api-files-test"
+      service_name: "ogd-website-test"
       image_name: ${{ needs.build.outputs.image_name }}
       revision_tag: "t-${{ needs.setup.outputs.branch_tag }}-t"
       remove: false
