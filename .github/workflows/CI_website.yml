@@ -14,8 +14,6 @@ on:
         required: false
         default: "https://ogd-services.fielddaylab.wisc.edu/wsgi-bin/opengamedata-website-api/production/app.wsgi/"
   push: # Trigger automatically when we do a push to the site.
-    branches-ignore:
-    - 'main'
     paths:
     - '.github/workflows/CI_website.yml'
     - '.github/actions/**'
