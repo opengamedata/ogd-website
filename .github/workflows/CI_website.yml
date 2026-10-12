@@ -69,5 +69,7 @@ jobs:
 
   testbed_webpages:
     name: Run cURL Testing Script
-    needs: ci_deploy
+    needs: deploy
     uses: ./.github/workflows/TEST_webpages.yml
+    with:
+      custom_deploy_url: ${{ needs.deploy.outputs.url }}
