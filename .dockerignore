@@ -1,10 +1,8 @@
-<!-- custom ignores -->
-src/config/realtime_config.js.template
 src/assets/scripts/vendor
-src/assets/styles/scss
-<!-- other stuff -->
+
 gha-creds-*.json
-rsync-exclude
+CITATION.cff
+README.md
 *__pycache__/*
 .github/
 .vscode/
@@ -17,13 +15,8 @@ tests/
 .env
 node_modules
 deploy.rb
-CITATION.cff
 Gruntfile.coffee
-Gulpfile.js
-package.json
 .sass-cache
-Makefile
-README.md
 .sublime-grunt.cache
 coffee_out.js
 browserify_out.js
