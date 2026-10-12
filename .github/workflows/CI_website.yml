@@ -24,14 +24,7 @@ on:
     - 'package.json'
 
 env:
-  DEPLOY_HOST: ${{ vars.OGD_STAGING_HOST }}
-  # DEPLOY_DIR:          ${{ vars.WSGI_PATH }}/${{ github.event.repository.name }}/${{ github.ref_name }}
-  DEPLOY_DIR:  /var/www/apps/website/develop/
-  DEPLOY_URL:  ${{ vars.OGD_STAGING_HOST }}/apps/website/develop/
-  API_HOST:    ${{ vars.OGD_SERVICES_HOST }}
-  API_PATH:    ${{ vars.API_BASE_URL }}/files/v2.1.2/app.wsgi/
-  DASH_HOST:   ${{ vars.OGD_SERVICES_HOST }}
-  DASH_PATH:   designer-dashboard/v1.0.0/
+  DASH_URL: https://${{vars.OGD_SERVICES_HOST}}/designer-dashboard/v1.0.0/
   
 jobs:
   setup:
@@ -53,8 +46,22 @@ jobs:
     uses: ./.github/workflows/BUILD_FileAPI.yml
     with:
       image_tag: ${{ needs.setup.outputs.branch_tag }}
+      api_url: "https://file.api.opengamedata.io"
+      dashboard_url: ${{ env.DASH_URL }}
     secrets:
       image_repository: ${{ secrets.DOCKER_IMAGE_REPO }}
+
+  # build_api_testing:
+  #   name: Build Docker Image
+  #   if: # TODO : sort out the 'if' cases for this and build and deploy to get things working nicely
+  #   needs: [setup, package]
+  #   uses: ./.github/workflows/BUILD_FileAPI.yml
+  #   with:
+  #     image_tag: ${{ needs.setup.outputs.branch_tag }}
+  #     api_url: ${{ inputs.CUSTOM_API_ENDPOINT }}
+  #     dashboard_url: ${{ env.DASH_URL }}
+  #   secrets:
+  #     image_repository: ${{ secrets.DOCKER_IMAGE_REPO }}
 
   deploy:
     name: CI Deploy to GCP

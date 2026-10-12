@@ -9,6 +9,16 @@ on:
         description: "The image tag to use."
         required: false
         default: "untagged"
+      api_url:
+        type: string
+        description: "The base URL of the FileAPI instance to use"
+        required: false
+        default: "https://file.api.opengamedata.io"
+      dashboard_url:
+        type: string
+        description: "The base URL of the Data Dashboard instance to link to"
+        required: false
+        default: "https://dashboard.opengamedata.io"
     outputs:
       image_name:
         description: "The full name of the image that was built and uploaded to a repository."
@@ -17,10 +27,6 @@ on:
       image_repository:
         required: True
         description: "Secret indicating the repository of Docker images to use to find the image for deploy."
-env:
-  API_HOST:  "https://file.api.opengamedata.io"
-  DASH_HOST: ${{ vars.OGD_SERVICES_HOST }}
-  DASH_PATH: designer-dashboard/v1.0.0/
 
 jobs:
 
@@ -51,8 +57,8 @@ jobs:
       with:
         use_display_version: 'true'
         display_version: ${{ steps.version_tag.outputs.VERSION_TAG }}-${{ github.ref_name }}-${{ github.sha }}
-        api_base: https://${{env.API_HOST}}/
-        dash_base: https://${{env.DASH_HOST}}/${{env.DASH_PATH}}
+        api_base: ${{ inputs.api_url }}
+        dash_base: ${{ inputs.dashboard_url }}
 
     # 2. Build image
 
