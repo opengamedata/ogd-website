@@ -26,6 +26,7 @@ ENV PATH="/app/.venv/bin:$PATH"
 COPY src/ ./
 # Remove redundant copy of the package code
 COPY config/AppConfig.py ./AppConfig.py
+COPY config/game_list.json ./game_list.json
 
 CMD ["gunicorn", \
      "--bind",    ":8080", \
