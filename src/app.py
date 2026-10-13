@@ -86,15 +86,23 @@ def log(msg:str, level:str="INFO"):
 def index():
     # Get info about the games.
     game_details = services.getGameList()
-    game_data_summaries = GameSummariesRequest(
-        api_base_url=AppConfig.APP_CONFIG.get('WEBSITE_API_URL_BASE', "http://localhost:5000"),
-        timeout=1
-    ).Execute(logger=current_app.logger)
+    try:
+        game_data_summaries = GameSummariesRequest(
+            api_base_url=AppConfig.APP_CONFIG.get('WEBSITE_API_URL_BASE', "http://localhost:5000"),
+            timeout=1
+        ).Execute(logger=current_app.logger)
+    except Exception:
+        return render_template("index/index.html", games=[], display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION", True))
 
     game_cards = []
     for game_id,game_details in game_details.items():
-        if isinstance(game_data_summaries, GameSummaries):
-            game_summary = game_data_summaries.get(game_id)
+        match game_data_summaries:
+            case GameSummaries():
+                game_summary = game_data_summaries.get(game_id)
+            case None:
+                game_summary = None
+            case _:
+                raise TypeError(f"game_data_summaries was unexpected type {type(game_data_summaries)}")
         game_card = GameCard(game=game_details, game_data_summary=game_summary)
         game_cards.append(game_card)
 
@@ -155,13 +163,16 @@ def gamedata():
         # 3. Get game file info from API
         # In order to provide a meaningful param for year and month, do what the API originally did and just set last month as our starting selection.
         last_month = date.today().replace(day=1) - timedelta(days=1)
-        dataset_files = DatasetResourcesRequest(
-            api_base_url=AppConfig.APP_CONFIG.get('WEBSITE_API_URL_BASE', "http://localhost:5000"),
-            game_id=game_id,
-            year=last_month.year,
-            month=last_month.month,
-            timeout=1
-        ).Execute(logger=current_app.logger)
+        try:
+            dataset_files = DatasetResourcesRequest(
+                api_base_url=AppConfig.APP_CONFIG.get('WEBSITE_API_URL_BASE', "http://localhost:5000"),
+                game_id=game_id,
+                year=last_month.year,
+                month=last_month.month,
+                timeout=1
+            ).Execute(logger=current_app.logger)
+        except Exception:
+            return render_template("gamedata/gamedata.html", game_details=None, game_files=None, buttons=generatePipelineButtons(None), display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION"))
         # game_files = services.getGameFileInfoByMonth(game_id, year=last_month.year, month=last_month.month)
         if isinstance(dataset_files, DatasetResources):
             buttons = generatePipelineButtons(dataset_files)
