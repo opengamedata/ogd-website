@@ -14,8 +14,9 @@
     </div>
 </section>
 <main id="dashboard">
+    {% include "index/info.html" %}
     <section id="gamelist" class="container-fluid mb-5">
-        <h2 class="mb-5 text-center">Featured Data Sets</h2>
+        <h2 class="display-2 mb-5">Featured Data Sets</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
           {% for game_card in games %}
             {{ cards.renderCard(game_card) }}
