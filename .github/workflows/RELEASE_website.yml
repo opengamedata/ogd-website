@@ -12,99 +12,45 @@ on:
   push: # Trigger automatically when we do a merge to production
      branches: [ production ]
 
-env:
-  DEPLOY_HOST: ${{ vars.FD_WEB_HOST }}
-  DEPLOY_DIR: /var/www/opengamedata/
-  DEPLOY_URL:  ${{ vars.FD_WEB_HOST }}/opengamedata/
-  # SECONDARY_HOST: ${{ vars.OGD_SERVICES_HOST }}
-  # SECONDARY_DIR:  ${{ vars.WEB_PATH }}/opengamedata/
-  API_HOST:    ${{ vars.OGD_SERVICES_HOST }}
-  API_PATH:    ${{ vars.API_BASE_URL }}/files/app.wsgi/
-  DASH_HOST:   ${{ vars.OGD_SERVICES_HOST }}
-  DASH_PATH:   designer-dashboard/v1.0.0/
-  
 jobs:
-  production_deploy:
-    name: Release Deploy of Website
-    runs-on: ubuntu-22.04
-    concurrency:
-      group: ${{ github.repository }}-${{ github.ref }}-${{ github.workflow }}
-      cancel-in-progress: true
-    
+  build:
+    name: Build Docker Image
+    uses: ./.github/workflows/BUILD_website.yml
+    with:
+      image_tag: ${{ github.ref_name }}
+      api_url: "https://file.api.opengamedata.io"
+      dashboard_url: &dash_url https://${{vars.OGD_SERVICES_HOST}}/designer-dashboard/v1.0.0/
+    secrets:
+      image_repository: ${{ secrets.DOCKER_IMAGE_REPO }}
+
+  get_branch:
+    name: Get Branch
+    runs-on: ubuntu-24.04
+    outputs:
+      branch_tag: ${{ steps.get_branch.outputs.branch-name }}
     steps:
+      - name: Get Branch
+        id: get_branch
+        uses: opengamedata/actions-get-branch@v1.1
+        with:
+          n: 20
+          remove: '\.'
 
-  # 1. Local checkout & config
-    - name: Announce Run
-      run: echo "Deploying to ${{ env.DEPLOY_URL }} from ${{ github.repository }} via ${{ github.actor }}"
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        lfs: true
-        submodules: true
-    - name: Set up Config File
-      uses: ./.github/actions/web_config
-      with:
-        api_base: https://${{env.API_HOST}}/${{env.API_PATH}}
-        dash_base: https://${{env.DASH_HOST}}/${{env.DASH_PATH}}
-        use_display_version: 'false'
-        remote_app_path: ${{ env.DEPLOY_DIR }}
-    
-  # 2. Build 
-    - name: Install Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: 18
-    - name: Install libraries
-      run: npm install
-    - name: Build
-      run: gulp build   
+  deploy:
+    name: CI Deploy to GCP
+    needs: [build, get_branch]
+    uses: ./.github/workflows/DEPLOY_website.yml
+    with:
+      service_name: "ogd-website"
+      image_name: ${{ needs.build.outputs.image_name }}
+      revision_tag: ${{ case(github.event.action == 'released', 'latest', needs.get_branch.outputs.branch_tag) }}
+      remove:       false
+      as_latest:    ${{ case(github.event.action == 'released', true, false) }}
+    secrets: inherit
 
-  # 3. Remote config & deploy
-    - name: Connect to VPN
-      uses: opengamedata/actions-openconnect-vpn@v1.1
-      with:
-        username: ${{ secrets.VPN_USER }}
-        password: ${{ secrets.VPN_PASS }}
-        endpoint: "soe.vpn.wisc.edu"
-
-    - name: Setup Access Key
-      run: |
-        mkdir -p ~/.ssh
-        echo '${{secrets.VPN_KEY}}' >> ./key.txt
-        chmod 600 ./key.txt
-
-    - name: Ensure directory exists
-      run: ssh -o StrictHostKeyChecking=no -T -i ./key.txt ${{ secrets.VPN_USER }}@${{ env.DEPLOY_HOST }} "mkdir -p ${{ env.DEPLOY_DIR }}"
-    # - name: Ensure directory exists
-    #   run: ssh -o StrictHostKeyChecking=no -T -i ./key.txt ${{ secrets.DEPLOY_USER }}@${{ env.SECONDARY_HOST }} "mkdir -p ${{ env.SECONDARY_PATH }}"
-    
-    - name: Upload to web server via rsync
-      uses: burnett01/rsync-deployments@7.0.1
-      with:
-        # switches:
-        # -v : verbose output
-        # -r : recurse into subdirectories
-        # -c : use checksum to determine what files to update/skip
-        # -t : preserve modification times
-        # -O : omit directory modification times
-        # --delete : NOT in use at moment; delete extraneous files from destination directories
-        # --exclude-from : skip any files in rsync-exclude
-        # --chmod : For each directory (D) and file (F), give user (u) and group (g) rwx permissions.
-        #           Give others (o) only read permissions, plus execute for directories.
-        switches: -vrctO --exclude-from 'rsync-exclude' --chmod=Du=rwx,Dg=rwx,Do=rx,Fu=rwx,Fg=rwx,Fo=r
-        path: /src/*
-        remote_path: ${{ env.DEPLOY_DIR }}
-        remote_host: ${{ env.DEPLOY_HOST }}
-        remote_user: ${{ secrets.VPN_USER }}
-        remote_key:  ${{ secrets.VPN_KEY }}
-
-    - name: Upload requirements.txt
-      run: scp -o StrictHostKeyChecking=no -T -i ./key.txt ./requirements.txt ${{ secrets.DEPLOY_USER }}@${{ env.DEPLOY_HOST }}:${{ env.DEPLOY_DIR }}
-    - name: Set up venv for the deploy
-      run: ssh -o StrictHostKeyChecking=no -T -i ./key.txt ${{ secrets.DEPLOY_USER }}@${{ env.DEPLOY_HOST }} "cd ${{ env.DEPLOY_DIR }}; python -m venv --system-site-packages ./.venv; source .venv/bin/activate; python -m pip install -r requirements.txt"
-
-  # 4. Cleanup & complete
-    - name: Upload logs as artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        path: ./*.log
+  testbed_webpages:
+    name: Run cURL Testing Script
+    needs: deploy
+    uses: ./.github/workflows/TEST_webpages.yml
+    with:
+      custom_deploy_url: ${{ needs.deploy.outputs.url }}
