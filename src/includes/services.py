@@ -26,7 +26,7 @@ def getGameList() -> Dict[str, GameDetails]:
         Returns list or False
     """ 
     game_list = loadJSONFile(filename='game_list.json', path=Path("./"))
-    print(f"Found the following for game list:\n{game_list}")
+    # print(f"Found the following for game list:\n{game_list}")
     return {game_id:GameDetails.FromDict(game_id=game_id, raw_dict=game_details) for game_id,game_details in game_list.items()}
 
 def getGameDetails(game_id:str) -> Optional[GameDetails]:
