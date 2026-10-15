@@ -22,7 +22,7 @@ on:
     - 'package.json'
 
 jobs:
-  setup:
+  get_branch:
     name: Get Branch
     runs-on: ubuntu-24.04
     outputs:
@@ -37,10 +37,10 @@ jobs:
 
   build:
     name: Build Docker Image
-    needs: [setup]
+    needs: [get_branch]
     uses: ./.github/workflows/BUILD_website.yml
     with:
-      image_tag: ${{ needs.setup.outputs.branch_tag }}
+      image_tag: ${{ needs.get_branch.outputs.branch_tag }}
       api_url: "https://file.api.opengamedata.io"
       dashboard_url: &dash_url https://${{vars.OGD_SERVICES_HOST}}/designer-dashboard/v1.0.0/
     secrets:
@@ -49,10 +49,10 @@ jobs:
   # build_api_testing:
   #   name: Build Docker Image
   #   if: # TODO : sort out the 'if' cases for this and build and deploy to get things working nicely
-  #   needs: [setup, package]
+  #   needs: [get_branch, package]
   #   uses: ./.github/workflows/BUILD_website.yml
   #   with:
-  #     image_tag: ${{ needs.setup.outputs.branch_tag }}
+  #     image_tag: ${{ needs.get_branch.outputs.branch_tag }}
   #     api_url: ${{ inputs.CUSTOM_API_ENDPOINT }}
   #     dashboard_url: *dash_url https://${{vars.OGD_SERVICES_HOST}}/designer-dashboard/v1.0.0/
   #   secrets:
@@ -60,12 +60,12 @@ jobs:
 
   deploy:
     name: CI Deploy to GCP
-    needs: [setup, build]
+    needs: [get_branch, build]
     uses: ./.github/workflows/DEPLOY_website.yml
     with:
       service_name: "ogd-website-test"
       image_name: ${{ needs.build.outputs.image_name }}
-      revision_tag: "t-${{ needs.setup.outputs.branch_tag }}-t"
+      revision_tag: "t-${{ needs.get_branch.outputs.branch_tag }}-t"
       remove: false
     secrets: inherit
 
