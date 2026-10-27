@@ -1,5 +1,6 @@
 <?php
 
+require_once 'includes/host_redirect.php';
 require_once 'config/AppConfig.php';
 require_once 'includes/services.php';
 require_once 'models/APIResponse.php';

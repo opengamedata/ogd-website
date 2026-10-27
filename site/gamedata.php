@@ -19,6 +19,7 @@
     and then it might be possible to push this file closer to a typical HTML-oriented PHP page script.
 */
 
+require_once 'includes/host_redirect.php';
 require_once 'config/AppConfig.php';
 require_once 'includes/services.php';
 require_once 'models/GameDetails.php';

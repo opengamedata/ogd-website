@@ -1,4 +1,5 @@
 <?php
+    require_once 'includes/host_redirect.php';
     require_once 'config/AppConfig.php';
     require 'includes/header.php'; 
 ?>
