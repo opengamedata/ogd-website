@@ -1,0 +1,9 @@
+{
+  "features": {
+    "ghcr.io/devcontainers-extra/features/gulp-cli:2": {
+      "version": "2.0.16",
+      "resolved": "ghcr.io/devcontainers-extra/features/gulp-cli@sha256:d11dcf333d70693f77c34a885cbf9cfd5e5cb5674ed8ddc9430a55322792ef7c",
+      "integrity": "sha256:d11dcf333d70693f77c34a885cbf9cfd5e5cb5674ed8ddc9430a55322792ef7c"
+    }
+  }
+}
