@@ -25,7 +25,6 @@ def getGameList() -> Map:
         Returns list or False
     """ 
     game_list = loadJSONFile(filename='game_list.json', path=Path("./config/"))
-    print(f"Found the following for game list:\n{game_list}")
     return game_list or {}
 
 def getGameDetails(game_id:str) -> Optional[GameDetails]:
@@ -54,7 +53,7 @@ def getGameUsageByMonth(game_id:str, year:Optional[int] = None, month : Optional
 
     # 1. Make request to API
     usage_url = urljoin(base=AppConfig.APP_CONFIG.get('WEBSITE_API_URL_BASE', "http://localhost:5000"), url="getGameUsageByMonth")
-    api_response = APIRequest(url=usage_url, request_type=RESTType.GET, params=params).Execute(current_app.logger)
+    api_response = APIRequest(url=usage_url, request_type=RESTType.GET, params=params, timeout=3).Execute(current_app.logger)
 
     # 2. Convert response to a GameUsage object
     if api_response:
@@ -89,7 +88,7 @@ def getGameFileInfoByMonth(game_id:str, year:Optional[int]=None, month:Optional[
     
     # 1. Make request to API via cURL
     info_url = urljoin(base=AppConfig.APP_CONFIG.get('WEBSITE_API_URL_BASE', "http://localhost:5000"), url="getGameFileInfoByMonth")
-    api_response : APIResponse = APIRequest(url=info_url, request_type=RESTType.GET, params=params, timeout=5).Execute(current_app.logger)
+    api_response : APIResponse = APIRequest(url=info_url, request_type=RESTType.GET, params=params, timeout=3).Execute(current_app.logger)
 
     # 2. Convert response to a GameFileInfo object
     if api_response:
@@ -120,7 +119,7 @@ def getGameUsage(game_id:str) -> Optional[GameUsage]:
     
     # 1. Make request to API via cURL
     usage_url = urljoin(base=AppConfig.APP_CONFIG['WEBSITE_API_URL_BASE'], url="getMonthlyGameUsage")
-    api_response = APIRequest(url=usage_url, request_type=RESTType.GET, params=params).Execute(current_app.logger)
+    api_response = APIRequest(url=usage_url, request_type=RESTType.GET, params=params, timeout=3).Execute(current_app.logger)
 
     # 2. Convert response to a GameUsage object
     if api_response:
