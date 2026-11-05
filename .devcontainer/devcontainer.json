@@ -3,10 +3,14 @@
 {
 	"name": "Python 3",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/python:3-3.12-trixie",
-	"features": {
-		"ghcr.io/devcontainers-extra/features/gulp-cli:2": {}
-	}
+	// "image": "mcr.microsoft.com/devcontainers/python:3-3.12-trixie",
+	"build": {
+		"dockerfile": "../Dockerfile",
+		"context": "../"
+	},
+	// "features": {
+	// 	"ghcr.io/devcontainers-extra/features/gulp-cli:2": {}
+	// },
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
