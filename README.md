@@ -52,3 +52,48 @@ There are a few options for running the website locally:
 2. Run local Apache Server
 
     - TODO
+
+### Debug with VS Code
+
+Create a `.vscode/settings.json` in your local checkout, and add the following:
+
+```json
+{
+   "files.associations": {
+      "*.html": "jinja-html"
+   },
+}
+```
+
+Then, create `.vscode/launch.json` and add the following launch configuration:
+
+```json
+{
+   // Use IntelliSense to learn about possible attributes.
+   // Hover to view descriptions of existing attributes.
+   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+   "version": "0.2.0",
+   "configurations": [
+
+      {
+         "name": "Flask Debug",
+         "type": "python",
+         "request": "launch",
+         "module": "flask",
+         "cwd": "${workspaceFolder}/src",
+         "env": {
+            "FLASK_DEBUG": "1"
+         },
+         "args": [
+            "run",
+            "--no-debugger",
+            "--no-reload"
+         ],
+         "jinja": true,
+         "justMyCode": false
+      }
+   ]
+}
+```
+
+You can now run the VS Code debugger, and load the pages in your local browser, with all the standard breakpoint and code-stepping features VS Code offers.
