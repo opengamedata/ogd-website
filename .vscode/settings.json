@@ -1,0 +1,21 @@
+{
+   "python.testing.pytestEnabled": false,
+   "python.testing.unittestEnabled": true,
+   "python.testing.unittestArgs": [
+      "-v",
+      "-s",
+      "./tests/cases/",
+      "-p",
+      "*Case.py",
+      "-t",
+      "./"
+   ],
+   "python-envs.pythonProjects": [
+      {
+         "path": ".",
+         "envManager": "ms-python.python:venv",
+         "packageManager": "ms-python.python:pip"
+      }
+   ],
+   "pylint.path": ["${workspaceFolder}/.venv-web/bin/pylint"],
+}

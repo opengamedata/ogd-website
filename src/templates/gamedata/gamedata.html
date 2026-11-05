@@ -12,7 +12,7 @@
   <!-- Pipeline Section -->
   <div class="row mb-5">
     <div class="col-md col-lg-5">
-    {% with game_details=game_details, selected_date=game_files.LastDate, buttons=buttons %}
+    {% with game_details=game_details, selected_date=game_files.EndDate, buttons=buttons %}
       {% include "gamedata/sections/pipeline.html" %}
     {% endwith %}
     </div>
