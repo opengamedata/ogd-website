@@ -7,6 +7,7 @@
 **/php_errors.log
 cspell.json
 **/*.bak
+src/**/game_list.json
 
 # compiled output
 /src/assets/styles/*.css
