@@ -14,6 +14,11 @@ on:
         required: true
         default: "https://opengamedata.fielddaylab.wisc.edu"
   workflow_call:
+    inputs:
+      custom_deploy_url:
+        type: string
+        description: "The base URL at which the website is deployed"
+        required: true
   
 jobs:
   webpage_tests:
