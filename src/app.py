@@ -89,7 +89,7 @@ def index():
     try:
         game_data_summaries = GameSummariesRequest(
             api_base_url=AppConfig.APP_CONFIG.get('WEBSITE_API_URL_BASE', "http://localhost:5000"),
-            timeout=1
+            timeout=3
         ).Execute(logger=current_app.logger)
     except Exception:
         return render_template("index/index.html", games=[], display_version=AppConfig.APP_CONFIG.get("DISPLAY_VERSION", True))
